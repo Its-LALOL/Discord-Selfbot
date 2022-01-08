@@ -1,4 +1,4 @@
-﻿import discord
+import discord
 from discord.ext import commands
 from colorama import init, Fore;init()
 import os
@@ -22,7 +22,7 @@ print(Fore.GREEN + "Self bot By LALOL\n" + Fore.RED)
 
 bot = commands.Bot(command_prefix=config["PREFIX"], case_insensitive=True, self_bot=True)
 bot.remove_command("help")
-version=0.2
+version=0.1
 
 pref=config['PREFIX']
 
@@ -43,8 +43,8 @@ async def on_ready():
 	response=requests.get("https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/version.txt").text
 	response=int(response.replace(".", ''))
 	global version
-	version=int(str(version).replace(".", ''))
-	aa=response-version
+	version1=int(str(version).replace(".", ''))
+	aa=response-version1
 	if not aa<=0:
 		print(Fore.WHITE + f"Было найдено обновление для селф бота!\nДля того чтобы получить ссылку на скачивание напишите команду {Fore.YELLOW}{pref}selfbot{Fore.RED}\n")
 @bot.event
