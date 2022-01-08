@@ -28,7 +28,7 @@ pref=config['PREFIX']
 
 @bot.event
 async def on_ready():
-	try: os.remove("version.txt")
+	try: os.remove("version")
 	except: pass
 	try: os.remove("LICENSE")
 	except: pass
@@ -40,7 +40,7 @@ async def on_ready():
 		for file in os.listdir("./Temp"):
 			os.remove(f"Temp/{file}")
 	print(Fore.MAGENTA + f"Аккаунт: {Fore.YELLOW}{bot.user}{Fore.MAGENTA}\nid: {Fore.YELLOW}{bot.user.id}{Fore.MAGENTA}\nPrefix: {Fore.YELLOW}{config['PREFIX']}{Fore.RED}\n")
-	response=requests.get("https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/version.txt").text
+	response=requests.get("https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/version").text
 	response=int(response.replace(".", ''))
 	global version
 	version1=int(str(version).replace(".", ''))
