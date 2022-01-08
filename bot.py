@@ -32,7 +32,7 @@ async def on_ready():
 	except: pass
 	try: os.remove("LICENSE")
 	except: pass
-	try: os.remove("README")
+	try: os.remove("README.md")
 	except: pass
 	if not os.path.isdir("Temp"):
 		os.mkdir("Temp")
