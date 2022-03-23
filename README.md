@@ -5,7 +5,7 @@
 
 # Установка
 1. Качаем Python (Туториалы вы можете найти в ютубе)
-2. Пишем в терминал `pip install discord colorama`
+2. Пишем в терминал `pip install -U discord.py-self colorama`
 3. Скачиваем архив
 4. Перекидываем папку из архива на рабочий стол
 5. Открываем config.json
