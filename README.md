@@ -6,7 +6,7 @@
 # Установка
 1. Качаем Python (Туториалы вы можете найти в ютубе)
 2. Пишем в терминал `pip install -U discord.py-self colorama`
-3. Скачиваем архив
+3. Скачиваем [архив](https://github.com/Its-LALOL/Discord-Selfbot/archive/refs/heads/main.zip)
 4. Перекидываем папку из архива на рабочий стол
 5. Открываем config.json
 6. Записываем туда токен (Туториал по получению токена ищите в гугле)
