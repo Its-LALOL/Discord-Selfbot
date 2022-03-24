@@ -1,6 +1,10 @@
-﻿import discord
-from discord.ext import commands
-from colorama import init, Fore;init()
+import os
+try:
+	import discord
+	from discord.ext import commands
+	from colorama import init, Fore;init()
+except:
+	os.system('pip install -U discord.py-self colorama
 import os
 import json
 import requests
@@ -42,8 +46,8 @@ async def on_command_error(ctx, error):
 		print(Fore.RED + f"[ERROR] Неправильный аргумент!")
 	else:
 		print(Fore.RED + f"[ERROR] {error}")
-@bot.command()
-async def bot(ctx):
+@bot.command(name='bot')
+async def __bot(ctx):
 	await ctx.message.edit(content='**Selfbot By LALOL\n\nСсылка: https://github.com/Its-LALOL/Discord-Selfbot **')
 for filename in os.listdir("./cogs"):
 	if filename.endswith(".py"):
