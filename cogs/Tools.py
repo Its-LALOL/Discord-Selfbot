@@ -28,7 +28,7 @@ class Tools(commands.Cog):
 		if not user.bot:
 			await ctx.message.edit(content='**:warning: Данный аккаунт не является ботом**', delete_after=3)
 			return
-		await ctx.message.edit(content=f'https://discord.com/api/oauth2/authorize?client_id={user.id}&permissions={discord.Permissions.all().value}&scope=bot%20applications.commands')
+		await ctx.message.edit(content=f'https://discord.com/api/oauth2/authorize?client_id={user.id}&permissions=8&scope=bot%20applications.commands')
 	@commands.command()
 	async def short(self, ctx, *, link):
 		response=requests.get(f'https://clck.ru/--?url={link}')
