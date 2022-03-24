@@ -24,11 +24,11 @@ class Info(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 	@commands.command()
-	async def link(self, ctx, user:discord.User):
+	async def invite(self, ctx, user:discord.User):
 		if not user.bot:
 			await ctx.message.edit(content='**:warning: Данный аккаунт не является ботом**', delete_after=3)
 			return
-		await ctx.message.edit(content=f'https://discord.com/api/oauth2/authorize?client_id={user.id}&permissions=8&scope=bot%20applications.commands')
+		await ctx.message.edit(content=f'https://discord.com/api/oauth2/authorize?client_id={user.id}&permissions={discord.Permissions.all()}&scope=bot%20applications.commands')
 	@commands.command()
 	async def short(self, ctx, *, link):
 		response=requests.get(f'https://clck.ru/--?url={link}')
