@@ -20,7 +20,7 @@ def Flooder(id, message):
 			sleep(json_data['retry_after'])
 		elif not response.status_code==200:
 			break
-class Info(commands.Cog):
+class Tools(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 	@commands.command()
@@ -28,7 +28,7 @@ class Info(commands.Cog):
 		if not user.bot:
 			await ctx.message.edit(content='**:warning: Данный аккаунт не является ботом**', delete_after=3)
 			return
-		await ctx.message.edit(content=f'https://discord.com/api/oauth2/authorize?client_id={user.id}&permissions={discord.Permissions.all()}&scope=bot%20applications.commands')
+		await ctx.message.edit(content=f'https://discord.com/api/oauth2/authorize?client_id={user.id}&permissions={discord.Permissions.all().value}&scope=bot%20applications.commands')
 	@commands.command()
 	async def short(self, ctx, *, link):
 		response=requests.get(f'https://clck.ru/--?url={link}')
@@ -139,4 +139,4 @@ class Info(commands.Cog):
 			await user.send(text)
 		await ctx.message.edit(content=f'**:white_check_mark: Успешно отправил всем друзьям сообщение `{text}`**', delete_after=5)
 def setup(bot):
-	bot.add_cog(Info(bot))
+	bot.add_cog(Tools(bot))
