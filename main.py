@@ -16,9 +16,9 @@ LALOL=Fore.RED +"""
 ███████╗██║░░██║███████╗╚█████╔╝███████╗
 ╚══════╝╚═╝░░╚═╝╚══════╝░╚════╝░╚══════╝
 """
-os.system(f'cls && title Self bot By LALOL' if os.name == 'nt' else 'clear')
+os.system(f'cls && title Selfbot By LALOL' if os.name == 'nt' else 'clear')
 print(LALOL)
-print(Fore.GREEN + "Self bot By LALOL\n" + Fore.RED)
+print(Fore.GREEN + "Selfbot By LALOL\n" + Fore.RED)
 
 
 pref=config['Prefix']
@@ -42,6 +42,9 @@ async def on_command_error(ctx, error):
 		print(Fore.RED + f"[ERROR] Неправильный аргумент!")
 	else:
 		print(Fore.RED + f"[ERROR] {error}")
+@bot.command()
+async def bot(ctx):
+	await ctx.message.edit(content='**Selfbot By LALOL\n\nСсылка: https://github.com/Its-LALOL/Discord-Selfbot **')
 for filename in os.listdir("./cogs"):
 	if filename.endswith(".py"):
 		bot.load_extension(f"cogs.{filename[:-3]}")
