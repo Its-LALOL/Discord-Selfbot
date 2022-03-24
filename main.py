@@ -4,7 +4,7 @@ try:
 	from discord.ext import commands
 	from colorama import init, Fore;init()
 except:
-	os.system('pip install -U discord.py-self colorama
+	os.system('pip install -U discord.py-self colorama')
 import os
 import json
 import requests
