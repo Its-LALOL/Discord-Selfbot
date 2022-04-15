@@ -8,7 +8,6 @@ except:
 	import discord
 	from discord.ext import commands
 	from colorama import init, Fore;init()
-import os
 import json
 import requests
 
