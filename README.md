@@ -16,7 +16,7 @@
 # Пишет "Invalid Token!", хотя токен рабочий
 1. Откройте командную строку
 2. Напишите туда `pip uninstall discord.py`
-3. `pip uninstall discord`
+3. Также напишите `pip uninstall discord`
 4. Запустите файл start.bat
 
 # ВНИМАНИЕ!
