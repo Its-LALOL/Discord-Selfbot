@@ -5,6 +5,9 @@ try:
 	from colorama import init, Fore;init()
 except:
 	os.system('pip install -U discord.py-self colorama')
+	import discord
+	from discord.ext import commands
+	from colorama import init, Fore;init()
 import os
 import json
 import requests
