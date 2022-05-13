@@ -3,13 +3,14 @@ try:
 	import discord
 	from discord.ext import commands
 	from colorama import init, Fore;init()
+	import requests
 except:
-	os.system('pip install -U discord.py-self colorama')
+	os.system('pip install -U discord.py-self colorama requests')
 	import discord
 	from discord.ext import commands
 	from colorama import init, Fore;init()
+	import requests
 import json
-import requests
 
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
