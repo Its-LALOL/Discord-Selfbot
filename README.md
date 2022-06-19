@@ -22,7 +22,7 @@
 1. Загрузите селф бота в свой репл
 2. Создайте файл `a.txt` и запишите в него слово `discord`
 3. Зайдите в main.py
-4. После строки `import os` поставте следующий код
+4. После строки `import os` вставьте следующий код
 ```python
 os.system("pip uninstall a.txt")
 os.system("pip install -U discord.py-self")
