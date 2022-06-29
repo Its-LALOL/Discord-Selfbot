@@ -15,7 +15,7 @@
 
 # Пишет "Invalid Token!", хотя токен рабочий
 1. Откройте командную строку
-2. Напишите туда `pip uninstall discord.py discord`
+2. Напишите туда `pip uninstall discord.py discord discord.py-self`
 3. Запустите файл start.bat
 
 # Туториал как загрузить бота на replit.com
