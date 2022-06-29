@@ -13,7 +13,7 @@
 7. Запускаем файл start.bat
 8. Готово
 
-# Пишет "Invalid Token!", хотя токен рабочий
+# Пишет "Invalid Token!", хотя токен рабочий или выдаёт ошибку
 1. Откройте командную строку
 2. Напишите туда `pip uninstall discord.py discord discord.py-self`
 3. Запустите файл start.bat
