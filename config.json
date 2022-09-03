@@ -1,4 +1,8 @@
 ﻿{
 	"Token": "тут токен",
-	"Prefix": ">"
+	"Prefix": ".",
+	"delete_message_logger": false,
+	"delete_message_logger_webhook": "ссылка на вебхук",
+	"edit_message_logger": false,
+	"edit_message_logger_webhook": "ссылка на вебхук"
 }
