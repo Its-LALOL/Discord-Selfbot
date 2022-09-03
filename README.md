@@ -17,7 +17,7 @@
 7. Запускаем файл start.bat
 8. Готово
 
-# Пишет "Invalid Token!", хотя токен рабочий или выдаёт ошибку
+# Пишет "Invalid Token!", хотя токен рабочий или выдаёт ошибку или пишет TypeError: BotBase.init() missing 1 required keyword-only argument: 'intents'
 1. Откройте командную строку
 2. Напишите туда `pip uninstall discord.py discord discord.py-self`
 3. Запустите файл start.bat
