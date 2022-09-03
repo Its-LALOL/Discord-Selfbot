@@ -1,44 +1,72 @@
-﻿import discord
+import discord
 from discord.ext import commands
 import random, string
 from asyncio import sleep
-import os
-import requests
-from colorama import Fore, init;init()
 
 class Info(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
-	@commands.command()
-	async def download(self, ctx):
-		await ctx.message.delete()
-		os.mkdir(str(ctx.guild.id))
-		os.mkdir(f'{ctx.guild.id}/channels')
-		os.mkdir(f'{ctx.guild.id}/roles')
-		os.mkdir(f'{ctx.guild.id}/emojis')
-		os.mkdir(f'{ctx.guild.id}/members')
-		print(Fore.WHITE+'[LOG] Записываю основную информацию сервера...')
-		with open(f'{ctx.guild.id}/info.txt', 'w', encoding='utf-8') as f:
-			f.write(f'https://github.com/Its-LALOL/Discord-Selfbot\n\nИмя: {ctx.guild.name}\nID: {ctx.guild.id}')
-		print(Fore.WHITE+'[LOG] Записываю все каналы...')
-		for channel in ctx.guild.channels:
-			with open(f'{ctx.guild.id}/channels/{channel.id}.txt', 'w', encoding='utf-8') as f:
-				f.write(f'Имя: {channel.name}\nID: {channel.id}\nТип: {channel.type}')
-		print(Fore.WHITE+'[LOG] Записываю все роли..')
-		for role in ctx.guild.roles:
-			with open(f'{ctx.guild.id}/roles/{role.id}.txt', 'w', encoding='utf-8') as f:
-				f.write(f'Имя: {role.name}\nID: {role.id}\nЦвет: {role.color}')
-		print(Fore.WHITE+'[LOG] Скачиваю все эмодзи...')
-		for emoji in ctx.guild.emojis:
-			bbb='png'
-			if emoji.animated:
-				bbb='gif'
-			with open(f'{ctx.guild.id}/emojis/{emoji.name}.{bbb}', 'wb') as f:
-				f.write(requests.get(emoji.url).content)
-		print(Fore.WHITE+'[LOG] Записываю всех участников..')
+	@commands.command(aliases=['server', 'сервер', 'гильдия'])
+	async def guild(self, ctx):
+		bots=0
+		users=0
 		for user in ctx.guild.members:
-			with open(f'{ctx.guild.id}/members/{user.id}.txt', 'w', encoding='utf-8') as f:
-				f.write(f'Имя: {user.name}\nТег: {user.discriminator}\nID: {user.id}')
-		print(f'{Fore.WHITE}[LOG] Сервер {Fore.CYAN}{ctx.guild.name}{Fore.WHITE} был успешно скачан в папке {Fore.CYAN}{ctx.guild.id}{Fore.WHITE}!')
+			if user.bot:
+				bots+=1
+			else:
+				users+=1
+		mentions=0
+		admins=0
+		for role in ctx.guild.roles:
+			if role.mentionable:
+				mentions+=1
+			if role.permissions.administrator:
+				admins+=1
+		owner=f'`{ctx.guild.owner}` - (`{ctx.guild.id}`)'
+		if ctx.guild.owner is None:
+			owner='`Unknown`'
+		createdat=round(ctx.guild.created_at.timestamp())
+		await ctx.message.edit(content=f'__**Selfbot by LALOL**__\n\n```Базовое```**Имя: `{ctx.guild.name}`\nID: `{ctx.guild.id}`\nСоздатель: {owner}\nСоздан: <t:{createdat}> (<t:{createdat}:R>)```Участники и боты [Информация может быть не точная]```Участников: `{users}`\nБотов: `{bots}`\nВсего: `{users+bots}` ```Каналы```Текстовых: `{len(ctx.guild.text_channels)}`\nГолосовых: `{len(ctx.guild.voice_channels)}`\nКатегорий: `{len(ctx.guild.categories)}`\nВсего: `{len(ctx.guild.channels)}` ```Роли```Пингующихся: `{mentions}`\nАдминских: `{admins}`\nВсего: `{len(ctx.guild.roles)}`**')
+	@commands.command(aliases=['юзер', 'участник', 'member', 'инфо', 'информация', 'info', 'information'])
+	async def user(self, ctx, user:discord.User=None):
+		if user is None:
+			user=ctx.author
+		user1=ctx.guild.get_member(user.id)
+		if user1 is None:
+			bot='Нет'
+			if user.bot:
+				bot='Да'
+			createdat=round(user.created_at.timestamp())
+			await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nИмя: `{user.name}`\nТег: `{user.discriminator}`\nБот: `{bot}`\nАккаунт создан: <t:{createdat}> (<t:{createdat}:R>)**')
+		else:
+			user=user1
+			owner='Нет'
+			if ctx.guild.owner==user:
+				owner="Да"
+			bot="Нет"
+			if user.bot:
+				bot="Да"
+			createdat=round(user.created_at.timestamp())
+			joinedat=round(user.joined_at.timestamp())
+			if str(user.status)=='online':
+				status='В сети'
+			if str(user.status)=='idle':
+				status='Неактивен'
+			if str(user.status)=='dnd':
+				status='Не беспокоить'
+			if str(user.status)=='offline':
+				status='Не в сети'
+			if user.is_on_mobile():
+				status=status+' (Телефон)'
+			nick=''
+			if not user.nick is None:
+				nick=f'Ник: `{user.nick}`\n'
+			voice=''
+			if not user.voice is None:
+				voice=f'Голосовой канал: {user.voice.channel.mention}\n'
+			admin='Нет'
+			if user.guild_permissions.administrator:
+				admin='Да'
+			await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nИмя: `{user.name}`\nТег: `{user.discriminator}`\n{nick}Бот: `{bot}`\nСоздатель: `{owner}`\nАдмин: `{admin}`\nСамая высокая роль: `@{user.top_role.name}`\n{voice}Статус: `{status}`\nАккаунт создан: <t:{createdat}> (<t:{createdat}:R>)\nЗашёл на сервер: <t:{joinedat}> (<t:{joinedat}:R>)**')
 def setup(bot):
 	bot.add_cog(Info(bot))
