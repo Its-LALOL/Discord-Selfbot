@@ -31,11 +31,16 @@ class Logs(commands.Cog):
 				except: pass
 	@commands.Cog.listener()
 	async def on_message_delete(self, message):
-		server=''
-		if message.guild:
-			server=f'\nСервер: `{message.guild.name}` (`{message.guild.id}`)'
 		if config['delete_message_logger'] and message.author.id!=self.bot.user.id:
 			if message.content=='': return
+			if not message.guild:
+				link=f'https://discord.com/channels/@me/{message.channel.id}/{message.id}'
+				server=''
+			else:
+				server=f'\nСервер: `{message.guild.name}` (`{message.guild.id}`)'
+				link=f'https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id}'
+			try:channel=f'{message.channel.mention} (`{message.channel.id}`)'
+			except:channel='`Лс`'
 			attachments=[]
 			for attachment in message.attachments:
 				attachments.append(attachment.url)
@@ -43,16 +48,21 @@ class Logs(commands.Cog):
 				attachments=''
 			else:
 				attachments=f'\nФайлы: {attachments}'
-			json={"username":"Selfbot by LALOL | Delete Message Logger","avatar_url":"","content":"","embeds":[{"title":"Сообщение удалено","color":16711680,"description":f"**Отправитель: `{message.author}` (`{message.author.id}`)\n```{message.content}```{server}\nКанал: {message.channel.mention} (`{message.channel.id}`){attachments}**","timestamp":str(datetime.utcnow().isoformat()),"url":"","author":{},"image":{},"thumbnail":{"url": str(message.author.avatar_url)},"footer":{"text":"Selfbot by LALOL | github.com/Its-LALOL/Discord-Selfbot"},"fields":[]}],"components":[]}
+			json={"username":"Selfbot by LALOL | Delete Message Logger","avatar_url":"","content":"","embeds":[{"title":"Сообщение удалено","color":16711680,"description":f"**Отправитель: `{message.author}` (`{message.author.id}`)\n```{message.content}```{server}\nКанал: {channel}{attachments}**","timestamp":str(datetime.utcnow().isoformat()),"url":"","author":{},"image":{},"thumbnail":{"url": str(message.author.avatar_url)},"footer":{"text":"Selfbot by LALOL | github.com/Its-LALOL/Discord-Selfbot"},"fields":[]}],"components":[]}
 			await send_webhook(config['delete_message_logger_webhook'], json)
 	@commands.Cog.listener()
 	async def on_message_edit(self, message, before):
-		server=''
-		if message.guild:
-			server=f'\nСервер: `{message.guild.name}` (`{message.guild.id}`)'
 		if config['edit_message_logger'] and message.author.id!=self.bot.user.id:
 			if message.content=='' or message.content==before.content: return
-			json={"username":"Selfbot by LALOL | Edit Message Logger","avatar_url":"","content":"","embeds":[{"title":"Сообщение измененно","color":12829635,"description":f"**Отправитель: `{message.author}` (`{message.author.id}`)\nБыло:```{message.content}```\nСтало:```{before.content}```{server}\nКанал: {message.channel.mention} (`{message.channel.id}`)**","timestamp":str(datetime.utcnow().isoformat()),"url":f"https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id}","author":{},"image":{},"thumbnail":{"url": str(message.author.avatar_url)},"footer":{"text":"Selfbot by LALOL | github.com/Its-LALOL/Discord-Selfbot"},"fields":[]}],"components":[]}
+			if not message.guild:
+				link=f'https://discord.com/channels/@me/{message.channel.id}/{message.id}'
+				server=''
+			else:
+				server=f'\nСервер: `{message.guild.name}` (`{message.guild.id}`)'
+				link=f'https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id}'
+			try:channel=f'{message.channel.mention} (`{message.channel.id}`)'
+			except:channel='`Лс`'
+			json={"username":"Selfbot by LALOL | Edit Message Logger","avatar_url":"","content":"","embeds":[{"title":"Сообщение измененно","color":12829635,"description":f"**Отправитель: `{message.author}` (`{message.author.id}`)\nБыло:```{message.content}```\nСтало:```{before.content}```{server}\nКанал: {channel}**","timestamp":str(datetime.utcnow().isoformat()),"url":link,"author":{},"image":{},"thumbnail":{"url": str(message.author.avatar_url)},"footer":{"text":"Selfbot by LALOL | github.com/Its-LALOL/Discord-Selfbot"},"fields":[]}],"components":[]}
 			await send_webhook(config['edit_message_logger_webhook'], json)
 def setup(bot):
 	bot.add_cog(Logs(bot))
