@@ -21,6 +21,8 @@ class Fun(commands.Cog):
 		troll['user_id']=0
 	@commands.Cog.listener()
 	async def on_message(self, message):
+		try:message.guild
+		except:return
 		if message.author.id==troll['user_id'] and message.guild.id==troll['server_id']:
 			await message.delete()
 def setup(bot):
