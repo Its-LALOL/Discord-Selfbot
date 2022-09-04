@@ -28,5 +28,15 @@ class Tools(commands.Cog):
 			await ctx.message.edit(content="**__Selfbot by LALOL__\n\nДоступные варианты: `Watching`, `Listening`, `Playing`, `Streaming` и `Reset`**")
 			return
 		await ctx.message.edit(content='**__Selfbot by LALOL__\n\n:white_check_mark: Ваш статус был успешно изменён!**')
+	@commands.command(alises=['clean', 'clear', 'очистка', 'очистить'])
+	async def purge(self, ctx, amount: int):
+		await ctx.message.delete()
+		messages=await ctx.channel.history(limit=amount).flatten()
+		deleted=0
+		for message in messages:
+			if message.author.id==self.bot.user.id:
+				await message.delete()
+				deleted+=1
+		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно удалил {deleted} сообщений!**")
 def setup(bot):
 	bot.add_cog(Tools(bot))
