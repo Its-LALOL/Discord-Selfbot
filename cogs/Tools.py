@@ -21,7 +21,7 @@ class Tools(commands.Cog):
 		elif cat in listening:
 			await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=name))
 		elif cat in streaming:
-			await self.bot.change_presence(activity=discord.Streaming(name=name, url="https://www.twitch.tv/selfbot_by_LALOL"))
+			await self.bot.change_presence(activity=discord.Streaming(name=name, url="https://www.youtube.com/watch?v=yNIQi6cbk2s"))
 		elif cat in reset:
 			await self.bot.change_presence(activity=None)
 		else:
