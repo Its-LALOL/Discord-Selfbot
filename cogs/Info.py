@@ -38,7 +38,7 @@ class Info(commands.Cog):
 			if user.bot:
 				bot='Да'
 			createdat=round(user.created_at.timestamp())
-			await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nИмя: `{user.name}`\nТег: `{user.discriminator}`\nБот: `{bot}`\nАккаунт создан: <t:{createdat}> (<t:{createdat}:R>)**')
+			await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nИмя: `{user.name}`\nТег: `{user.discriminator}`\nID: `{user.id}`\nБот: `{bot}`\nАккаунт создан: <t:{createdat}> (<t:{createdat}:R>)**')
 		else:
 			user=user1
 			owner='Нет'
@@ -68,6 +68,6 @@ class Info(commands.Cog):
 			admin='Нет'
 			if user.guild_permissions.administrator:
 				admin='Да'
-			await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nИмя: `{user.name}`\nТег: `{user.discriminator}`\n{nick}Бот: `{bot}`\nСоздатель: `{owner}`\nАдмин: `{admin}`\nСамая высокая роль: `@{user.top_role.name}`\n{voice}Статус: `{status}`\nАккаунт создан: <t:{createdat}> (<t:{createdat}:R>)\nЗашёл на сервер: <t:{joinedat}> (<t:{joinedat}:R>)**')
+			await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nИмя: `{user.name}`\nТег: `{user.discriminator}`\nID: `{user.id}`\n{nick}Бот: `{bot}`\nСоздатель: `{owner}`\nАдмин: `{admin}`\nСамая высокая роль: `@{user.top_role.name}`\n{voice}Статус: `{status}`\nАккаунт создан: <t:{createdat}> (<t:{createdat}:R>)\nЗашёл на сервер: <t:{joinedat}> (<t:{joinedat}:R>)**')
 def setup(bot):
 	bot.add_cog(Info(bot))
