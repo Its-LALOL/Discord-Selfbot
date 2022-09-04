@@ -31,7 +31,8 @@ class Info(commands.Cog):
 	async def user(self, ctx, user:discord.User=None):
 		if user is None:
 			user=ctx.author
-		user1=ctx.guild.get_member(user.id)
+		try:user1=ctx.guild.get_member(user.id)
+		except:user1=None
 		if user1 is None:
 			bot='Нет'
 			if user.bot:
