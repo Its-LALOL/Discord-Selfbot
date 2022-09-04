@@ -11,7 +11,7 @@
 
 # Установка
 1. Устанавливаем Python 3.8 (Туториалы вы можете найти в ютубе)
-2. Скачиваем [архив](https://github.com/Its-LALOL/Discord-Selfbot/archive/refs/heads/main.zip)
+2. [Скачиваем архив](https://github.com/Its-LALOL/Discord-Selfbot/archive/refs/heads/main.zip)
 3. Перекидываем папку из архива на рабочий стол
 4. Открываем папку
 5. В папке открываем файл config.json через блокнот
