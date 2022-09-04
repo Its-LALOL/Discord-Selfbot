@@ -55,11 +55,11 @@ async def help(ctx, cat=None):
 		return
 	cat=cat.lower()
 	if cat=='tools':
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n`{pref}status [Тип статуса] [Текст]` - Меняет статус**')
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:comet:`{pref}status [Тип статуса] [Текст]` - Меняет статус\n:broom:`{pref}purge [Количество]` - Удаляет ваши сообщения**')
 	if cat=='info':
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n`{pref}server` - Информация о сервере\n`{pref}user [ID/Пинг]` - Информация об аккаунте**')
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:pen_fountain:`{pref}server` - Информация о сервере\n:pen_ballpoint:`{pref}user [ID/Пинг]` - Информация об аккаунте**')
 	if cat=='fun':
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n`{pref}troll [ID/Пинг]` - Удаление всех сообщений пользователя\n`{pref}untroll` - Выключение команды troll**')
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:face_with_symbols_over_mouth:`{pref}troll [ID/Пинг]` - Удаление всех сообщений пользователя\n:slight_smile:`{pref}untroll` - Выключение команды troll**')
 @bot.command(name='bot', aliases=['selfbot', 'бот', 'селфбот'])
 async def __bot(ctx):
 	await ctx.message.edit(content='**__Selfbot by LALOL__\n\nСсылка: https://github.com/Its-LALOL/Discord-Selfbot**')
