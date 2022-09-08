@@ -57,7 +57,7 @@ class Nuke(commands.Cog):
 	@commands.command()
 	async def spamwebhooks(self, ctx, *, message='||@everyone|| **__Selfbot by LALOL__ https://github.com/Its-LALOL/Discord-Selfbot**'):
 		if await check(ctx):
-			for channel in ctx.guild.channels:
+			for channel in ctx.guild.text_channels:
 				create_task(create_webhook(channel, message))
 	@commands.command()
 	async def spamroles(self, ctx, *, name='Selfbot by LALOL'):
