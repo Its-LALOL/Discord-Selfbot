@@ -27,7 +27,7 @@ print(Intro)
 pref=config['Prefix']
 bot = commands.Bot(command_prefix=pref, case_insensitive=True, self_bot=True)
 bot.remove_command('help')
-version=0.1
+version=0.2
 update=''
 
 @bot.event
