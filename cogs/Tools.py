@@ -38,5 +38,21 @@ class Tools(commands.Cog):
 				await message.delete()
 				deleted+=1
 		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно удалил {deleted} сообщений!**")
+	@commands.command(aliases=['spampin', 'pinspam', 'pinmass', 'pin', 'закрепить'])
+	async def masspin(self, ctx, amount: int=15):
+		await ctx.message.delete()
+		messages=await ctx.channel.history(limit=amount).flatten()
+		pinned=0
+		for message in messages:
+			try: await message.pin()
+			except: pass
+			pinned+=1
+		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно закрепил {pinned} сообщений!**")
+	@commands.command(aliases=['спам', 'flood', 'флуд'])
+	async def spam(self, ctx, amount: int, *, text):
+		await ctx.message.delete()
+		for i in range(amount):
+			await ctx.send(f'{text} ||{"".join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=8))}||')
+		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно отправил {amount} сообщений!**")
 def setup(bot):
 	bot.add_cog(Tools(bot))
