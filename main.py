@@ -45,7 +45,7 @@ async def on_connect():
 	for file in files:
 		response=requests.get(f'https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/{file}').text.replace('\r', '').replace('\t', '')
 		with open(f'{file}', encoding='utf-8') as f:
-			if f.read()!=response:
+			if f.read().replace('\n', '\\n',)!=response:
 				print(f'{Fore.CYAN}Пожалуйста обновите селфбота используя команду {pref}bot\n')
 				return
 	print()
