@@ -11,10 +11,8 @@ except:
 	from colorama import init, Fore;init()
 	import requests
 import json
-
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
-
 Intro=Fore.RED +"""
 ██╗░░░░░░█████╗░██╗░░░░░░█████╗░██╗░░░░░
 ██║░░░░░██╔══██╗██║░░░░░██╔══██╗██║░░░░░
@@ -26,29 +24,16 @@ Intro=Fore.RED +"""
 clear=lambda: os.system(f'cls && title Selfbot by LALOL' if os.name == 'nt' else 'clear')
 clear()
 print(Intro)
-
 pref=config['Prefix']
 bot = commands.Bot(command_prefix=pref, case_insensitive=True, self_bot=True)
-update=''
 bot.remove_command('help')
+
 @bot.event
 async def on_connect():
 	for filename in os.listdir():
 		if filename.endswith('.txt'):
 			os.remove(filename)
-	print(Fore.MAGENTA + f"Аккаунт: {Fore.YELLOW}{bot.user}{Fore.MAGENTA}\nID: {Fore.YELLOW}{bot.user.id}{Fore.MAGENTA}\nPrefix: {Fore.YELLOW}{pref}{Fore.RED}")
-	global update
-	files=[]
-	files.append('main.py')
-	for file in os.listdir('cogs/'):
-		files.append('cogs/'+file)
-	for file in files:
-		response=requests.get(f'https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/{file}').text.replace('\r', '').replace('\t', '')
-		with open(f'{file}', encoding='utf-8') as f:
-			if f.read().replace('\n', '\\n',)!=response:
-				print(f'{Fore.CYAN}Пожалуйста обновите селфбота используя команду {pref}bot\n')
-				return
-	print()
+	print(Fore.MAGENTA + f"Аккаунт: {Fore.YELLOW}{bot.user}{Fore.MAGENTA}\nID: {Fore.YELLOW}{bot.user.id}{Fore.MAGENTA}\nPrefix: {Fore.YELLOW}{pref}{Fore.RED}\n")
 @bot.event
 async def on_command_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
