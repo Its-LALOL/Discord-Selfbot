@@ -79,5 +79,16 @@ class Tools(commands.Cog):
 				text+=i.mention
 		await ctx.send(text)
 		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно пинганул {pinged} пользователей!**")
+	@commands.command(aliases=['copy', 'сообщения', 'сохранить'])
+	async def messages(self, ctx, amount: int=30):
+		await ctx.message.delete()
+		messages=await ctx.channel.history(limit=amount).flatten()
+		messages.reverse()
+		saved=0
+		with open(f'messages_{ctx.channel.id}.txt', 'w', encoding='utf-8') as f:
+			for message in messages:
+				f.write(f'[{message.author}]: {message.content}\n')
+				saved+=1
+		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно сохранил {saved} сообщений!**", file=discord.File(f'messages_{ctx.channel.id}.txt'))
 def setup(bot):
 	bot.add_cog(Tools(bot))
