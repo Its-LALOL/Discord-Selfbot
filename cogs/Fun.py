@@ -34,5 +34,21 @@ class Fun(commands.Cog):
 			await message.add_reaction(emoji)
 			reactioned+=1
 		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно поставил {reactioned} реакций!**")
+	@commands.command(aliases=['lags', 'лаг', 'лаги', 'ascii'])
+	async def lag(self, ctx, cat='ascii', amount: int=50):
+		await ctx.message.delete()
+		if cat=='ascii':
+			for i in range(amount):
+				text=''
+				for i in range(2000):
+					text=text+chr(random.randrange(13000))
+				await ctx.send(content=text)
+		elif cat=='chains':
+			text=":chains:"*250
+			for i in range(amount):
+				await ctx.send(text)
+		else:
+			await ctx.send(content="**__Selfbot by LALOL__\n\nДоступные варианты: `chains` и `ascii`**")
+		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно отправил {amount} лагающих сообщений!**")
 def setup(bot):
 	bot.add_cog(Fun(bot))
