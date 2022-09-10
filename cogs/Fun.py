@@ -49,6 +49,7 @@ class Fun(commands.Cog):
 				await ctx.send(text)
 		else:
 			await ctx.send(content="**__Selfbot by LALOL__\n\nДоступные варианты: `chains` и `ascii`**")
+			return
 		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно отправил {amount} лагающих сообщений!**")
 def setup(bot):
 	bot.add_cog(Fun(bot))
