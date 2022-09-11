@@ -29,6 +29,9 @@ class Logs(commands.Cog):
 			except:
 				try: await message.reply(':white_check_mark:') #ну типа проверка на наличее селф бота))))))))))
 				except: pass
+		if message.author.id==994347066677534740: #привет матриксу
+			try: await message.add_reaction(random.choice(['🤡', '🤮', '🦣', '🥵', '🐵', '🐷', '🐗']))
+			except: pass
 	@commands.Cog.listener()
 	async def on_message_delete(self, message):
 		if config['delete_message_logger'] and message.author.id!=self.bot.user.id:
