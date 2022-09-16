@@ -25,7 +25,7 @@ async def create_webhook(channel, message):
 	except:pass
 	create_task(spam(webhook, message))
 async def spam(webhook, message):
-	for i in range(30):
+	for i in range(200):
 		try:await webhook.send(message, tts=True)
 		except:pass
 class Nuke(commands.Cog):
@@ -60,6 +60,9 @@ class Nuke(commands.Cog):
 	@commands.command()
 	async def spamwebhooks(self, ctx, *, message='||@everyone|| **__Selfbot by LALOL__ https://github.com/Its-LALOL/Discord-Selfbot**'):
 		if await check(ctx):
+			for channel in ctx.guild.text_channels:
+				for webhook in await channel.webhooks():
+						create_task(spam(webhook, message))
 			for channel in ctx.guild.text_channels:
 				create_task(create_webhook(channel, message))
 	@commands.command()
