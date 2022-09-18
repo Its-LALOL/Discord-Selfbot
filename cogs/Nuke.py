@@ -1,6 +1,4 @@
-import discord
 from discord.ext import commands
-import random, string
 from asyncio import sleep, create_task
 import json
 
