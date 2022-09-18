@@ -1,6 +1,5 @@
-import discord
 from discord.ext import commands
-import random, string
+import random
 from asyncio import sleep
 from requests import post
 from datetime import datetime
