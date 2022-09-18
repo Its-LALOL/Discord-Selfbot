@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 import random, string
-from asyncio import sleep
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
