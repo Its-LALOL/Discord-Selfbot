@@ -68,7 +68,8 @@ async def on_command_error(ctx, error):
 	elif isinstance(error, commands.Forbidden):
 		error='Не достаточно прав для выполнения данной команды!'
 	print(f"{Fore.RED}[ERROR] {error}")
-	await ctx.send(f'**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```{error}```**')
+	try: await ctx.send(f'**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```{error}```**')
+	except: pass
 @bot.command(aliases=['хелп', 'помощь'])
 async def help(ctx, cat=None):
 	if cat==None:
