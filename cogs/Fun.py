@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
-import random, string
-from asyncio import sleep
+import random
 
 troll={'server_id': 0, 'user_id': 0, 'mode': 0, 'emoji': None} # 1 - trolldelete, 2 - trollreaction, 3 - trollrepeat
 
