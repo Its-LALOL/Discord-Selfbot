@@ -1,7 +1,5 @@
 import discord
 from discord.ext import commands
-import random, string
-from asyncio import sleep
 
 class Info(commands.Cog):
 	def __init__(self, bot):
