@@ -60,7 +60,7 @@ async def on_connect():
 @bot.event
 async def on_command_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
-		print('Недостаточно аргументов!')
+		error='Недостаточно аргументов!'
 #	elif isinstance(error, commands.CommandNotFound):
 #		error='Данной команды не существует!'
 	elif isinstance(error, commands.BadArgument):
