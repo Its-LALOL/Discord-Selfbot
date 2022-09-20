@@ -1,6 +1,9 @@
 import discord
 from discord.ext import commands
 import random
+import json
+with open("config.json", "r", encoding="utf-8-sig") as f:
+	config = json.load(f)
 
 troll={'server_id': 0, 'user_id': 0, 'mode': 0, 'emoji': None} # 1 - trolldelete, 2 - trollreaction, 3 - trollrepeat
 
@@ -40,7 +43,11 @@ class Fun(commands.Cog):
 			if troll['mode'] in [2, 3]:
 				if message.author.id==troll['user_id']:
 					if troll['mode']==2: await message.add_reaction(troll['emoji'])
-					if troll['mode']==3: await message.reply(message.content)
+					if troll['mode']==3:
+						text=message.content.replace('@', '')
+						if message.content.startswith(config['Prefix']):
+							text=message.content.replace(config['Prefix'], '', )
+						await message.reply(text)
 			else:
 				if message.author.id==troll['user_id'] and message.guild.id==troll['server_id']: await message.delete()
 		except:return
