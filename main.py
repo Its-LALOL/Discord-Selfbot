@@ -13,6 +13,7 @@ except:
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
+version=0.9
 Intro=Fore.RED +"""
 ██╗░░░░░░█████╗░██╗░░░░░░█████╗░██╗░░░░░
 ██║░░░░░██╔══██╗██║░░░░░██╔══██╗██║░░░░░
@@ -21,13 +22,12 @@ Intro=Fore.RED +"""
 ███████╗██║░░██║███████╗╚█████╔╝███████╗
 ╚══════╝╚═╝░░╚═╝╚══════╝░╚════╝░╚══════╝\n
 """+Fore.GREEN + "Selfbot by LALOL\n" + Fore.RED
-clear=lambda: os.system(f'cls && title Selfbot by LALOL' if os.name == 'nt' else 'clear')
+clear=lambda: os.system(f'cls && title Selfbot by LALOL {version}' if os.name == 'nt' else 'clear')
 clear()
 print(Intro)
 pref=config['Prefix']
 bot=commands.Bot(command_prefix=pref, case_insensitive=True, self_bot=True)
 bot.remove_command('help')
-version=0.9
 update=''
 
 async def check(ctx):
@@ -65,8 +65,8 @@ async def on_command_error(ctx, error):
 #		error='Данной команды не существует!'
 	elif isinstance(error, commands.BadArgument):
 		error='Указан не правильный аргумент!'
-	elif isinstance(error, commands.Forbidden):
-		error='Не достаточно прав для выполнения данной команды!'
+#	elif isinstance(error, commands.Forbidden):
+#		error='Не достаточно прав для выполнения данной команды!'
 	print(f"{Fore.RED}[ERROR] {error}")
 	try: await ctx.send(f'**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```{error}```**')
 	except: pass
@@ -81,7 +81,7 @@ async def help(ctx, cat=None):
 	if cat=='info':
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:pen_fountain:`{pref}server` - Информация о сервере\n:pen_ballpoint:`{pref}user [ID/Пинг]` - Информация об аккаунте**')
 	if cat=='fun':
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:face_with_symbols_over_mouth:`{pref}trolldelete [ID/Пинг]` - Удаление всех сообщений пользователя\n:imp:`{pref}trollreaction [ID/Пинг] [Эмодзи]` - Ставка реакций на все сообщения пользователя\n:ghost:`{pref}trollrepeat [ID/Пинг]` - Повторение всех сообщений пользователя\n:slight_smile:`{pref}untroll` - Выключение команды troll\n:stuck_out_tongue_winking_eye:`{pref}reactions [Количество] [Эмодзи]` - Спамит реакциями\n:brain:`{pref}lags [Тип лагов] [Количество]` - Делает очень сильные лаги в канале**')
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:face_with_symbols_over_mouth:`{pref}trolldelete [ID/Пинг]` - Удаление всех сообщений пользователя\n:imp:`{pref}trollreaction [ID/Пинг] [Эмодзи]` - Ставка реакций на все сообщения пользователя\n:ghost:`{pref}trollrepeat [ID/Пинг]` - Повторение всех сообщений пользователя\n:slight_smile:`{pref}untroll` - Выключение команды troll\n:stuck_out_tongue_winking_eye:`{pref}reactions [Количество] [Эмодзи]` - Спамит реакциями\n:brain:`{pref}lags [Тип лагов] [Количество]` - Делает очень сильные лаги в канале\n:crystal_ball:`{pref}ball [Вопрос]` - Ответит на любые (почти) вопросы\n:rat:`{pref}hack [Пинг/ID]` - Фейковый взлом аккаунта**')
 	if cat=='nuke':
 		if await check(ctx):
 			await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:skull:`{pref}nuke` - Уничтожение сервера\n:smiling_imp:`{pref}spamchannels [Имя]` - Спам каналами\n:jack_o_lantern:`{pref}spamroles [Имя]` - Спам ролями\n:cold_face:`{pref}spamwebhooks [Сообщение]` - Спам вебхуками\n:clown:`{pref}deleteall` - Удаление всего\n\n`{pref}deletechannels` - Удаляет каналы\n`{pref}deleteroles` - Удаляет роли\n`{pref}deleteemojis` - Удаляет эмодзи**')
