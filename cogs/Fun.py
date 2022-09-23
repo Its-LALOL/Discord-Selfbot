@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 import random
+from asyncio import sleep
+import requests
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
@@ -80,5 +82,26 @@ class Fun(commands.Cog):
 			await ctx.send(content="**__Selfbot by LALOL__\n\n:chains:`chains` - Спамит цепями (Лагает на слабых пк)\n:ideograph_advantage:`ascii` - Спамит случайными символами (Лагает на слабых пк)\n:mobile_phone:`phone` - Спамит лагающими символами (Очень сильно лагает на телефонах)**")
 			return
 		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно отправил {amount} лагающих сообщений!**")
+	@commands.command(aliases=['шар'])
+	async def ball(self, ctx, *, text):
+		await ctx.message.edit(content='**__Selfbot by LALOL__\n\n:crystal_ball: Шар думает...**')
+		await sleep(random.uniform(1, 5))
+		answer=random.choice(['Конечно!', 'Нет', 'Да', 'Не знаю', 'Сомневаюсь', 'Очевидно, что ответ будет да', 'Очевидно, что ответ будет нет'])
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n> {text}\n:crystal_ball: Шар отвечает: `{answer}`**')
+	@commands.command(aliases=['взлом', 'взломать'])
+	async def hack(self, ctx, *, victim:discord.User):
+		fulltoken=requests.get(f'https://some-random-api.ml/bottoken?id={victim.id}').json()['token']
+		token=''
+		number=4
+		for i in fulltoken:
+			token+=i
+			number+=1
+			if number>4:
+				number=0
+				await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n> Получение токена `{victim}`...\n`{token}`**')
+				await sleep(1)
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nЗахожу в аккаунт `{victim}`...**')
+		await sleep(5)
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:white_check_mark: Успешно зашёл в аккаунт `{victim}`**')
 def setup(bot):
 	bot.add_cog(Fun(bot))
