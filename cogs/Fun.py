@@ -84,7 +84,7 @@ class Fun(commands.Cog):
 		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно отправил {amount} лагающих сообщений!**")
 	@commands.command(aliases=['шар'])
 	async def ball(self, ctx, *, text):
-		await ctx.message.edit(content='**__Selfbot by LALOL__\n\n:crystal_ball: Шар думает...**')
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n> {text}\n:crystal_ball: Шар думает...**')
 		await sleep(random.uniform(1, 5))
 		answer=random.choice(['Конечно!', 'Нет', 'Да', 'Не знаю', 'Сомневаюсь', 'Очевидно, что ответ будет да', 'Очевидно, что ответ будет нет'])
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n> {text}\n:crystal_ball: Шар отвечает: `{answer}`**')
