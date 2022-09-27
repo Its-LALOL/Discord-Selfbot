@@ -53,5 +53,21 @@ class Moderation(commands.Cog):
 			await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:x: Не удалось размутить пользователя `{user}`**')
 			return
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:white_check_mark: Пользователь `{user}` был успешно размучен по причине `{reason}`**')
+	@commands.command(alises=['слоумод'])
+	async def slowmode(self, ctx, time):
+		if time.endswith('s') or time.endswith('с'):
+			seconds=int(time.replace('s', '').replace('с', ''))
+		elif time.endswith('m') or time.endswith('м'):
+			seconds=int(time.replace('m', '').replace('м', ''))*60
+		elif time.endswith('h') or time.endswith('ч'):
+			seconds=int(time.replace('h', '').replace('ч', ''))*60*60
+		else:
+			await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:x: Длительность слоумода указана неправильно!**')
+			return
+		if seconds>21600:
+			await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:x: Слоумод не может быть больше 6 часов!**')
+			return
+		await ctx.channel.edit(slowmode_delay=seconds)
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:white_check_mark: Слоумод канала был успешно изменён на {seconds} секунд**')
 def setup(bot):
 	bot.add_cog(Moderation(bot))
