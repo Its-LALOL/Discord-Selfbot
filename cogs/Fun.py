@@ -3,6 +3,7 @@ from discord.ext import commands
 import random
 from asyncio import sleep
 import requests
+from urllib.parse import quote
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
@@ -103,5 +104,14 @@ class Fun(commands.Cog):
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nЗахожу в аккаунт `{victim}`...**')
 		await sleep(5)
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:white_check_mark: Успешно зашёл в аккаунт `{victim}`**')
+	@commands.command(aliases=['лгбт'])
+	async def lgbt(self, ctx, victim:discord.User):
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nhttps://some-random-api.ml/canvas/gay?avatar={victim.avatar_url_as(static_format="png")} **')
+	@commands.command(aliases=['тюрьма'])
+	async def jail(self, ctx, victim:discord.User):
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nhttps://some-random-api.ml/canvas/jail?avatar={victim.avatar_url_as(static_format="png")} **')
+	@commands.command(aliases=['комментарий'])
+	async def comment(self, ctx, victim:discord.User, *, text):
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nhttps://some-random-api.ml/canvas/youtube-comment?username={quote(victim.name)}&avatar={victim.avatar_url_as(static_format="png")}&comment={quote(text)} **')
 def setup(bot):
 	bot.add_cog(Fun(bot))
