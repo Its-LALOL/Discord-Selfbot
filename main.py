@@ -13,7 +13,7 @@ except:
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
-version=1.1
+version=1.2
 Intro=Fore.RED +"""
 ██╗░░░░░░█████╗░██╗░░░░░░█████╗░██╗░░░░░
 ██║░░░░░██╔══██╗██║░░░░░██╔══██╗██║░░░░░
@@ -81,7 +81,7 @@ async def help(ctx, cat=None):
 	elif cat=='info':
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:pen_fountain:`{pref}server` - Информация о сервере\n:pen_ballpoint:`{pref}user [ID/Пинг]` - Информация об аккаунте**')
 	elif cat=='fun':
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:face_with_symbols_over_mouth:`{pref}trolldelete [ID/Пинг]` - Удаление всех сообщений пользователя\n:imp:`{pref}trollreaction [ID/Пинг] [Эмодзи]` - Ставка реакций на все сообщения пользователя\n:ghost:`{pref}trollrepeat [ID/Пинг]` - Повторение всех сообщений пользователя\n:slight_smile:`{pref}untroll` - Выключение команды troll\n:stuck_out_tongue_winking_eye:`{pref}reactions [Количество] [Эмодзи]` - Спамит реакциями\n:brain:`{pref}lags [Тип лагов] [Количество]` - Делает очень сильные лаги в канале\n:crystal_ball:`{pref}ball [Вопрос]` - Ответит на любые (почти) вопросы\n:rat:`{pref}hack [Пинг/ID]` - Фейковый взлом аккаунта**')
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:face_with_symbols_over_mouth:`{pref}trolldelete [ID/Пинг]` - Удаление всех сообщений пользователя\n:imp:`{pref}trollreaction [ID/Пинг] [Эмодзи]` - Ставка реакций на все сообщения пользователя\n:ghost:`{pref}trollrepeat [ID/Пинг]` - Повторение всех сообщений пользователя\n:slight_smile:`{pref}untroll` - Выключение команды troll\n:stuck_out_tongue_winking_eye:`{pref}reactions [Количество] [Эмодзи]` - Спамит реакциями\n:brain:`{pref}lags [Тип лагов] [Количество]` - Делает очень сильные лаги в канале\n:crystal_ball:`{pref}ball [Вопрос]` - Ответит на любые (почти) вопросы\n:rat:`{pref}hack [Пинг/ID]` - Фейковый взлом аккаунта\n:rainbow_flag:`{pref}lgbt [Пинг/ID]` - Делает аватарку пользователя "разноцветной"\n:speech_balloon:`{pref}comment [Пинг/ID] [Текст]` - Делает комментарий на ютубе**')
 	elif cat=='moderation':
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:dagger:`{pref}ban [Пинг/ID] [Причина]` - Банит пользователя\n:ok_hand:`{pref}unban - [Пинг/ID]` - Разбанивает пользователя\n:door:`{pref}kick [Пинг/ID] [Причина]` - Кикает участника\n:mute:`{pref}mute [Пинг/ID] [Длительность] [Причина]` - Мутит участника\n:sound:`{pref}unmute [Пинг/ID] [Причина]` - Размучивает участника\n:timer:`{pref}slowmode [Длительность]` - Ставит слоумод на канал (Пример длительности: 3ч - 3 часа)**')
 	elif cat=='nuke':
