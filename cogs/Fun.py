@@ -113,5 +113,11 @@ class Fun(commands.Cog):
 	@commands.command(aliases=['комментарий'])
 	async def comment(self, ctx, victim:discord.User, *, text):
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nhttps://some-random-api.ml/canvas/youtube-comment?username={quote(victim.name)}&avatar={victim.avatar_url_as(static_format="png")}&comment={quote(text)} **')
+	@commands.command(aliases=['fake_type', 'фейк_печать','фейкпечать', 'faketype'])
+	async def faketyping(self, ctx, seconds:int, channel: discord.TextChannel=None):
+		await ctx.message.delete()
+		if channel is None: channel=ctx.channel
+		async with channel.typing():
+			await sleep(seconds)
 def setup(bot):
 	bot.add_cog(Fun(bot))
