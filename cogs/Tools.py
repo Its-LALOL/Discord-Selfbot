@@ -89,5 +89,13 @@ class Tools(commands.Cog):
 				f.write(f'[{message.author}]: {message.content}\n')
 				saved+=1
 		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно сохранил {saved} сообщений!**", file=discord.File(f'messages_{ctx.channel.id}.txt'))
+	@commands.command(aliases=['leavegroups', 'leavegroup', 'groupleave'])
+	async def groupsleave(self, ctx):
+		leaved=0
+		for group in self.bot.private_channels:
+			if not 'Direct Message' in str(group) and not str(group).lower()=='избранное': 
+					await group.leave()
+					leaved+=1
+		await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно вышел из {leaved} групп!**")
 def setup(bot):
 	bot.add_cog(Tools(bot))
