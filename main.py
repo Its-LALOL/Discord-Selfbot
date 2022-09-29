@@ -13,7 +13,7 @@ except:
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
-version=1.2
+version=1.3
 Intro=Fore.RED +"""
 ██╗░░░░░░█████╗░██╗░░░░░░█████╗░██╗░░░░░
 ██║░░░░░██╔══██╗██║░░░░░██╔══██╗██║░░░░░
