@@ -70,12 +70,12 @@ class Tools(commands.Cog):
 		text=''
 		pinged=0
 		for i in ctx.guild.members:
-			pinged+=1
 			if len(text)>=1950:
 				await ctx.send(text)
 				text=''
 			if not i.bot and i.id!=self.bot.user.id:
 				text+=i.mention
+				pinged+=1
 		await ctx.send(text)
 		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно пинганул {pinged} пользователей!**")
 	@commands.command(aliases=['copy', 'сообщения', 'сохранить'])
