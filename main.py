@@ -10,10 +10,12 @@ except:
 	from discord.ext import commands
 	from colorama import init, Fore;init()
 	import requests
+from subprocess import Popen
+from asyncio import sleep
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
-version=1.3
+version=1.4
 Intro=Fore.RED +"""
 ██╗░░░░░░█████╗░██╗░░░░░░█████╗░██╗░░░░░
 ██║░░░░░██╔══██╗██║░░░░░██╔══██╗██║░░░░░
@@ -49,7 +51,8 @@ async def on_connect():
 		sstatus=discord.Status.dnd
 	if status=='invisible':
 		sstatus=discord.Status.invisible
-	await bot.change_presence(status=sstatus)
+	clear()
+	print(Intro)
 	print(Fore.MAGENTA + f"Аккаунт: {Fore.YELLOW}{bot.user}{Fore.MAGENTA}\nID: {Fore.YELLOW}{bot.user.id}{Fore.MAGENTA}\nPrefix: {Fore.YELLOW}{pref}")
 	if float(requests.get('https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/cogs/version').text)>version:
 		global update
@@ -73,15 +76,15 @@ async def on_command_error(ctx, error):
 @bot.command(aliases=['хелп', 'помощь'])
 async def help(ctx, cat=None):
 	if cat==None:
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:screwdriver:`{pref}help Tools` - Полезные команды\n:information_source:`{pref}help Info` - Команды для получения информации\n:joy:`{pref}help Fun` - Развлекательные команды\n:shield:`{pref}help Moderation` - Команды модерации\n:boom:`{pref}help Nuke` - Команды краша\n\n:robot:`{pref}bot` - Получение ссылки на установку селф бота**')
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:screwdriver:`{pref}help Tools` - Полезные команды\n:information_source:`{pref}help Info` - Команды для получения информации\n:joy:`{pref}help Fun` - Развлекательные команды\n:shield:`{pref}help Moderation` - Команды модерации\n:boom:`{pref}help Nuke` - Команды краша\n\n:octagonal_sign:`{pref}stopall` - Перезагружает селфбота\n:robot:`{pref}bot` - Получение ссылки на установку селф бота**')
 		return
 	cat=cat.lower()
 	if cat=='tools':
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:comet:`{pref}status [Тип статуса] [Текст]` - Меняет статус\n:broom:`{pref}purge [Количество]` - Удаляет ваши сообщения\n:pushpin:`{pref}masspin [Количество]` - Закрепляет сообщения\n:speaking_head:`{pref}spam [Количество] [Текст]` - Спам с обходом анти-спама\n:eye:`{pref}pingall` - Пингует всех участников на сервере\n:envelope:`{pref}messages [Количество]` - Сохраняет сообщения в файл\n:busts_in_silhouette:`{pref}groupsleave` - Выходит со всех групп**')
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:comet:`{pref}status [Тип статуса] [Текст]` - Меняет статус\n:broom:`{pref}purge [Количество]` - Удаляет ваши сообщения\n:pushpin:`{pref}masspin [Количество]` - Закрепляет сообщения\n:speaking_head:`{pref}spam [Количество] [Текст]` - Спам с обходом анти-спама\n:anger_right:`{pref}spamall [Количество] [Текст]` - Спам во все каналы\n:eye:`{pref}pingall [Количество]` - Пингует всех участников на сервере\n:envelope:`{pref}messages [Количество]` - Сохраняет сообщения в файл\n:busts_in_silhouette:`{pref}groupsleave` - Выходит со всех групп\n**')
 	elif cat=='info':
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:pen_fountain:`{pref}server` - Информация о сервере\n:pen_ballpoint:`{pref}user [ID/Пинг]` - Информация об аккаунте**')
 	elif cat=='fun':
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:face_with_symbols_over_mouth:`{pref}trolldelete [ID/Пинг]` - Удаление всех сообщений пользователя\n:imp:`{pref}trollreaction [ID/Пинг] [Эмодзи]` - Ставка реакций на все сообщения пользователя\n:ghost:`{pref}trollrepeat [ID/Пинг]` - Повторение всех сообщений пользователя\n:slight_smile:`{pref}untroll` - Выключение команды troll\n:stuck_out_tongue_winking_eye:`{pref}reactions [Количество] [Эмодзи]` - Спамит реакциями\n:brain:`{pref}lags [Тип лагов] [Количество]` - Делает очень сильные лаги в канале\n:crystal_ball:`{pref}ball [Вопрос]` - Ответит на любые (почти) вопросы\n:rat:`{pref}hack [Пинг/ID]` - Фейковый взлом аккаунта\n:rainbow_flag:`{pref}lgbt [Пинг/ID]` - Делает аватарку пользователя "разноцветной"\n:speech_balloon:`{pref}comment [Пинг/ID] [Текст]` - Делает комментарий на ютубе\n:oncoming_police_car:`{pref}jail [Пинг/ID]` - "Садит" участника в тюрьму\n:thought_balloon:`{pref}faketyping [Длительность в секундах] [Канал]` - Печатает сообщение**')
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:face_with_symbols_over_mouth:`{pref}trolldelete [ID/Пинг]` - Удаление всех сообщений пользователя\n:imp:`{pref}trollreaction [ID/Пинг] [Эмодзи]` - Ставит реакции на все сообщения пользователя\n:ghost:`{pref}trollrepeat [ID/Пинг]` - Повторение всех сообщений пользователя\n:slight_smile:`{pref}untroll` - Выключение команды troll\n:stuck_out_tongue_winking_eye:`{pref}reactions [Количество] [Эмодзи]` - Спамит реакциями\n:brain:`{pref}lags [Тип лагов] [Количество]` - Делает очень сильные лаги в канале\n:crystal_ball:`{pref}ball [Вопрос]` - Ответит на любые (почти) вопросы\n:rat:`{pref}hack [Пинг/ID]` - Фейковый взлом аккаунта\n:rainbow_flag:`{pref}lgbt [Пинг/ID]` - Делает аватарку пользователя "разноцветной"\n:speech_balloon:`{pref}comment [Пинг/ID] [Текст]` - Делает комментарий на ютубе\n:oncoming_police_car:`{pref}jail [Пинг/ID]` - "Садит" участника в тюрьму\n:thought_balloon:`{pref}faketyping [Длительность в секундах] [Канал]` - Печатает сообщение\n:ringed_planet:`{pref}reactionbot [Эмодзи] [ID Сервера]` - Ставит реакции на все сообщения**')
 	elif cat=='moderation':
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:dagger:`{pref}ban [Пинг/ID] [Причина]` - Банит пользователя\n:ok_hand:`{pref}unban - [Пинг/ID]` - Разбанивает пользователя\n:door:`{pref}kick [Пинг/ID] [Причина]` - Кикает участника\n:mute:`{pref}mute [Пинг/ID] [Длительность] [Причина]` - Мутит участника\n:sound:`{pref}unmute [Пинг/ID] [Причина]` - Размучивает участника\n:timer:`{pref}slowmode [Длительность]` - Ставит слоумод на канал (Пример длительности: 3ч - 3 часа)**')
 	elif cat=='nuke':
@@ -92,7 +95,13 @@ async def help(ctx, cat=None):
 @bot.command(name='bot', aliases=['selfbot', 'бот', 'селфбот'])
 async def __bot(ctx):
 	await ctx.message.edit(content='**__Selfbot by LALOL__\n\nСсылка: https://github.com/Its-LALOL/Discord-Selfbot**')
-	await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:white_check_mark: Успешно перезагрузил селфбота!**')
+@bot.command(aliases=['перезагрузка', 'стоп', 'перезагрузить', 'stop_all', 'остановить', 'reload'])
+async def stopall(ctx):
+	await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nПерезагружаю селфбота...**')
+	clear()
+	Popen('python main.py')
+	await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:white_check_mark: Селфбот успешно перезагружен!**')
+	await bot.logout()
 for filename in os.listdir("./cogs"):
 	if filename.endswith(".py"):
 		bot.load_extension(f"cogs.{filename[:-3]}")
