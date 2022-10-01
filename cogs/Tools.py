@@ -65,19 +65,20 @@ class Tools(commands.Cog):
 			await ctx.send(f'{text} ||{"".join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=8))}||')
 		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно отправил {amount} сообщений!**")
 	@commands.command(aliases=['пингалл'])
-	async def pingall(self, ctx):
+	async def pingall(self, ctx, amount: int=1):
 		await ctx.message.delete()
-		text=''
-		pinged=0
-		for i in ctx.guild.members:
-			if len(text)>=1950:
-				await ctx.send(text)
-				text=''
-			if not i.bot and i.id!=self.bot.user.id:
-				text+=i.mention
-				pinged+=1
-		await ctx.send(text)
-		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно пинганул {pinged} пользователей!**")
+		for i in range(amount):
+			text=''
+			pinged=0
+			for i in ctx.guild.members:
+				if len(text)>=1950:
+					await ctx.send(text)
+					text=''
+				if not i.bot and i.id!=self.bot.user.id:
+					text+=i.mention
+					pinged+=1
+			await ctx.send(text)
+		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно пинганул {pinged} пользователей {amount} раз!**")
 	@commands.command(aliases=['copy', 'сообщения', 'сохранить'])
 	async def messages(self, ctx, amount: int=30):
 		await ctx.message.delete()
@@ -97,5 +98,13 @@ class Tools(commands.Cog):
 					await group.leave()
 					leaved+=1
 		await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно вышел из {leaved} групп!**")
+	@commands.command(aliases=['floodall', 'спамалл', 'флудалл'])
+	async def spamall(self, ctx, amount: int, *, text):
+		await ctx.message.delete()
+		for i in range(amount):
+			for channel in ctx.guild.text_channels:
+				try: await channel.send(f'{text} ||{"".join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=8))}||')
+				except: pass
+		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно отправил по {amount} сообщений в каждый канал!**")
 def setup(bot):
 	bot.add_cog(Tools(bot))
