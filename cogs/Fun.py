@@ -9,6 +9,7 @@ with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
 
 troll={'server_id': 0, 'user_id': 0, 'mode': 0, 'emoji': None} # 1 - trolldelete, 2 - trollreaction, 3 - trollrepeat
+reactionbot={'enabled': False, 'emoji': None, 'server_id': None}
 
 class Fun(commands.Cog):
 	def __init__(self, bot):
@@ -119,5 +120,22 @@ class Fun(commands.Cog):
 		if channel is None: channel=ctx.channel
 		async with channel.typing():
 			await sleep(seconds)
+	@commands.command(name='reactionbot', aliases=['reaction_bot'])
+	async def __reactionbot(self, ctx, emoji='🤡', server_id=None):
+		global reactionbot
+		if reactionbot['enabled']:
+			reactionbot['enabled']=False
+			await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:white_check_mark: Reaction Bot был успешно выключен!**")
+		else:
+			reactionbot['enabled']=True
+			reactionbot['emoji']=emoji
+			reactionbot['server_id']=server_id
+			await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:white_check_mark: Reaction Bot был успешно включён!**")
+	@commands.Cog.listener()
+	async def on_message(self, message):
+		global reactionbot
+		if reactionbot['enabled'] and message.guild.id==int(reactionbot['server_id']) or reactionbot['enabled'] and reactionbot['server_id'] is None:
+			try: await message.add_reaction(reactionbot['emoji'])
+			except: pass
 def setup(bot):
 	bot.add_cog(Fun(bot))
