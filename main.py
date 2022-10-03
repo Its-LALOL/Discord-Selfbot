@@ -26,6 +26,7 @@ Intro=Fore.RED +"""
 clear=lambda: os.system(f'cls && title Selfbot by LALOL {version}' if os.name == 'nt' else 'clear')
 clear()
 print(Intro)
+print(Fore.WHITE+'Loading...')
 pref=config['Prefix']
 bot=commands.Bot(command_prefix=pref, case_insensitive=True, self_bot=True)
 bot.remove_command('help')
