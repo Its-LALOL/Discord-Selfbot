@@ -53,6 +53,7 @@ class Fun(commands.Cog):
 							text=message.content.replace(config['Prefix'], '', )
 						await message.reply(text)
 			else:
+				if message.guild.id: return
 				if message.author.id==troll['user_id'] and message.guild.id==troll['server_id']: await message.delete()
 		except:return
 	@commands.command(aliases=['react', 'reaction', 'реакция', 'реакции', 'reactionall'])
@@ -137,5 +138,25 @@ class Fun(commands.Cog):
 		if reactionbot['enabled'] and message.guild.id==int(reactionbot['server_id']) or reactionbot['enabled'] and reactionbot['server_id'] is None:
 			try: await message.add_reaction(reactionbot['emoji'])
 			except: pass
+	@commands.command(aliases=['лиса', 'лисы'])
+	async def fox(self, ctx):
+		link=requests.get('https://some-random-api.ml/img/fox').json()['link']
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link}**')
+	@commands.command(aliases=['собака', 'собаки', 'dogs'])
+	async def dog(self, ctx):
+		link=requests.get('https://some-random-api.ml/img/dog').json()['link']
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link} **')
+	@commands.command(aliases=['кот', 'коты', 'кошечка', 'cats'])
+	async def cat(self, ctx):
+		link=requests.get('https://some-random-api.ml/img/cat').json()['link']
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link} **')
+	@commands.command(aliases=['панда', 'панды'])
+	async def panda(self, ctx):
+		link=requests.get('https://some-random-api.ml/img/panda').json()['link']
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link} **')
+	@commands.command(aliases=['коала', 'коалы'])
+	async def koala(self, ctx):
+		link=requests.get('https://some-random-api.ml/img/koala').json()['link']
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link} **')
 def setup(bot):
 	bot.add_cog(Fun(bot))
