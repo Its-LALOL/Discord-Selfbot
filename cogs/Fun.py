@@ -55,7 +55,11 @@ class Fun(commands.Cog):
 			else:
 				if message.guild.id: return
 				if message.author.id==troll['user_id'] and message.guild.id==troll['server_id']: await message.delete()
-		except:return
+		except:pass
+		global reactionbot
+		if reactionbot['enabled'] and message.guild.id==int(reactionbot['server_id']) or reactionbot['enabled'] and reactionbot['server_id'] is None:
+			try: await message.add_reaction(reactionbot['emoji'])
+			except: pass
 	@commands.command(aliases=['react', 'reaction', 'реакция', 'реакции', 'reactionall'])
 	async def reactions(self, ctx, amount: int=15, emoji='🤡'):
 		await ctx.message.delete()
@@ -132,12 +136,6 @@ class Fun(commands.Cog):
 			reactionbot['emoji']=emoji
 			reactionbot['server_id']=server_id
 			await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:white_check_mark: Reaction Bot был успешно включён!**")
-	@commands.Cog.listener()
-	async def on_message(self, message):
-		global reactionbot
-		if reactionbot['enabled'] and message.guild.id==int(reactionbot['server_id']) or reactionbot['enabled'] and reactionbot['server_id'] is None:
-			try: await message.add_reaction(reactionbot['emoji'])
-			except: pass
 	@commands.command(aliases=['лиса', 'лисы'])
 	async def fox(self, ctx):
 		link=requests.get('https://some-random-api.ml/img/fox').json()['link']
