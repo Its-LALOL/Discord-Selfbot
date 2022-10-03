@@ -1,6 +1,8 @@
 # Discord-Selfbot
 Многофункциональный селф-бот написанный на discord.py-self
 
+![](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/screenshot.png)
+
 # Функции
 - [x] Автоматическая проверка на обновления
 - [x] Изменение статуса
