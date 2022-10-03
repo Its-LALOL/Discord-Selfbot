@@ -15,15 +15,14 @@ from asyncio import sleep
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
-version=1.4
+version=1.5
 Intro=Fore.RED +"""
-██╗░░░░░░█████╗░██╗░░░░░░█████╗░██╗░░░░░
-██║░░░░░██╔══██╗██║░░░░░██╔══██╗██║░░░░░
-██║░░░░░███████║██║░░░░░██║░░██║██║░░░░░
-██║░░░░░██╔══██║██║░░░░░██║░░██║██║░░░░░
-███████╗██║░░██║███████╗╚█████╔╝███████╗
-╚══════╝╚═╝░░╚═╝╚══════╝░╚════╝░╚══════╝\n
-"""+Fore.GREEN + "Selfbot by LALOL\n" + Fore.RED
+   _____      ________          __     __             __    ___    __    ____  __ 
+  / ___/___  / / __/ /_  ____  / /_   / /_  __  __   / /   /   |  / /   / __ \/ / 
+  \__ \/ _ \/ / /_/ __ \/ __ \/ __/  / __ \/ / / /  / /   / /| | / /   / / / / /  
+ ___/ /  __/ / __/ /_/ / /_/ / /_   / /_/ / /_/ /  / /___/ ___ |/ /___/ /_/ / /___
+/____/\___/_/_/ /_.___/\____/\__/  /_.___/\__, /  /_____/_/  |_/_____/\____/_____/
+                                         /____/                                   \n"""
 clear=lambda: os.system(f'cls && title Selfbot by LALOL {version}' if os.name == 'nt' else 'clear')
 clear()
 print(Intro)
@@ -84,7 +83,7 @@ async def help(ctx, cat=None):
 	elif cat=='info':
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:pen_fountain:`{pref}server` - Информация о сервере\n:pen_ballpoint:`{pref}user [ID/Пинг]` - Информация об аккаунте**')
 	elif cat=='fun':
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:face_with_symbols_over_mouth:`{pref}trolldelete [ID/Пинг]` - Удаление всех сообщений пользователя\n:imp:`{pref}trollreaction [ID/Пинг] [Эмодзи]` - Ставит реакции на все сообщения пользователя\n:ghost:`{pref}trollrepeat [ID/Пинг]` - Повторение всех сообщений пользователя\n:slight_smile:`{pref}untroll` - Выключение команды troll\n:stuck_out_tongue_winking_eye:`{pref}reactions [Количество] [Эмодзи]` - Спамит реакциями\n:brain:`{pref}lags [Тип лагов] [Количество]` - Делает очень сильные лаги в канале\n:crystal_ball:`{pref}ball [Вопрос]` - Ответит на любые (почти) вопросы\n:rat:`{pref}hack [Пинг/ID]` - Фейковый взлом аккаунта\n:rainbow_flag:`{pref}lgbt [Пинг/ID]` - Делает аватарку пользователя "разноцветной"\n:speech_balloon:`{pref}comment [Пинг/ID] [Текст]` - Делает комментарий на ютубе\n:oncoming_police_car:`{pref}jail [Пинг/ID]` - "Садит" участника в тюрьму\n:thought_balloon:`{pref}faketyping [Длительность в секундах] [Канал]` - Печатает сообщение\n:ringed_planet:`{pref}reactionbot [Эмодзи] [ID Сервера]` - Ставит реакции на все сообщения**')
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:face_with_symbols_over_mouth:`{pref}trolldelete [ID/Пинг]` - Удаление всех сообщений пользователя\n:imp:`{pref}trollreaction [ID/Пинг] [Эмодзи]` - Ставит реакции на все сообщения пользователя\n:ghost:`{pref}trollrepeat [ID/Пинг]` - Повторение всех сообщений пользователя\n:slight_smile:`{pref}untroll` - Выключение команды troll\n:stuck_out_tongue_winking_eye:`{pref}reactions [Количество] [Эмодзи]` - Спамит реакциями\n:brain:`{pref}lags [Тип лагов] [Количество]` - Делает очень сильные лаги в канале\n:crystal_ball:`{pref}ball [Вопрос]` - Ответит на любые (почти) вопросы\n:rat:`{pref}hack [Пинг/ID]` - Фейковый взлом аккаунта\n:rainbow_flag:`{pref}lgbt [Пинг/ID]` - Делает аватарку пользователя "разноцветной"\n:speech_balloon:`{pref}comment [Пинг/ID] [Текст]` - Делает комментарий на ютубе\n:oncoming_police_car:`{pref}jail [Пинг/ID]` - "Садит" участника в тюрьму\n:thought_balloon:`{pref}faketyping [Длительность в секундах] [Канал]` - Печатает сообщение\n:ringed_planet:`{pref}reactionbot [Эмодзи] [ID Сервера]` - Ставит реакции на все сообщения\n:cat:`{pref}cat` - Картинка кота\n:dog:`{pref}dog` - Картинка собаки\n:fox:`{pref}fox` - Картинка лисы\n:koala:`{pref}koala` - Картинка коалы**')
 	elif cat=='moderation':
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:dagger:`{pref}ban [Пинг/ID] [Причина]` - Банит пользователя\n:ok_hand:`{pref}unban - [Пинг/ID]` - Разбанивает пользователя\n:door:`{pref}kick [Пинг/ID] [Причина]` - Кикает участника\n:mute:`{pref}mute [Пинг/ID] [Длительность] [Причина]` - Мутит участника\n:sound:`{pref}unmute [Пинг/ID] [Причина]` - Размучивает участника\n:timer:`{pref}slowmode [Длительность]` - Ставит слоумод на канал (Пример длительности: 3ч - 3 часа)**')
 	elif cat=='nuke':
