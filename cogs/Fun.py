@@ -3,7 +3,6 @@ from discord.ext import commands
 import random
 from asyncio import sleep
 import requests
-from urllib.parse import quote
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
@@ -37,6 +36,20 @@ class Fun(commands.Cog):
 		troll['user_id']=user.id
 		troll['mode']=3
 	@commands.command()
+	async def trollmove(self, ctx, amount:int, *, user:discord.Member):
+		await ctx.message.delete()
+		channels=ctx.guild.voice_channels
+		lastchannel=None
+		if len(channels) in [0, 1]: return
+		for i in range(amount):
+			while True:
+				channel=random.choice(channels)
+				if channel!=lastchannel:
+					await user.move_to(channel)
+					lastchannel=channel
+					break
+		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно переместил `{user}` {amount} раз!**")
+	@commands.command()
 	async def untroll(self, ctx):
 		await ctx.message.delete()
 		global troll
@@ -61,9 +74,11 @@ class Fun(commands.Cog):
 			try: await message.add_reaction(reactionbot['emoji'])
 			except: pass
 	@commands.command(aliases=['react', 'reaction', 'реакция', 'реакции', 'reactionall'])
-	async def reactions(self, ctx, amount: int=15, emoji='🤡'):
+	async def reactions(self, ctx, amount: int=15, emoji='🤡', channel_id: int=None):
 		await ctx.message.delete()
-		messages=await ctx.channel.history(limit=amount).flatten()
+		if channel_id is None: channel=ctx.channel
+		else: channel=self.bot.get_channel(channel_id)
+		messages=await channel.history(limit=amount).flatten()
 		reactioned=0
 		for message in messages:
 			await message.add_reaction(emoji)
@@ -110,51 +125,16 @@ class Fun(commands.Cog):
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nЗахожу в аккаунт `{victim}`...**')
 		await sleep(5)
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:white_check_mark: Успешно зашёл в аккаунт `{victim}`**')
-	@commands.command(aliases=['лгбт'])
-	async def lgbt(self, ctx, victim:discord.User):
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nhttps://some-random-api.ml/canvas/gay?avatar={victim.avatar_url_as(static_format="png")} **')
-	@commands.command(aliases=['тюрьма'])
-	async def jail(self, ctx, victim:discord.User):
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nhttps://some-random-api.ml/canvas/jail?avatar={victim.avatar_url_as(static_format="png")} **')
-	@commands.command(aliases=['комментарий'])
-	async def comment(self, ctx, victim:discord.User, *, text):
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nhttps://some-random-api.ml/canvas/youtube-comment?username={quote(victim.name)}&avatar={victim.avatar_url_as(static_format="png")}&comment={quote(text)} **')
-	@commands.command(aliases=['fake_type', 'фейк_печать','фейкпечать', 'faketype'])
-	async def faketyping(self, ctx, seconds:int, channel: discord.TextChannel=None):
+	@commands.command(aliases=['сказать'])
+	async def say(self, ctx, victim:discord.User, *, text):
 		await ctx.message.delete()
-		if channel is None: channel=ctx.channel
-		async with channel.typing():
-			await sleep(seconds)
-	@commands.command(name='reactionbot', aliases=['reaction_bot'])
-	async def __reactionbot(self, ctx, emoji='🤡', server_id=None):
-		global reactionbot
-		if reactionbot['enabled']:
-			reactionbot['enabled']=False
-			await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:white_check_mark: Reaction Bot был успешно выключен!**")
-		else:
-			reactionbot['enabled']=True
-			reactionbot['emoji']=emoji
-			reactionbot['server_id']=server_id
-			await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:white_check_mark: Reaction Bot был успешно включён!**")
-	@commands.command(aliases=['лиса', 'лисы'])
-	async def fox(self, ctx):
-		link=requests.get('https://some-random-api.ml/img/fox').json()['link']
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link}**')
-	@commands.command(aliases=['собака', 'собаки', 'dogs'])
-	async def dog(self, ctx):
-		link=requests.get('https://some-random-api.ml/img/dog').json()['link']
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link} **')
-	@commands.command(aliases=['кот', 'коты', 'кошечка', 'cats'])
-	async def cat(self, ctx):
-		link=requests.get('https://some-random-api.ml/img/cat').json()['link']
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link} **')
-	@commands.command(aliases=['панда', 'панды'])
-	async def panda(self, ctx):
-		link=requests.get('https://some-random-api.ml/img/panda').json()['link']
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link} **')
-	@commands.command(aliases=['коала', 'коалы'])
-	async def koala(self, ctx):
-		link=requests.get('https://some-random-api.ml/img/koala').json()['link']
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link} **')
+		name=victim.name
+		try:name=victim.nick
+		except:pass
+		while True:
+			for webhook in await ctx.channel.webhooks():
+				await webhook.send(text, username=name, avatar_url=victim.avatar_url)
+				return
+			webhook=await ctx.channel.create_webhook(name='Selfbot by LALOL')
 def setup(bot):
 	bot.add_cog(Fun(bot))
