@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import requests
 
 class Info(commands.Cog):
 	def __init__(self, bot):
@@ -67,5 +68,25 @@ class Info(commands.Cog):
 			if user.guild_permissions.administrator:
 				admin='Да'
 			await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nИмя: `{user.name}`\nТег: `{user.discriminator}`\nID: `{user.id}`\n{nick}Бот: `{bot}`\nСоздатель: `{owner}`\nАдмин: `{admin}`\nСамая высокая роль: `@{user.top_role.name}`\n{voice}Статус: `{status}`\nАккаунт создан: <t:{createdat}> (<t:{createdat}:R>)\nЗашёл на сервер: <t:{joinedat}> (<t:{joinedat}:R>)**')
+	@commands.command(aliases=['токен'])
+	async def token(self, ctx, token):
+		headers={'authorization': token}
+		token_check = requests.get('https://discord.com/api/v9/users/@me/library',headers=headers)
+		if token_check.status_code == 200 or token_check.status_code == 202:
+			response=requests.get('https://discord.com/api/users/@me',headers=headers)
+			r1=requests.get('https://discord.com/api/users/@me/channels',headers=headers)
+			r2=requests.get("https://discord.com/api/v9/users/@me/relationships",headers=headers)
+			r3=requests.get("https://discord.com/api/users/@me/guilds?with_counts=true",headers=headers)
+			info=response.json()
+			friends=len(r2.json())
+			dms=len(r1.json())
+			guilds=len(r3.json())
+			await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\nТокен рабочий :white_check_mark:\nАккаунт: `{info['username']}#{info['discriminator']}`**\n**ID: `{info['id']}`**\n**Почта: `{info['email']}`**\n**Телефон: `{info['phone']}`**\n**Страна: :flag_{info['locale']}:**\n**Открытых лс: `{dms}`**\n**Друзей: `{friends}`**\n**Серверов: `{guilds}`**")
+		elif token_check.status_code == 401:
+			await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\nТокен** `{token}`**\nНе рабочий! :x:**")
+		elif token_check.status_code == 403:
+			response=requests.get('https://discord.com/api/users/@me',headers=headers)
+			info=response.json()
+			await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\nТокен рабочий, но требует привязку почты/телефона :warning:\nАккаунт: `{info['username']}#{info['discriminator']}`**\n**ID: `{info['id']}`**\n**Почта: `{info['email']}`**\n**Телефон: `{info['phone']}`**\n**Страна: `{info['locale']}`**")
 def setup(bot):
 	bot.add_cog(Info(bot))
