@@ -69,5 +69,10 @@ class Moderation(commands.Cog):
 			return
 		await ctx.channel.edit(slowmode_delay=seconds)
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:white_check_mark: Слоумод канала был успешно изменён на {seconds} секунд**')
+	@commands.command(alises=['channelnuke', 'nuke_channel', 'channel_nuke'])
+	async def nukechannel(self, ctx):
+		new_channel=await ctx.channel.clone()
+		await new_channel.edit(category=ctx.channel.category, position=ctx.channel.position)
+		await ctx.channel.delete()
 def setup(bot):
 	bot.add_cog(Moderation(bot))
