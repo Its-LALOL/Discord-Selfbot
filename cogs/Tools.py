@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 import random, string
+import requests
+from asyncio import sleep
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
@@ -106,5 +108,20 @@ class Tools(commands.Cog):
 				try: await channel.send(f'{text} ||{"".join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=8))}||')
 				except: pass
 		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно отправил по {amount} сообщений в каждый канал!**")
+	@commands.command(aliases=['spamthread', 'threadspam', 'threadsspam'])
+	async def spamthreads(self, ctx, amount: int, *, name):
+		await ctx.message.delete()
+		for i in range(amount):
+			while True:
+				response=requests.post(f'https://discord.com/api/v9/channels/{ctx.channel.id}/threads', headers={'authorization': self.bot.http.token}, json={'name': name, 'auto_archive_duration': 1440, 'type': 11})
+				if response.status_code==200 or response.status_code==201: break
+				elif response.status_code==429:
+					seconds=response.json()['retry_after']
+					if 100>seconds:
+						await sleep(seconds)
+				else:
+					await ctx.send(f"**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
+					return
+		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно создал {amount} веток!**")
 def setup(bot):
 	bot.add_cog(Tools(bot))
