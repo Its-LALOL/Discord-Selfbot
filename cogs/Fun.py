@@ -20,7 +20,7 @@ class Fun(commands.Cog):
 		troll['server_id']=ctx.guild.id
 		troll['user_id']=user.id
 		troll['mode']=1
-	@commands.command(asliases=['trollreactions'])
+	@commands.command(aliases=['trollreactions'])
 	async def trollreaction(self, ctx, user:discord.User, emoji='🤡'):
 		await ctx.message.delete()
 		global troll
