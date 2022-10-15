@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from asyncio import sleep
 import requests
 from urllib.parse import quote
 
@@ -16,24 +15,6 @@ class Images(commands.Cog):
 	@commands.command(aliases=['комментарий'])
 	async def comment(self, ctx, victim:discord.User, *, text):
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nhttps://some-random-api.ml/canvas/youtube-comment?username={quote(victim.name)}&avatar={victim.avatar_url_as(static_format="png")}&comment={quote(text)} **')
-	@commands.command(aliases=['fake_type', 'фейк_печать','фейкпечать', 'faketype'])
-	async def faketyping(self, ctx, seconds:int, channel_id: int=None):
-		await ctx.message.delete()
-		if channel_id is None: channel=ctx.channel
-		else: channel=self.bot.get_channel(channel_id)
-		async with channel.typing():
-			await sleep(seconds)
-	@commands.command(name='reactionbot', aliases=['reaction_bot'])
-	async def __reactionbot(self, ctx, emoji='🤡', server_id=None):
-		global reactionbot
-		if reactionbot['enabled']:
-			reactionbot['enabled']=False
-			await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:white_check_mark: Reaction Bot был успешно выключен!**")
-		else:
-			reactionbot['enabled']=True
-			reactionbot['emoji']=emoji
-			reactionbot['server_id']=server_id
-			await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:white_check_mark: Reaction Bot был успешно включён!**")
 	@commands.command(aliases=['лиса', 'лисы'])
 	async def fox(self, ctx):
 		link=requests.get('https://some-random-api.ml/img/fox').json()['link']
