@@ -1,5 +1,7 @@
 from discord.ext import commands
+import discord
 from asyncio import sleep, create_task
+import random
 import json
 
 with open("config.json", "r", encoding="utf-8-sig") as f:
@@ -67,7 +69,10 @@ class Nuke(commands.Cog):
 	async def spamroles(self, ctx, *, name='Selfbot by LALOL'):
 		if await check(ctx):
 			for i in range(50):
-				try:await ctx.guild.create_role(name=name)
+				num1=random.randint(0, 225)
+				num2=random.randint(0, 225)
+				num3=random.randint(0, 225)
+				try:await ctx.guild.create_role(name=name, colour=discord.Colour.from_rgb(num1, num2, num3))
 				except:return
 	@commands.command()
 	async def nuke(self, ctx):
