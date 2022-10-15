@@ -2,9 +2,12 @@
 	"Token": "тут токен",
 	"Prefix": ".",
 	"Status": "online",
+	"show_notifications": true,
 	"delete_message_logger": false,
 	"delete_message_logger_webhook": "ссылка на вебхук",
 	"edit_message_logger": false,
 	"edit_message_logger_webhook": "ссылка на вебхук",
+	"blacklist_message_logger_servers": [],
 	"nuke_commands": false
+	"disco_status": false
 }
