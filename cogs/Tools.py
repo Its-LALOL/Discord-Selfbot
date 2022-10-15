@@ -1,8 +1,8 @@
 import discord
 from discord.ext import commands
-import random, string
-import requests
 from asyncio import sleep
+import requests
+import random, string
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
@@ -21,6 +21,7 @@ class Tools(commands.Cog):
 		if status=='invisible':
 			sstatus=discord.Status.invisible
 		cat=cat.lower()
+		discordd=['discord', 'дискорд']
 		game=['play', 'playing', 'играть', 'играет', 'game', 'игра', 'играю']
 		watching=['watching', 'watch', 'смотреть', 'смотрит', 'смотрю']
 		listening=['listening', 'listen', 'слушает', 'слушать', 'слушаю']
@@ -36,8 +37,10 @@ class Tools(commands.Cog):
 			await self.bot.change_presence(status=sstatus, activity=discord.Streaming(name=name, url="https://www.youtube.com/watch?v=yNIQi6cbk2s"))
 		elif cat in reset:
 			await self.bot.change_presence(status=sstatus, activity=None)
+		elif cat in discordd:
+			await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, application_id=1029430390357774388, name='Discord', assets={'large_image': '1029438970666426408', 'large_text': 'Selfbot by LALOL'}))
 		else:
-			await ctx.message.edit(content="**__Selfbot by LALOL__\n\nДоступные варианты: `Watching`, `Listening`, `Playing`, `Streaming` и `Reset`**")
+			await ctx.message.edit(content="**__Selfbot by LALOL__\n\nДоступные варианты: ```Обычные````Watching`, `Listening`, `Playing`, `Streaming` и `Reset`\n\n```Эксклюзивные````Discord`**")
 			return
 		await ctx.message.edit(content='**__Selfbot by LALOL__\n\n:white_check_mark: Ваш статус был успешно изменён!**')
 	@commands.command(alises=['clean', 'clear', 'очистка', 'очистить'])
@@ -123,5 +126,29 @@ class Tools(commands.Cog):
 					await ctx.send(f"**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
 					return
 		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно создал {amount} веток!**")
+	@commands.command(aliases=['block_send'])
+	async def blocksend(self, ctx, user:discord.User, *, text):
+		await user.unblock()
+		await user.send(text)
+		await user.block()
+		await ctx.message.delete()
+	@commands.command(aliases=['groupspam', 'groupsspam'])
+	async def spamgroups(self, ctx, amount: int, *, victims_list):
+		await ctx.message.edit(conten='**__Selfbot by LALOL__\n\nЗагрузка...\n:warning: Во время создания групп вы можете столкнуться с зависанием селфбота')
+		victims_ids=victims_list.split(' ')
+		for i in range(amount):
+			while True:
+				response=requests.post('https://discord.com/api/v9/users/@me/channels', headers={'authorization': self.bot.http.token}, json={'recipients': victims_ids})
+				if response.status_code==200 or response.status_code==201:
+					id=response.json()['id']
+					requests.post(f"https://discord.com/api/v9/channels/{id}/messages", headers={'authorization': self.bot.http.token}, json={"content": "**__Selfbot by LALOL\nhttps://github.com/Its-LALOL/Discord-Selfbot __**"})
+				elif response.status_code==429:
+					seconds=response.json()['retry_after']
+					if 100>seconds:
+						await sleep(seconds)
+				else:
+					await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
+					return
+		await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно создал {amount} групп!**")
 def setup(bot):
 	bot.add_cog(Tools(bot))
