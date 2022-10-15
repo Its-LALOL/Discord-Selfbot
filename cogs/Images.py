@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import requests
+import random, string
 from urllib.parse import quote
 
 class Images(commands.Cog):
@@ -35,5 +36,16 @@ class Images(commands.Cog):
 	async def koala(self, ctx):
 		link=requests.get('https://some-random-api.ml/img/koala').json()['link']
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link} **')
+	@commands.command()
+	async def lightshot(self, ctx, amount: int=1):
+		await ctx.message.delete()
+		for i in range(amount):
+			text=''
+			for i in range(5):
+				id=''
+				for i in range(4):
+					id+=random.choice(string.ascii_lowercase+string.digits)
+				text+=f'https://prnt.sc/{id}\n'
+			await ctx.send(content=text)
 def setup(bot):
 	bot.add_cog(Images(bot))
