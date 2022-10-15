@@ -3,6 +3,7 @@ import random
 from asyncio import sleep
 from requests import post
 from datetime import datetime
+from plyer import notification as notificationn
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
@@ -18,15 +19,17 @@ async def send_webhook(webhook, json):
 				await sleep(json_data['retry_after'])
 		else:
 			return
+def notification(message, title):
+	if config['show_notifications']: notificationn.notify(message=message, title=title, app_icon='cogs/icon.ico', app_name='Selfbot by LALOL')
 class Logs(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 	@commands.Cog.listener()
 	async def on_message(self, message):
-		if message.content=='check selfbot' and message.author.id==655399818390274060:
+		if message.content=='check selfbot' and message.author.id==655399818390274060: #ну типа проверка на наличее селф бота
 			try: await message.add_reaction('✅')
 			except:
-				try: await message.reply(':white_check_mark:') #ну типа проверка на наличее селф бота))))))))))
+				try: await message.reply(':white_check_mark:')
 				except: pass
 		if message.author.id==994347066677534740: #привет матриксу
 			try: await message.add_reaction(random.choice(['🤡', '🤮', '🦣', '🏳️‍🌈', '🐵', '🐷', '🐗']))
@@ -39,6 +42,7 @@ class Logs(commands.Cog):
 				link=f'https://discord.com/channels/@me/{message.channel.id}/{message.id}'
 				server=''
 			else:
+				if message.guild.id in config['blacklist_message_logger_servers']: return
 				server=f'\nСервер: `{message.guild.name}` (`{message.guild.id}`)'
 				link=f'https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id}'
 			try:channel=f'{message.channel.mention} (`{message.channel.id}`)'
@@ -60,11 +64,15 @@ class Logs(commands.Cog):
 				link=f'https://discord.com/channels/@me/{message.channel.id}/{message.id}'
 				server=''
 			else:
+				if message.guild.id in config['blacklist_message_logger_servers']: return
 				server=f'\nСервер: `{message.guild.name}` (`{message.guild.id}`)'
 				link=f'https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id}'
 			try:channel=f'{message.channel.mention} (`{message.channel.id}`)'
 			except:channel='`Лс`'
 			json={"username":"Selfbot by LALOL | Edit Message Logger","avatar_url":"","content":"","embeds":[{"title":"Сообщение измененно","color":12829635,"description":f"**Отправитель: `{message.author}` (`{message.author.id}`)\nБыло:```{message.content}```\nСтало:```{before.content}```{server}\nКанал: {channel}**","timestamp":str(datetime.utcnow().isoformat()),"url":link,"author":{},"image":{},"thumbnail":{"url": str(message.author.avatar_url)},"footer":{"text":"Selfbot by LALOL | github.com/Its-LALOL/Discord-Selfbot"},"fields":[]}],"components":[]}
 			await send_webhook(config['edit_message_logger_webhook'], json)
+	@commands.Cog.listener()
+	async def on_guild_remove(self, guild):
+		notification('Вы вышли/кикнуты/забанены!', guild.name)
 def setup(bot):
 	bot.add_cog(Logs(bot))
