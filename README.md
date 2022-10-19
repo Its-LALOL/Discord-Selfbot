@@ -1,5 +1,5 @@
 # Discord-Selfbot
-Многофункциональный селф-бот написанный на discord.py-self
+Многофункциональный селфбот написанный на discord.py-self
 
 ![](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/screenshot.png)
 
