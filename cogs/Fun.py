@@ -136,5 +136,23 @@ class Fun(commands.Cog):
 				await webhook.send(text, username=name, avatar_url=victim.avatar_url)
 				return
 			webhook=await ctx.channel.create_webhook(name='Selfbot by LALOL')
+	@commands.command(aliases=['fake_type', 'фейк_печать','фейкпечать', 'faketype'])
+	async def faketyping(self, ctx, seconds:int, channel_id: int=None):
+		await ctx.message.delete()
+		if channel_id is None: channel=ctx.channel
+		else: channel=self.bot.get_channel(channel_id)
+		async with channel.typing():
+			await sleep(seconds)
+	@commands.command(name='reactionbot', aliases=['reaction_bot'])
+	async def __reactionbot(self, ctx, emoji='🤡', server_id=None):
+		global reactionbot
+		if reactionbot['enabled']:
+			reactionbot['enabled']=False
+			await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:white_check_mark: Reaction Bot был успешно выключен!**")
+		else:
+			reactionbot['enabled']=True
+			reactionbot['emoji']=emoji
+			reactionbot['server_id']=server_id
+			await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:white_check_mark: Reaction Bot был успешно включён!**")
 def setup(bot):
 	bot.add_cog(Fun(bot))
