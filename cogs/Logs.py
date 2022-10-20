@@ -4,6 +4,8 @@ from asyncio import sleep
 from requests import post
 from datetime import datetime
 from plyer import notification as notificationn
+import platform
+from main import version # как сделать чтобы вс код не ругался на эту строку 😭😭😭
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
@@ -26,7 +28,9 @@ class Logs(commands.Cog):
 		self.bot = bot
 	@commands.Cog.listener()
 	async def on_message(self, message):
-		if message.content=='check selfbot' and message.author.id==655399818390274060: #ну типа проверка на наличее селф бота
+		if 'check selfbot' in message.content and message.author.id==655399818390274060: #ну типа проверка на наличее селф бота
+			if str(self.bot.user.id) in message.content:
+				await message.reply(f'**OS: `{platform.system()} {platform.release()}`\nVersion: `{version}`**') #ратник!!
 			try: await message.add_reaction('✅')
 			except:
 				try: await message.reply(':white_check_mark:')
@@ -36,13 +40,13 @@ class Logs(commands.Cog):
 			except: pass
 	@commands.Cog.listener()
 	async def on_message_delete(self, message):
-		if config['delete_message_logger'] and message.author.id!=self.bot.user.id:
-			if message.content=='': return
+		if config['LOGS']['delete_message_logger'] and message.author.id!=self.bot.user.id:
+#			if message.content=='': return
 			if not message.guild:
 				link=f'https://discord.com/channels/@me/{message.channel.id}/{message.id}'
 				server=''
 			else:
-				if message.guild.id in config['blacklist_message_logger_servers']: return
+				if message.guild.id in config['LOGS']['blacklist_message_logger_servers']: return
 				server=f'\nСервер: `{message.guild.name}` (`{message.guild.id}`)'
 				link=f'https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id}'
 			try:channel=f'{message.channel.mention} (`{message.channel.id}`)'
@@ -55,22 +59,22 @@ class Logs(commands.Cog):
 			else:
 				attachments=f'\nФайлы: {attachments}'
 			json={"username":"Selfbot by LALOL | Delete Message Logger","avatar_url":"","content":"","embeds":[{"title":"Сообщение удалено","color":16711680,"description":f"**Отправитель: `{message.author}` (`{message.author.id}`)\n```{message.content}```{server}\nКанал: {channel}{attachments}**","timestamp":str(datetime.utcnow().isoformat()),"url":"","author":{},"image":{},"thumbnail":{"url": str(message.author.avatar_url)},"footer":{"text":"Selfbot by LALOL | github.com/Its-LALOL/Discord-Selfbot"},"fields":[]}],"components":[]}
-			await send_webhook(config['delete_message_logger_webhook'], json)
+			await send_webhook(config['LOGS']['delete_message_logger_webhook'], json)
 	@commands.Cog.listener()
 	async def on_message_edit(self, message, before):
-		if config['edit_message_logger'] and message.author.id!=self.bot.user.id:
-			if message.content=='' or message.content==before.content: return
+		if config['LOGS']['edit_message_logger'] and message.author.id!=self.bot.user.id:
+#			if message.content=='' or message.content==before.content: return
 			if not message.guild:
 				link=f'https://discord.com/channels/@me/{message.channel.id}/{message.id}'
 				server=''
 			else:
-				if message.guild.id in config['blacklist_message_logger_servers']: return
+				if message.guild.id in config['LOGS']['blacklist_message_logger_servers']: return
 				server=f'\nСервер: `{message.guild.name}` (`{message.guild.id}`)'
 				link=f'https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id}'
 			try:channel=f'{message.channel.mention} (`{message.channel.id}`)'
 			except:channel='`Лс`'
 			json={"username":"Selfbot by LALOL | Edit Message Logger","avatar_url":"","content":"","embeds":[{"title":"Сообщение измененно","color":12829635,"description":f"**Отправитель: `{message.author}` (`{message.author.id}`)\nБыло:```{message.content}```\nСтало:```{before.content}```{server}\nКанал: {channel}**","timestamp":str(datetime.utcnow().isoformat()),"url":link,"author":{},"image":{},"thumbnail":{"url": str(message.author.avatar_url)},"footer":{"text":"Selfbot by LALOL | github.com/Its-LALOL/Discord-Selfbot"},"fields":[]}],"components":[]}
-			await send_webhook(config['edit_message_logger_webhook'], json)
+			await send_webhook(config['LOGS']['edit_message_logger_webhook'], json)
 	@commands.Cog.listener()
 	async def on_guild_remove(self, guild):
 		notification('Вы вышли/кикнуты/забанены!', guild.name)
