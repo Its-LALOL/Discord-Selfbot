@@ -5,7 +5,7 @@ from requests import post
 from datetime import datetime
 from plyer import notification as notificationn
 import platform
-from main import version # как сделать чтобы вс код не ругался на эту строку 😭😭😭
+from main import version
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
