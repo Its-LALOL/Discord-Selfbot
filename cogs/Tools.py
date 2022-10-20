@@ -3,6 +3,7 @@ from discord.ext import commands
 from asyncio import sleep
 import requests
 import random, string
+from datetime import datetime
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
@@ -12,7 +13,7 @@ class Tools(commands.Cog):
 		self.bot = bot
 	@commands.command(aliases=['статус', 'activity', 'активность'])
 	async def status(self, ctx, cat='ы', *, name='Selfbot by LALOL'):
-		status=config['Status']
+		status=config['GENERAL']['status']
 		sstatus=discord.Status.online
 		if status=='idle':
 			sstatus=discord.Status.idle
@@ -22,6 +23,7 @@ class Tools(commands.Cog):
 			sstatus=discord.Status.invisible
 		cat=cat.lower()
 		discordd=['discord', 'дискорд']
+		selfbot=['selfbot', 'селфбот']
 		game=['play', 'playing', 'играть', 'играет', 'game', 'игра', 'играю']
 		watching=['watching', 'watch', 'смотреть', 'смотрит', 'смотрю']
 		listening=['listening', 'listen', 'слушает', 'слушать', 'слушаю']
@@ -38,9 +40,11 @@ class Tools(commands.Cog):
 		elif cat in reset:
 			await self.bot.change_presence(status=sstatus, activity=None)
 		elif cat in discordd:
-			await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, application_id=1029430390357774388, name='Discord', assets={'large_image': '1029438970666426408', 'large_text': 'Selfbot by LALOL'}))
+			await self.bot.change_presence(status=sstatus, activity=discord.Activity(type=discord.ActivityType.playing, application_id=1029430390357774388, name='Discord', assets={'large_image': '1029438970666426408', 'large_text': 'Selfbot by LALOL\nbit.ly/3CXNRpC'}))
+		elif cat in selfbot:
+			await self.bot.change_presence(status=sstatus, activity=discord.Activity(type=discord.ActivityType.playing, application_id=1032671485120229397, name='Selfbot by LALOL', details='bit.ly/3CXNRpC', assets={'large_image': '1032672678106116216', 'large_text': 'Selfbot by LALOL\nbit.ly/3CXNRpC'}))
 		else:
-			await ctx.message.edit(content="**__Selfbot by LALOL__\n\nДоступные варианты: ```Обычные````Watching`, `Listening`, `Playing`, `Streaming` и `Reset`\n\n```Эксклюзивные````Discord`**")
+			await ctx.message.edit(content="**__Selfbot by LALOL__\n\nДоступные варианты: ```Обычные````Watching`, `Listening`, `Playing`, `Streaming` и `Reset`\n\n```Эксклюзивные````Discord`, `Selfbot`**")
 			return
 		await ctx.message.edit(content='**__Selfbot by LALOL__\n\n:white_check_mark: Ваш статус был успешно изменён!**')
 	@commands.command(alises=['clean', 'clear', 'очистка', 'очистить'])
@@ -97,12 +101,13 @@ class Tools(commands.Cog):
 		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно сохранил {saved} сообщений!**", file=discord.File(f'messages_{ctx.channel.id}.txt'))
 	@commands.command(aliases=['leavegroups', 'leavegroup', 'groupleave'])
 	async def groupsleave(self, ctx):
+		await ctx.message.delete()
 		leaved=0
 		for group in self.bot.private_channels:
 			if not 'Direct Message' in str(group) and not str(group).lower()=='избранное': 
 					await group.leave()
 					leaved+=1
-		await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно вышел из {leaved} групп!**")
+		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно вышел из {leaved} групп!**")
 	@commands.command(aliases=['floodall', 'спамалл', 'флудалл'])
 	async def spamall(self, ctx, amount: int, *, text):
 		await ctx.message.delete()
@@ -134,21 +139,26 @@ class Tools(commands.Cog):
 		await ctx.message.delete()
 	@commands.command(aliases=['groupspam', 'groupsspam'])
 	async def spamgroups(self, ctx, amount: int, *, victims_list):
-		await ctx.message.edit(conten='**__Selfbot by LALOL__\n\nЗагрузка...\n:warning: Во время создания групп вы можете столкнуться с зависанием селфбота')
+		await ctx.message.delete()
 		victims_ids=victims_list.split(' ')
 		for i in range(amount):
 			while True:
 				response=requests.post('https://discord.com/api/v9/users/@me/channels', headers={'authorization': self.bot.http.token}, json={'recipients': victims_ids})
 				if response.status_code==200 or response.status_code==201:
 					id=response.json()['id']
-					requests.post(f"https://discord.com/api/v9/channels/{id}/messages", headers={'authorization': self.bot.http.token}, json={"content": "**__Selfbot by LALOL\nhttps://github.com/Its-LALOL/Discord-Selfbot __**"})
+					requests.post(f"https://discord.com/api/v9/channels/{id}/messages", headers={'authorization': self.bot.http.token}, json={"content": "||@everyone||**__Selfbot by LALOL\nhttps://github.com/Its-LALOL/Discord-Selfbot __**"})
+					break
 				elif response.status_code==429:
 					seconds=response.json()['retry_after']
 					if 100>seconds:
 						await sleep(seconds)
 				else:
-					await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
+					await ctx.send(content=f"**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
 					return
-		await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно создал {amount} групп!**")
+		await ctx.send(content=f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно создал {amount} групп!**")
+	@commands.command(aliases=['copy_status', 'copyactivity', 'copy_activity', 'statuscopy', 'status_copy', 'activitycopy', 'activity_copy'])
+	async def copystatus(self, ctx, user:discord.Member):
+		await self.bot.change_presence(status=user.status, activity=user.activity)
+		await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно скопировал статус у `{user}`!**")
 def setup(bot):
 	bot.add_cog(Tools(bot))
