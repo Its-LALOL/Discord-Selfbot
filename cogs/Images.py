@@ -43,7 +43,7 @@ class Images(commands.Cog):
 			text=''
 			for i in range(5):
 				id=''
-				for i in range(4):
+				for i in range(6):
 					id+=random.choice(string.ascii_lowercase+string.digits)
 				text+=f'https://prnt.sc/{id}\n'
 			await ctx.send(content=text)
