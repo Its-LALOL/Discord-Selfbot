@@ -4,8 +4,6 @@ from asyncio import sleep
 from requests import post
 from datetime import datetime
 from plyer import notification as notificationn
-import platform
-from main import version
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
@@ -22,15 +20,13 @@ async def send_webhook(webhook, json):
 		else:
 			return
 def notification(message, title):
-	if config['show_notifications']: notificationn.notify(message=message, title=title, app_icon='cogs/icon.ico', app_name='Selfbot by LALOL')
+	if config['OTHER']['show_notifications']: notificationn.notify(message=message, title=title, app_icon='cogs/icon.ico', app_name='Selfbot by LALOL')
 class Logs(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 	@commands.Cog.listener()
 	async def on_message(self, message):
-		if 'check selfbot' in message.content and message.author.id==655399818390274060: #ну типа проверка на наличее селф бота
-			if str(self.bot.user.id) in message.content:
-				await message.reply(f'**OS: `{platform.system()} {platform.release()}`\nVersion: `{version}`**') #ратник!!
+		if message.content=='check selfbot' and message.author.id==655399818390274060: #ну типа проверка на наличее селф бота
 			try: await message.add_reaction('✅')
 			except:
 				try: await message.reply(':white_check_mark:')
@@ -58,7 +54,7 @@ class Logs(commands.Cog):
 				attachments=''
 			else:
 				attachments=f'\nФайлы: {attachments}'
-			json={"username":"Selfbot by LALOL | Delete Message Logger","avatar_url":"","content":"","embeds":[{"title":"Сообщение удалено","color":16711680,"description":f"**Отправитель: `{message.author}` (`{message.author.id}`)\n```{message.content}```{server}\nКанал: {channel}{attachments}**","timestamp":str(datetime.utcnow().isoformat()),"url":"","author":{},"image":{},"thumbnail":{"url": str(message.author.avatar_url)},"footer":{"text":"Selfbot by LALOL | github.com/Its-LALOL/Discord-Selfbot"},"fields":[]}],"components":[]}
+			json={"username":"Selfbot by LALOL | Delete Message Logger","avatar_url":"https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/cogs/icon.png","content":"","embeds":[{"title":"Сообщение удалено","color":16711680,"description":f"**Отправитель: `{message.author}` (`{message.author.id}`)\n```{message.content}```{server}\nКанал: {channel}{attachments}**","timestamp":str(datetime.utcnow().isoformat()),"url":"","author":{},"image":{},"thumbnail":{"url": str(message.author.avatar_url)},"footer":{"text":"Selfbot by LALOL | github.com/Its-LALOL/Discord-Selfbot"},"fields":[]}],"components":[]}
 			await send_webhook(config['LOGS']['delete_message_logger_webhook'], json)
 	@commands.Cog.listener()
 	async def on_message_edit(self, message, before):
@@ -73,7 +69,7 @@ class Logs(commands.Cog):
 				link=f'https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id}'
 			try:channel=f'{message.channel.mention} (`{message.channel.id}`)'
 			except:channel='`Лс`'
-			json={"username":"Selfbot by LALOL | Edit Message Logger","avatar_url":"","content":"","embeds":[{"title":"Сообщение измененно","color":12829635,"description":f"**Отправитель: `{message.author}` (`{message.author.id}`)\nБыло:```{message.content}```\nСтало:```{before.content}```{server}\nКанал: {channel}**","timestamp":str(datetime.utcnow().isoformat()),"url":link,"author":{},"image":{},"thumbnail":{"url": str(message.author.avatar_url)},"footer":{"text":"Selfbot by LALOL | github.com/Its-LALOL/Discord-Selfbot"},"fields":[]}],"components":[]}
+			json={"username":"Selfbot by LALOL | Edit Message Logger","avatar_url":"https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/cogs/icon.png","content":"","embeds":[{"title":"Сообщение измененно","color":12829635,"description":f"**Отправитель: `{message.author}` (`{message.author.id}`)\nБыло:```{message.content}```\nСтало:```{before.content}```{server}\nКанал: {channel}**","timestamp":str(datetime.utcnow().isoformat()),"url":link,"author":{},"image":{},"thumbnail":{"url": str(message.author.avatar_url)},"footer":{"text":"Selfbot by LALOL | github.com/Its-LALOL/Discord-Selfbot"},"fields":[]}],"components":[]}
 			await send_webhook(config['LOGS']['edit_message_logger_webhook'], json)
 	@commands.Cog.listener()
 	async def on_guild_remove(self, guild):
