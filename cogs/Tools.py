@@ -160,5 +160,21 @@ class Tools(commands.Cog):
 	async def copystatus(self, ctx, user:discord.Member):
 		await self.bot.change_presence(status=user.status, activity=user.activity)
 		await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно скопировал статус у `{user}`!**")
+	@commands.command(aliases=['spamthreadall', 'threadspamall', 'threadsspamall'])
+	async def spamthreadsall(self, ctx, amount: int, *, name):
+		await ctx.message.delete()
+		for i in range(amount):
+			for channel in ctx.guild.text_channels:
+				while True:
+					response=requests.post(f'https://discord.com/api/v9/channels/{channel.id}/threads', headers={'authorization': self.bot.http.token}, json={'name': name, 'auto_archive_duration': 1440, 'type': 11})
+					if response.status_code==200 or response.status_code==201 or response.status_code==403: break
+					elif response.status_code==429:
+						seconds=response.json()['retry_after']
+						if 100>seconds:
+							await sleep(seconds)
+					else:
+						await ctx.send(f"**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
+						return
+		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_check_mark: Успешно создал по {amount} веток в каждый канал!**")
 def setup(bot):
 	bot.add_cog(Tools(bot))
