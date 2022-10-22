@@ -75,7 +75,7 @@ class Fun(commands.Cog):
 	@commands.Cog.listener()
 	async def on_message(self, message):
 		global crippytext
-		if crippytext and message.author.id==self.bot.user.id and not 'Selfbot by LALOL' in message.content:
+		if crippytext and message.author.id==self.bot.user.id and not message.content.startswith(config['GENERAL']['prefix']):
 			await message.edit(content=crip(message.content))
 		try:
 			if troll['mode'] in [2, 3]:
