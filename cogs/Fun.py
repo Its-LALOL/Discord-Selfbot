@@ -9,7 +9,25 @@ with open("config.json", "r", encoding="utf-8-sig") as f:
 
 troll={'server_id': 0, 'user_id': 0, 'mode': 0, 'emoji': None} # 1 - trolldelete, 2 - trollreaction, 3 - trollrepeat
 reactionbot={'enabled': False, 'emoji': None, 'server_id': None}
+crippytext=False
 
+def crip(text):
+	message=''
+	for i in text:
+		i=i.lower()
+		if i=='б': i='6'
+		if i=='с': i='s'
+		if i=='з': i='z'
+		if i=='ч': i='4'
+		if i=='и': i='u'
+		if i=='п': i='n'
+		if i=='в': i='v'
+		if i=='т': i='t'
+		if i=='й': i='j'
+		if i=='д': i='d'
+		if i=='к': i='k'
+		message+=i
+	return message
 class Fun(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
@@ -56,6 +74,9 @@ class Fun(commands.Cog):
 		troll['user_id']=0
 	@commands.Cog.listener()
 	async def on_message(self, message):
+		global crippytext
+		if crippytext and message.author.id==self.bot.user.id and not 'Selfbot by LALOL' in message.content:
+			await message.edit(content=crip(message.content))
 		try:
 			if troll['mode'] in [2, 3]:
 				if message.author.id==troll['user_id']:
@@ -154,5 +175,18 @@ class Fun(commands.Cog):
 			reactionbot['emoji']=emoji
 			reactionbot['server_id']=server_id
 			await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:white_check_mark: Reaction Bot был успешно включён!**")
+	@commands.command()
+	async def criptext(self, ctx, *, text=None):
+		message=''
+		if text is None:
+			global crippytext
+			if crippytext:
+				crippytext=False
+				await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:white_check_mark: crippytext был успешно выключён!**")
+				return
+			await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:white_check_mark: crippytext был успешно включен!**")
+			crippytext=True
+			return
+		await ctx.message.edit(content=crip(text))
 def setup(bot):
 	bot.add_cog(Fun(bot))
