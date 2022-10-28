@@ -162,7 +162,7 @@ async def stopall(ctx):
 	await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nПерезагружаю селфбота...**')
 	clear()
 	Popen('python main.py')
-	await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:octagonal_sign: Селфбот успешно перезагружен!**')
+	await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:octagonal_sign: Селфбот был успешно перезагружен!**')
 	await bot.logout()
 for filename in os.listdir("./cogs"):
 	if filename.endswith(".py"):
