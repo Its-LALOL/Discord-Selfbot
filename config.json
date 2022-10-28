@@ -1,8 +1,7 @@
 {
 	"GENERAL": {
 		"token": "тут токен",
-		"prefix": ".",
-		"status": "online"
+		"prefix": "."
 	},
 	"LOGS": {
 		"delete_message_logger": false,
