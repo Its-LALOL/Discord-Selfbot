@@ -107,8 +107,8 @@ async def on_connect():
 	print(f"{Fore.MAGENTA}Аккаунт: {Fore.YELLOW}{bot.user}{Fore.MAGENTA}\nID: {Fore.YELLOW}{bot.user.id}{Fore.MAGENTA}\nPrefix: {Fore.YELLOW}{pref}")
 	if float(requests.get('https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/cogs/version').text)>version:
 		global update
-		update=f':warning: Пожалуйста обновите селфбота используя команду {pref}bot**\n**'
-		print(f'{Fore.CYAN}Пожалуйста обновите селфбота используя команду {pref}bot{Fore.RED}\n')
+		update=f':warning: Пожалуйста, обновите селфбота используя команду {pref}bot**\n**'
+		print(f'{Fore.CYAN}Пожалуйста, обновите селфбота используя команду {pref}bot{Fore.RED}\n')
 		return
 	print(Fore.RED)
 if on_command_error:
