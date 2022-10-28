@@ -7,8 +7,10 @@ try:
 	from colorama import init, Fore;init()
 	import requests
 	from plyer import notification
+	from googletrans import Translator
+	from emoji import EMOJI_DATA
 except:
-	os.system('pip install -U discord.py-self colorama requests plyer')
+	os.system('pip install -U discord.py-self colorama requests plyer googletrans==4.0.0rc1 emoji')
 	import discord
 	from discord.ext import commands
 	from colorama import init, Fore;init()
@@ -21,7 +23,8 @@ from datetime import datetime
 import random
 import json
 
-version=1.9
+version=2.0
+on_command_error=True
 Intro=Fore.RED +"""
    _____      ________          __     __             __    ___    __    ____  __ 
   / ___/___  / / __/ /_  ____  / /_   / /_  __  __   / /   /   |  / /   / __ \/ / 
@@ -84,7 +87,9 @@ async def on_connect():
 		if file.endswith('.txt'):
 			os.remove(file)
 	if config['OTHER']['disco_status']: Thread(target=disco_status).start()
-	status=config['GENERAL']['status']
+#	status=config['GENERAL']['status']
+	response=requests.get('https://discord.com/api/users/@me/settings', headers={'authorization': bot.http.token})
+	status=response.json()['status']
 	sstatus=discord.Status.online
 	if status=='idle':
 		sstatus=discord.Status.idle
@@ -106,24 +111,28 @@ async def on_connect():
 		print(f'{Fore.CYAN}Пожалуйста обновите селфбота используя команду {pref}bot{Fore.RED}\n')
 		return
 	print(Fore.RED)
-@bot.event
-async def on_command_error(ctx, error):
-	if isinstance(error, commands.MissingRequiredArgument):
-		error='Недостаточно аргументов!'
-	elif isinstance(error, commands.CommandNotFound):
-		return
-	elif isinstance(error, commands.BadArgument):
-		error='Указан не правильный аргумент!'
-	elif isinstance(error, discord.errors.Forbidden):
-		error='Не достаточно прав для выполнения данной команды!'
-	print(f"{Fore.RED}[ERROR] {error}")
-	try: await ctx.send(f'**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```{error}```**')
-	except: pass
+if on_command_error:
+	@bot.event
+	async def on_command_error(ctx, error):
+		if isinstance(error, commands.MissingRequiredArgument):
+			error='Недостаточно аргументов!'
+		elif isinstance(error, commands.CommandNotFound):
+			return
+		elif isinstance(error, commands.BadArgument):
+			error='Указан не правильный аргумент!'
+		elif isinstance(error, discord.errors.Forbidden):
+			error='Не достаточно прав для выполнения данной команды!'
+		print(f"{Fore.RED}[ERROR] {error}")
+		try: await ctx.send(f'**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```{error}```**')
+		except: pass
 @bot.event
 async def on_command(ctx):
 	time=datetime.now().strftime('%H:%M:%S')
 	arguments=ctx.message.content.replace(pref+ctx.invoked_with, '')
 	print(f'{Fore.LIGHTWHITE_EX}[{time}] {Fore.LIGHTCYAN_EX}{pref}{ctx.invoked_with}{Fore.LIGHTGREEN_EX}{arguments}{Fore.RESET}')
+@bot.event
+async def on_message_edit(before, after):
+	await bot.process_commands(after)
 @bot.command(aliases=['хелп', 'помощь'])
 async def help(ctx, cat=None):
 	if cat==None:
@@ -131,7 +140,7 @@ async def help(ctx, cat=None):
 		return
 	cat=cat.lower()
 	if cat=='tools':
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:comet:`{pref}status [Тип статуса] [Текст]` - Меняет статус\n:broom:`{pref}purge [Количество]` - Удаляет ваши сообщения\n:pushpin:`{pref}masspin [Количество]` - Закрепляет сообщения\n:speaking_head:`{pref}spam [Количество] [Текст]` - Спам с обходом анти-спама\n:anger_right:`{pref}spamall [Количество] [Текст]` - Спам во все каналы\n:eye:`{pref}pingall [Количество]` - Пингует всех участников на сервере\n:envelope:`{pref}messages [Количество]` - Сохраняет сообщения в файл\n:busts_in_silhouette:`{pref}groupsleave` - Выходит из всех групп\n:thread:`{pref}spamthreads [Количество] [Имя ветки]` - Спамит ветками\n:white_flower:`{pref}spamthreadsall [Количество] [Имя ветки]` - Спамит ветками во все каналы\n:anger:`{pref}blocksend [Пинг/ID] [Текст]` - Отправляет сообщение в лс даже если вы добавили пользователя в чс\n:bubbles:`{pref}spamgroups [Жертвы от 2 до 9]` - Спамит группами\n:jigsaw:`{pref}copystatus [Пинг/ID]` - Копирует RPC статус**')
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:comet:`{pref}status [Тип статуса] [Текст]` - Меняет статус\n:broom:`{pref}purge [Количество]` - Удаляет ваши сообщения\n:pushpin:`{pref}masspin [Количество]` - Закрепляет сообщения\n:speaking_head:`{pref}spam [Количество] [Текст]` - Спам с обходом анти-спама\n:anger_right:`{pref}spamall [Количество] [Текст]` - Спам во все каналы\n:eye:`{pref}pingall [Количество]` - Пингует всех участников на сервере\n:envelope:`{pref}messages [Количество]` - Сохраняет сообщения в файл\n:busts_in_silhouette:`{pref}groupsleave` - Выходит из всех групп\n:thread:`{pref}spamthreads [Количество] [Имя ветки]` - Спамит ветками\n:white_flower:`{pref}spamthreadsall [Количество] [Имя ветки]` - Спамит ветками во все каналы\n:anger:`{pref}blocksend [Пинг/ID] [Текст]` - Отправляет сообщение в лс даже если вы добавили пользователя в чс\n:bubbles:`{pref}spamgroups [Жертвы от 2 до 9]` - Спамит группами\n:jigsaw:`{pref}copystatus [Пинг/ID]` - Копирует RPC статус\n:flag_gb:`{pref}translate [На какой язык] [Текст]` - Переводчик\n:crown:`{pref}nitro [Количество] [classic/full]` - Генерирует нитро (без чекера)\n:smiley:`{pref}copyemojis [ID Сервера на который нужно скопировать]` - Копирует эмодзи **')
 	elif cat=='info':
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:pen_fountain:`{pref}server` - Информация о сервере\n:pen_ballpoint:`{pref}user [Пинг/ID]` - Информация об аккаунте\n:key:`{pref}token [Токен]` - Получает информацию аккаунта по токену**')
 	elif cat=='fun':
@@ -148,12 +157,12 @@ async def help(ctx, cat=None):
 @bot.command(name='bot', aliases=['selfbot', 'бот', 'селфбот'])
 async def __bot(ctx):
 	await ctx.message.edit(content='**__Selfbot by LALOL__\n\nСсылка: https://github.com/Its-LALOL/Discord-Selfbot **')
-@bot.command(aliases=['перезагрузка', 'стоп', 'перезагрузить', 'stop_all', 'остановить', 'reload'])
+@bot.command(aliases=['перезагрузка', 'стоп', 'перезагрузить', 'stop_all', 'остановить', 'reload', 'stop', 'reset'])
 async def stopall(ctx):
 	await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nПерезагружаю селфбота...**')
 	clear()
 	Popen('python main.py')
-	await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:white_check_mark: Селфбот успешно перезагружен!**')
+	await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:octagonal_sign: Селфбот успешно перезагружен!**')
 	await bot.logout()
 for filename in os.listdir("./cogs"):
 	if filename.endswith(".py"):
@@ -161,4 +170,6 @@ for filename in os.listdir("./cogs"):
 try: bot.run(config['GENERAL']["token"])
 except:
 	while True:
-		input("Invalid Token!")
+		clear()
+		print(Fore.RED+"Invalid token!")
+		while True: sleep(9)
