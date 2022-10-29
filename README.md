@@ -3,7 +3,7 @@
 
 ![](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/screenshot.png)
 
-# Функции
+# Функции (60+ команд)
 ## Главные
 - [x] ⚡ Уничтожение сервера с обходом ВСЕХ анти-краш ботов
 - [x] ⚡ Логи сообщений
