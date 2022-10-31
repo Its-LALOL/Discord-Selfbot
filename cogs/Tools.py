@@ -159,7 +159,7 @@ class Tools(commands.Cog):
 		await ctx.send(content=f"**__Selfbot by LALOL__\n\n:bubbles: Успешно создал {amount} групп!**")
 	@commands.command(aliases=['copy_status', 'copyactivity', 'copy_activity', 'statuscopy', 'status_copy', 'activitycopy', 'activity_copy'])
 	async def copystatus(self, ctx, user:discord.Member):
-		await self.bot.change_presence(status=user.status, activity=user.activity)
+		await self.bot.change_presence(activity=user.activity)
 		await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\n:jigsaw: Успешно скопировал статус у `{user}`!**")
 	@commands.command(aliases=['spamthreadall', 'threadspamall', 'threadsspamall'])
 	async def spamthreadsall(self, ctx, amount: int, *, name):
@@ -213,5 +213,21 @@ class Tools(commands.Cog):
 			content=requests.get(emoji.url).content
 			await guild.create_custom_emoji(name=emoji.name, image=content)
 		await ctx.send(f"**__Selfbot by LALOL__\n\n:smiley: Успешно скопировал все эмодзи!**")
+	@commands.command(aliases=['hackclean', 'hackclear'])
+	async def hackpurge(self, ctx):
+		await ctx.send("⠀" + "\n"*1998 + "⠀")
+		await ctx.message.delete()
+	@commands.command(aliases=['delete_dms', 'delete-dms', 'deletedm', 'delete-dm', 'delete_dm'])
+	async def deletedms(self, ctx, name='spam'):
+		await ctx.message.delete()
+		removed=0
+		for dm in self.bot.private_channels:
+			if name.lower() in str(dm).lower():
+				while True:
+					response=requests.delete(f"https://discord.com/api/v9/channels/{dm.id}", headers={'authorization': self.bot.http.token})
+					if response!=401: break
+					sleep(response.json()['retry_after'])
+				removed+=1
+		await ctx.send(f"**__Selfbot by LALOL__\n\n:hamsa: Успешно удалил {removed} лс!**")
 def setup(bot):
 	bot.add_cog(Tools(bot))
