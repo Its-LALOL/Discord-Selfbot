@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-
+version=2.1
+lencommands=0
 import os
+clear=lambda: os.system(f'cls && title Selfbot by LALOL {version} - {lencommands} Commands' if os.name == 'nt' else 'clear')
 try:
 	import discord
 	from discord.ext import commands
@@ -22,18 +24,6 @@ from threading import Thread
 from datetime import datetime
 import random
 import json
-
-version=2.0
-on_command_error=True
-Intro=Fore.RED +"""
-   _____      ________          __     __             __    ___    __    ____  __ 
-  / ___/___  / / __/ /_  ____  / /_   / /_  __  __   / /   /   |  / /   / __ \/ / 
-  \__ \/ _ \/ / /_/ __ \/ __ \/ __/  / __ \/ / / /  / /   / /| | / /   / / / / /  
- ___/ /  __/ / __/ /_/ / /_/ / /_   / /_/ / /_/ /  / /___/ ___ |/ /___/ /_/ / /___
-/____/\___/_/_/ /_.___/\____/\__/  /_.___/\__, /  /_____/_/  |_/_____/\____/_____/
-                                         /____/                                   \n"""
-lencommands=0
-clear=lambda: os.system(f'cls && title Selfbot by LALOL {version} - {lencommands} Commands' if os.name == 'nt' else 'clear')
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	try: config = json.load(f)
 	except Exception as e:
@@ -41,6 +31,25 @@ with open("config.json", "r", encoding="utf-8-sig") as f:
 		print(e)
 		print(Fore.LIGHTBLUE_EX+'\nОшибка конфига')
 		while True: sleep(9)
+
+theme=config['GENERAL']['theme']
+if theme=='random':
+	theme=random.choice(['standart', 'discord', 'hacker'])
+if theme=='standart':
+	color={'Intro': Fore.RED, 'Info_name': Fore.MAGENTA, 'Info_value': Fore.YELLOW}
+if theme=='discord':
+	color={'Intro': Fore.LIGHTBLUE_EX, 'Info_name': Fore.WHITE, 'Info_value': Fore.LIGHTCYAN_EX}
+if theme=='hacker':
+	color={'Intro': Fore.LIGHTGREEN_EX, 'Info_name': Fore.GREEN, 'Info_value': Fore.WHITE}
+on_command_error=True
+Intro=color['Intro']+"""
+   _____      ________          __     __             __    ___    __    ____  __ 
+  / ___/___  / / __/ /_  ____  / /_   / /_  __  __   / /   /   |  / /   / __ \/ / 
+  \__ \/ _ \/ / /_/ __ \/ __ \/ __/  / __ \/ / / /  / /   / /| | / /   / / / / /  
+ ___/ /  __/ / __/ /_/ / /_/ / /_   / /_/ / /_/ /  / /___/ ___ |/ /___/ /_/ / /___
+/____/\___/_/_/ /_.___/\____/\__/  /_.___/\__, /  /_____/_/  |_/_____/\____/_____/
+                                         /____/                                   \n"""
+lencommands=0
 clear()
 print(Intro)
 print(Fore.WHITE+'Loading...')
@@ -104,11 +113,11 @@ async def on_connect():
 	except: pass
 	clear()
 	print(Intro)
-	print(f"{Fore.MAGENTA}Аккаунт: {Fore.YELLOW}{bot.user}{Fore.MAGENTA}\nID: {Fore.YELLOW}{bot.user.id}{Fore.MAGENTA}\nPrefix: {Fore.YELLOW}{pref}")
+	print(f"{color['Info_name']}Аккаунт: {color['Info_value']}{bot.user}{color['Info_name']}\nID: {color['Info_value']}{bot.user.id}{color['Info_name']}\nPrefix: {color['Info_value']}{pref}")
 	if float(requests.get('https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/cogs/version').text)>version:
 		global update
 		update=f':warning: Пожалуйста, обновите селфбота используя команду {pref}bot**\n**'
-		print(f'{Fore.CYAN}Пожалуйста, обновите селфбота используя команду {pref}bot{Fore.RED}\n')
+		print(f'{Fore.CYAN}Пожалуйста, обновите селфбота используя команду {Fore.LIGHTCYAN_EX}{pref}bot{Fore.RESET}{Fore.RED}\n')
 		return
 	print(Fore.RED)
 if on_command_error:
@@ -122,6 +131,7 @@ if on_command_error:
 			error='Указан не правильный аргумент!'
 		elif isinstance(error, discord.errors.Forbidden):
 			error='Не достаточно прав для выполнения данной команды!'
+		error=str(error).replace('Command raised an exception: ', '')
 		print(f"{Fore.RED}[ERROR] {error}")
 		try: await ctx.send(f'**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```{error}```**')
 		except: pass
@@ -140,7 +150,7 @@ async def help(ctx, cat=None):
 		return
 	cat=cat.lower()
 	if cat=='tools':
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:comet:`{pref}status [Тип статуса] [Текст]` - Меняет статус\n:broom:`{pref}purge [Количество]` - Удаляет ваши сообщения\n:pushpin:`{pref}masspin [Количество]` - Закрепляет сообщения\n:speaking_head:`{pref}spam [Количество] [Текст]` - Спам с обходом анти-спама\n:anger_right:`{pref}spamall [Количество] [Текст]` - Спам во все каналы\n:eye:`{pref}pingall [Количество]` - Пингует всех участников на сервере\n:envelope:`{pref}messages [Количество]` - Сохраняет сообщения в файл\n:busts_in_silhouette:`{pref}groupsleave` - Выходит из всех групп\n:thread:`{pref}spamthreads [Количество] [Имя ветки]` - Спамит ветками\n:white_flower:`{pref}spamthreadsall [Количество] [Имя ветки]` - Спамит ветками во все каналы\n:anger:`{pref}blocksend [Пинг/ID] [Текст]` - Отправляет сообщение в лс даже если вы добавили пользователя в чс\n:bubbles:`{pref}spamgroups [Жертвы от 2 до 9]` - Спамит группами\n:jigsaw:`{pref}copystatus [Пинг/ID]` - Копирует RPC статус\n:flag_gb:`{pref}translate [На какой язык] [Текст]` - Переводчик\n:crown:`{pref}nitro [Количество] [classic/full]` - Генерирует нитро (без чекера)\n:smiley:`{pref}copyemojis [ID Сервера на который нужно скопировать]` - Копирует эмодзи **')
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:comet:`{pref}status [Тип статуса] [Текст]` - Меняет статус\n:broom:`{pref}purge [Количество]` - Удаляет ваши сообщения\n:pushpin:`{pref}masspin [Количество]` - Закрепляет сообщения\n:speaking_head:`{pref}spam [Количество] [Текст]` - Спам с обходом анти-спама\n:anger_right:`{pref}spamall [Количество] [Текст]` - Спам во все каналы\n:eye:`{pref}pingall [Количество]` - Пингует всех участников на сервере\n:envelope:`{pref}messages [Количество]` - Сохраняет сообщения в файл\n:busts_in_silhouette:`{pref}groupsleave` - Выходит из всех групп\n:thread:`{pref}spamthreads [Количество] [Имя ветки]` - Спамит ветками\n:white_flower:`{pref}spamthreadsall [Количество] [Имя ветки]` - Спамит ветками во все каналы\n:anger:`{pref}blocksend [Пинг/ID] [Текст]` - Отправляет сообщение в лс даже если вы добавили пользователя в чс\n:bubbles:`{pref}spamgroups [Жертвы от 2 до 9]` - Спамит группами\n:jigsaw:`{pref}copystatus [Пинг/ID]` - Копирует RPC статус\n:flag_gb:`{pref}translate [На какой язык] [Текст]` - Переводчик\n:crown:`{pref}nitro [Количество] [classic/full]` - Генерирует нитро (без чекера)\n:smiley:`{pref}copyemojis [ID Сервера на который нужно скопировать]` - Копирует эмодзи\n:garlic:`{pref}hackpurge` - "Удаляет" все сообщения без прав\n:hamsa:`{pref}deletedms [Имя]` - Удаляет лс от ботов с таким же именем (поможет если вам заспамили лс)**')
 	elif cat=='info':
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:pen_fountain:`{pref}server` - Информация о сервере\n:pen_ballpoint:`{pref}user [Пинг/ID]` - Информация об аккаунте\n:key:`{pref}token [Токен]` - Получает информацию аккаунта по токену**')
 	elif cat=='fun':
