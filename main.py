@@ -35,12 +35,16 @@ with open("config.json", "r", encoding="utf-8-sig") as f:
 theme=config['GENERAL']['theme']
 if theme=='random':
 	theme=random.choice(['standart', 'discord', 'hacker'])
-if theme=='standart':
+elif theme=='standart':
 	color={'Intro': Fore.RED, 'Info_name': Fore.MAGENTA, 'Info_value': Fore.YELLOW}
-if theme=='discord':
+elif theme=='discord':
 	color={'Intro': Fore.LIGHTBLUE_EX, 'Info_name': Fore.WHITE, 'Info_value': Fore.LIGHTCYAN_EX}
-if theme=='hacker':
+elif theme=='hacker':
 	color={'Intro': Fore.LIGHTGREEN_EX, 'Info_name': Fore.GREEN, 'Info_value': Fore.WHITE}
+else:
+	clear()
+	print(Fore.LIGHTBLUE_EX+'Неизвестная тема')
+	while True: sleep(9)
 on_command_error=True
 Intro=color['Intro']+"""
    _____      ________          __     __             __    ___    __    ____  __ 
