@@ -1,7 +1,8 @@
 {
 	"GENERAL": {
 		"token": "тут токен",
-		"prefix": "."
+		"prefix": ".",
+		"theme": "standart"
 	},
 	"LOGS": {
 		"delete_message_logger": false,
