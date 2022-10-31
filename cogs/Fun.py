@@ -12,7 +12,7 @@ troll={'server_id': 0, 'user_id': 0, 'mode': 0, 'emoji': None} # 1 - trolldelete
 reactionbot={'enabled': False, 'emoji': None, 'server_id': None}
 crippytext=False
 
-def crip(text):
+def crip(text): #оч страшна ваще
 	message=''
 	for i in text:
 		i=i.lower()
@@ -111,11 +111,11 @@ class Fun(commands.Cog):
 	@commands.command(aliases=['lag', 'лаг', 'лаги', 'ascii'])
 	async def lags(self, ctx, cat='ы', amount: int=15):
 		await ctx.message.delete()
-		if cat=='ascii':
+		if cat=='random':
 			for i in range(amount):
 				text=''
 				for i in range(2000):
-					text=text+chr(random.randrange(13000))
+					text=text+chr(random.randrange(1114111))
 				await ctx.send(content=text)
 		elif cat=='chains':
 			text=":chains:"*199
@@ -138,7 +138,7 @@ class Fun(commands.Cog):
 					except: pass
 				await ctx.send(text)
 		else:
-			await ctx.send(content="**__Selfbot by LALOL__\n\n:chains:`chains` - Спамит цепями (Лагает на слабых пк)\n:ideograph_advantage:`ascii` - Спамит случайными символами (Лагает на слабых пк)\n:mobile_phone:`phone` - Спамит лагающими символами (Очень сильно лагает на телефонах)\n:smiley:`emojis` - Спамит эмодзями (Очень сильно лагает на слабых пк и на телефонах)**")
+			await ctx.send(content="**__Selfbot by LALOL__\n\n:chains:`chains` - Спамит цепями (Лагает на слабых пк)\n:ideograph_advantage:`random` - Спамит случайными символами (Лагает на слабых пк и на телефонах +в дискорде во время спама проиходят баги)\n:mobile_phone:`phone` - Спамит лагающими символами (Очень сильно лагает на телефонах)\n:smiley:`emojis` - Спамит эмодзями (Очень сильно лагает на слабых пк и на телефонах)**")
 			return
 		await ctx.send(f"**__Selfbot by LALOL__\n\n:brain: Успешно отправил {amount} лагающих сообщений!**")
 	@commands.command(aliases=['шар'])
@@ -173,7 +173,8 @@ class Fun(commands.Cog):
 		except:pass
 		while True:
 			for webhook in await ctx.channel.webhooks():
-				await webhook.send(text, username=name, avatar_url=victim.avatar_url)
+				try: await webhook.send(text, username=name, avatar_url=victim.avatar_url)
+				except: continue
 				return
 			webhook=await ctx.channel.create_webhook(name='Selfbot by LALOL')
 	@commands.command(aliases=['fake_type', 'фейк_печать','фейкпечать', 'faketype'])
