@@ -57,10 +57,10 @@
 
 Если не помогло то переустановите селфбота
 
-# Список тем
-1. standart
-2. discord
-3. hacker
+# Темы
+1. [standart](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/screenshot.png)
+2. [discord](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/screenshot3.png)
+3. [hacker](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/screenshot2.png)
 
 Темы указывать в конфиге
 
