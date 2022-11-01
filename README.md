@@ -1,4 +1,4 @@
-# Discord-Selfbot
+# [Discord-Selfbot](https://github.com/Its-LALOL/Discord-Selfbot)
 Многофункциональный селфбот написанный на discord.py-self
 
 ![](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/screenshot.png)
