@@ -61,6 +61,7 @@
 1. [standart](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/screenshot.png)
 2. [discord](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/screenshot3.png)
 3. [hacker](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/screenshot2.png)
+4. random
 
 Темы указывать в конфиге
 
