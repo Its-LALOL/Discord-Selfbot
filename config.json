@@ -15,7 +15,7 @@
 		"nuke_commands": false,
 		"disco_status": false,
 		"show_notifications": true,
-		"auto_send_text": ["текст1", "текст2"]
+		"auto_send_text": ["текст1", "текст2"],
 		"auto_send_channel": 0
 	}
 }
