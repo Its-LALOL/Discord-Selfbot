@@ -14,7 +14,7 @@
 - [x] ⚡ Эксклюзивные статусы (Rich Presence)
 - [x] ⚡ Копирование эмодзи с других серверов
 - [x] ⚡ Разноцветный текст
-![](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/rainbow.png)
+![](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/screenshot5.png)
 
 ## Остальные
 - [x] Автоматическая проверка на обновления
