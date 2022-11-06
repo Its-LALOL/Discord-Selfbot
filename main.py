@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-version=2.1
+version=2.2
 lencommands=0
 import os
 clear=lambda: os.system(f'cls && title Selfbot by LALOL {version} - {lencommands} Commands' if os.name == 'nt' else 'clear')
@@ -11,8 +11,9 @@ try:
 	from plyer import notification
 	from googletrans import Translator
 	from emoji import EMOJI_DATA
+	from qrcode import make
 except:
-	os.system('pip install -U discord.py-self colorama requests plyer googletrans==4.0.0rc1 emoji')
+	os.system('pip install -U discord.py-self colorama requests plyer googletrans==4.0.0rc1 emoji qrcode')
 	import discord
 	from discord.ext import commands
 	from colorama import init, Fore;init()
@@ -34,13 +35,15 @@ with open("config.json", "r", encoding="utf-8-sig") as f:
 
 theme=config['GENERAL']['theme']
 if theme=='random':
-	theme=random.choice(['standart', 'discord', 'hacker'])
-elif theme=='standart':
+	theme=random.choice(['standart', 'discord', 'hacker', 'beach'])
+if theme=='standart':
 	color={'Intro': Fore.RED, 'Info_name': Fore.MAGENTA, 'Info_value': Fore.YELLOW}
 elif theme=='discord':
 	color={'Intro': Fore.LIGHTBLUE_EX, 'Info_name': Fore.WHITE, 'Info_value': Fore.LIGHTCYAN_EX}
 elif theme=='hacker':
 	color={'Intro': Fore.LIGHTGREEN_EX, 'Info_name': Fore.GREEN, 'Info_value': Fore.WHITE}
+elif theme=='beach':
+	color={'Intro': Fore.LIGHTYELLOW_EX, 'Info_name': Fore.LIGHTYELLOW_EX, 'Info_value': Fore.LIGHTCYAN_EX}
 else:
 	clear()
 	print(Fore.LIGHTBLUE_EX+'Неизвестная тема')
@@ -97,7 +100,7 @@ async def on_connect():
 		try: os.remove(file)
 		except: pass
 	for file in os.listdir():
-		if file.endswith('.txt'):
+		if file.endswith('.txt') or file.endswith('.png'):
 			os.remove(file)
 	if config['OTHER']['disco_status']: Thread(target=disco_status).start()
 #	status=config['GENERAL']['status']
@@ -113,7 +116,8 @@ async def on_connect():
 	await bot.change_presence(status=sstatus)
 	try:
 		channel=bot.get_channel(config['OTHER']['auto_send_channel'])
-		await channel.send(config['OTHER']['auto_send_text'])
+		for i in config['OTHER']['auto_send_text']:
+			await channel.send(i)
 	except: pass
 	clear()
 	print(Intro)
@@ -154,15 +158,15 @@ async def help(ctx, cat=None):
 		return
 	cat=cat.lower()
 	if cat=='tools':
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:comet:`{pref}status [Тип статуса] [Текст]` - Меняет статус\n:broom:`{pref}purge [Количество]` - Удаляет ваши сообщения\n:pushpin:`{pref}masspin [Количество]` - Закрепляет сообщения\n:speaking_head:`{pref}spam [Количество] [Текст]` - Спам с обходом анти-спама\n:anger_right:`{pref}spamall [Количество] [Текст]` - Спам во все каналы\n:eye:`{pref}pingall [Количество]` - Пингует всех участников на сервере\n:envelope:`{pref}messages [Количество]` - Сохраняет сообщения в файл\n:busts_in_silhouette:`{pref}groupsleave` - Выходит из всех групп\n:thread:`{pref}spamthreads [Количество] [Имя ветки]` - Спамит ветками\n:white_flower:`{pref}spamthreadsall [Количество] [Имя ветки]` - Спамит ветками во все каналы\n:anger:`{pref}blocksend [Пинг/ID] [Текст]` - Отправляет сообщение в лс даже если вы добавили пользователя в чс\n:bubbles:`{pref}spamgroups [Жертвы от 2 до 9]` - Спамит группами\n:jigsaw:`{pref}copystatus [Пинг/ID]` - Копирует RPC статус\n:flag_gb:`{pref}translate [На какой язык] [Текст]` - Переводчик\n:crown:`{pref}nitro [Количество] [classic/full]` - Генерирует нитро (без чекера)\n:smiley:`{pref}copyemojis [ID Сервера на который нужно скопировать]` - Копирует эмодзи\n:garlic:`{pref}hackpurge` - "Удаляет" все сообщения без прав\n:hamsa:`{pref}deletedms [Имя]` - Удаляет лс от ботов с таким же именем (поможет если вам заспамили лс)**')
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:comet:`{pref}status [Тип статуса] [Текст]` - Меняет статус\n:broom:`{pref}purge [Количество]` - Удаляет ваши сообщения\n:pushpin:`{pref}masspin [Количество]` - Закрепляет сообщения\n:speaking_head:`{pref}spam [Количество] [Текст]` - Спам с обходом анти-спама\n:anger_right:`{pref}spamall [Количество] [Текст]` - Спам во все каналы\n:eye:`{pref}pingall [Количество]` - Пингует всех участников на сервере\n:envelope:`{pref}messages [Количество]` - Сохраняет сообщения в файл\n:busts_in_silhouette:`{pref}groupsleave` - Выходит из всех групп\n:thread:`{pref}spamthreads [Количество] [Имя ветки]` - Спамит ветками\n:white_flower:`{pref}spamthreadsall [Количество] [Имя ветки]` - Спамит ветками во все каналы\n:anger:`{pref}blocksend [Пинг/ID] [Текст]` - Отправляет сообщение в лс даже если вы добавили пользователя в чс\n:bubbles:`{pref}spamgroups [Количество] [Жертвы от 2 до 9]` - Спамит группами\n:jigsaw:`{pref}copystatus [Пинг/ID]` - Копирует RPC статус\n:flag_gb:`{pref}translate [На какой язык] [Текст]` - Переводчик\n:crown:`{pref}nitro [Количество] [classic/full]` - Генерирует нитро (без чекера)\n:smiley:`{pref}copyemojis [ID Сервера на который нужно скопировать]` - Копирует эмодзи\n:garlic:`{pref}hackpurge` - "Удаляет" все сообщения без прав\n:hamsa:`{pref}deletedms [Имя]` - Удаляет лс от ботов с таким же именем (поможет если вам заспамили лс)**')
 	elif cat=='info':
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:pen_fountain:`{pref}server` - Информация о сервере\n:pen_ballpoint:`{pref}user [Пинг/ID]` - Информация об аккаунте\n:key:`{pref}token [Токен]` - Получает информацию аккаунта по токену**')
 	elif cat=='fun':
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:face_with_symbols_over_mouth:`{pref}trolldelete [Пинг/ID]` - Удаление всех сообщений пользователя\n:imp:`{pref}trollreaction [Пинг/ID] [Эмодзи]` - Ставит реакции на все сообщения пользователя\n:ghost:`{pref}trollrepeat [Пинг/ID]` - Повторение всех сообщений пользователя\n:nauseated_face:`{pref}trollmove [Количество] [Пинг/ID]` - Перемещает пользователя по голосовым каналам\n:slight_smile:`{pref}untroll` - Выключение команды troll\n:stuck_out_tongue_winking_eye:`{pref}reactions [Количество] [Эмодзи] [ID Канала]` - Спамит реакциями\n:brain:`{pref}lags [Тип лагов] [Количество]` - Делает очень сильные лаги в канале\n:crystal_ball:`{pref}ball [Вопрос]` - Ответит на любые (почти) вопросы\n:rat:`{pref}hack [Пинг/ID]` - Фейковый взлом аккаунта\n:thought_balloon:`{pref}faketyping [Длительность в секундах] [ID Канала]` - Печатает сообщение\n:ringed_planet:`{pref}reactionbot [Эмодзи] [ID Сервера]` - Ставит реакции на все сообщения\n:speech_balloon:`{pref}say [Пинг/ID] [Текст]` - Пишет сообщение от имени другого пользователя\n:spider_web:`{pref}criptext` - Делает ваши сообщения очинь страшними!**')
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:face_with_symbols_over_mouth:`{pref}trolldelete [Пинг/ID]` - Удаление всех сообщений пользователя\n:imp:`{pref}trollreaction [Пинг/ID] [Эмодзи]` - Ставит реакции на все сообщения пользователя\n:ghost:`{pref}trollrepeat [Пинг/ID]` - Повторение всех сообщений пользователя\n:nauseated_face:`{pref}trollmove [Количество] [Пинг/ID]` - Перемещает пользователя по голосовым каналам\n:slight_smile:`{pref}untroll` - Выключение команды troll\n:stuck_out_tongue_winking_eye:`{pref}reactions [Количество] [Эмодзи] [ID Канала]` - Спамит реакциями\n:brain:`{pref}lags [Тип лагов] [Количество]` - Делает очень сильные лаги в канале\n:crystal_ball:`{pref}ball [Вопрос]` - Ответит на любые (почти) вопросы\n:rat:`{pref}hack [Пинг/ID]` - Фейковый взлом аккаунта\n:thought_balloon:`{pref}faketyping [Длительность в секундах] [ID Канала]` - Печатает сообщение\n:ringed_planet:`{pref}reactionbot [Эмодзи] [ID Сервера]` - Ставит реакции на все сообщения\n:speech_balloon:`{pref}say [Пинг/ID] [Текст]` - Пишет сообщение от имени другого пользователя\n:spider_web:`{pref}criptext` - Делает ваши сообщения очинь страшними!\n:rainbow:`{pref}color [rainbow/water/white]` - Делает ваши сообщения красочными!**')
 	elif cat=='moderation':
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:dagger:`{pref}ban [Пинг/ID] [Причина]` - Банит пользователя\n:ok_hand:`{pref}unban - [Пинг/ID]` - Разбанивает пользователя\n:door:`{pref}kick [Пинг/ID] [Причина]` - Кикает участника\n:mute:`{pref}mute [Пинг/ID] [Длительность] [Причина]` - Мутит участника\n:sound:`{pref}unmute [Пинг/ID] [Причина]` - Размучивает участника\n:timer:`{pref}slowmode [Длительность]` - Ставит слоумод на канал (Пример длительности: 3ч - 3 часа)\n:cloud_tornado:`{pref}nukechannel` - Удаляет все сообщения в канале +меняет айди канала**')
 	elif cat=='images':
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:rainbow_flag:`{pref}lgbt [Пинг/ID]` - Делает аватарку пользователя "разноцветной"\n:speech_balloon:`{pref}comment [Пинг/ID] [Текст]` - Делает комментарий на ютубе\n:oncoming_police_car:`{pref}jail [Пинг/ID]` - "Садит" участника в тюрьму\n:cat:`{pref}cat` - Картинка кота\n:dog:`{pref}dog` - Картинка собаки\n:fox:`{pref}fox` - Картинка лисы\n:koala:`{pref}koala` - Картинка коалы\n:feather:`{pref}lightshot [Количество]` - Генерирует случайные ссылки на lightshot**')
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:rainbow_flag:`{pref}lgbt [Пинг/ID]` - Делает аватарку пользователя "разноцветной"\n:speech_balloon:`{pref}comment [Пинг/ID] [Текст]` - Делает комментарий на ютубе\n:oncoming_police_car:`{pref}jail [Пинг/ID]` - "Садит" участника в тюрьму\n:low_brightness:`{pref}cmm [Текст]` - Change my mind\n:cat:`{pref}cat` - Картинка кота\n:dog:`{pref}dog` - Картинка собаки\n:fox:`{pref}fox` - Картинка лисы\n:koala:`{pref}koala` - Картинка коалы\n:feather:`{pref}lightshot [Количество]` - Генерирует случайные ссылки на lightshot\n:cd:`{pref}qrcode [Контент]` - Создаёт QRCode**')
 	elif cat=='nuke':
 		if await check(ctx):
 			await ctx.message.edit(content=f'**__Selfbot by LALOL__\n{update}\n:skull:`{pref}nuke` - Уничтожение сервера\n:shushing_face:`{pref}silentnuke [ID Сервера] [Сообщение]` - Уничтожение сервера с обходом ВСЕХ анти-краш ботов +нельзя определить кто уничтожил сервер\n:smiling_imp:`{pref}spamchannels [Имя]` - Спам каналами\n:jack_o_lantern:`{pref}spamroles [Имя]` - Спам ролями\n:cold_face:`{pref}spamwebhooks [Сообщение]` - Спам вебхуками\n:clown:`{pref}deleteall` - Удаление всего\n\n`{pref}deletechannels` - Удаляет каналы\n`{pref}deleteroles` - Удаляет роли\n`{pref}deleteemojis` - Удаляет эмодзи**')
@@ -185,5 +189,5 @@ try: bot.run(config['GENERAL']["token"])
 except:
 	while True:
 		clear()
-		print(Fore.RED+"Invalid token!")
+		print(Fore.LIGHTBLUE_EX+"Неверный токен")
 		while True: sleep(9)
