@@ -4,13 +4,14 @@ import random, string
 from asyncio import sleep
 import requests
 from emoji import EMOJI_DATA
+from colorama import Fore
 import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
 
 troll={'server_id': 0, 'user_id': 0, 'mode': 0, 'emoji': None} # 1 - trolldelete, 2 - trollreaction, 3 - trollrepeat
 reactionbot={'enabled': False, 'emoji': None, 'server_id': None}
-crippytext=False
+text_mode=''
 
 def crip(text): #оч страшна ваще
 	message=''
@@ -31,6 +32,34 @@ def crip(text): #оч страшна ваще
 		if i=='о': i='0'
 		message+=i
 	return message
+def to_color(text):
+	output='```ansi\n'
+	if text_mode=='rainbow':
+		colors_bad=[Fore.RED, Fore.YELLOW, Fore.GREEN, Fore.CYAN, Fore.BLUE, Fore.MAGENTA] # цвета радуги
+	elif text_mode=='water':
+		colors_bad=[Fore.CYAN, Fore.BLUE] # цвет вады!!!!!
+	elif text_mode=='white':
+		colors_bad=[Fore.WHITE] # чорныи
+	else:
+		return f'> {text}\n\n**__Selfbot by LALOL__\n\n:warning: Указан неправильный цвет!**'
+	colors=[]
+	for i in colors_bad: # кто украдёт команду тот самый худший человек!!! ну рил без рофлов
+		color=i.replace('\x1b', '').replace('[', '')
+		colors.append(color)
+	minus=0
+	count=0
+	for i in text: # 20 минут сидел мучался с этой штукой
+		if i==' ': # если пробел
+			output+=i
+			continue
+		try: to_add=f'[2;{colors[count-minus]}{i}'
+		except:
+			minus=count
+			to_add=f'[2;{colors[count-minus]}{i}'
+		output+=to_add
+		count+=1
+	output+='\n```'
+	return output
 class Fun(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
@@ -77,9 +106,13 @@ class Fun(commands.Cog):
 		troll['user_id']=0
 	@commands.Cog.listener()
 	async def on_message(self, message):
-		global crippytext
-		if crippytext and message.author.id==self.bot.user.id and not message.content.startswith(config['GENERAL']['prefix']):
-			await message.edit(content=crip(message.content))
+		global text_mode
+		if message.author.id==self.bot.user.id and not message.content.startswith(config['GENERAL']['prefix']) and not 'Selfbot by LALOL' in message.content:
+			global text_mode
+			if text_mode=='crippytext':
+				await message.edit(content=crip(message.content))
+			elif text_mode!='':
+				await message.edit(content=to_color(message.content))
 		try:
 			if troll['mode'] in [2, 3]:
 				if message.author.id==troll['user_id']:
@@ -199,14 +232,28 @@ class Fun(commands.Cog):
 	async def criptext(self, ctx, *, text=None):
 		message=''
 		if text is None:
-			global crippytext
-			if crippytext:
-				crippytext=False
+			global text_mode
+			if text_mode=='crippytext':
+				text_mode=''
 				await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:red_circle: crippytext был успешно выключён!**")
 				return
 			await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:green_circle: crippytext был успешно включен!**")
-			crippytext=True
+			text_mode='crippytext'
 			return
 		await ctx.message.edit(content=crip(text))
+	@commands.command(aliases=['цвет', 'colour'])
+	async def color(self, ctx, *, color='rainbow', text=None):
+		message=''
+		color=color.lower()
+		if text is None:
+			global text_mode
+			if text_mode==color:
+				text_mode=''
+				await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\n:red_circle: {color} был успешно выключён!**")
+				return
+			await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\n:green_circle: {color} был успешно включен!**")
+			text_mode=color
+			return
+		await ctx.message.edit(content=to_color(text))
 def setup(bot):
 	bot.add_cog(Fun(bot))
