@@ -14,6 +14,7 @@
 - [x] ⚡ Эксклюзивные статусы (Rich Presence)
 - [x] ⚡ Копирование эмодзи с других серверов
 - [x] ⚡ Разноцветный текст
+![](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/rainbow.png)
 
 ## Остальные
 - [x] Автоматическая проверка на обновления
@@ -63,16 +64,15 @@
 1. [standart](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/screenshot.png)
 2. [discord](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/screenshot3.png)
 3. [hacker](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/screenshot2.png)
+4. [beach](https://github.com/Its-LALOL/Discord-Selfbot/raw/main/cogs/screenshot4.png)
 4. random
 
 Темы указывать в конфиге
 
 # В этом обновлении
-- Темы!!!!!!!!
-- Команда hackpurge
-- Убран тип лагов ascii
-- Добавлен тип лаго random (random намного сильнее чем ascii)
-- Команда deletedms
+- Команда qrcode
+- Команда color
+- Новая тема beach
 
 # Внимание!
 Обратите внимание, что селф боты запрещены. Если вас забанят, то виноваты будете только ВЫ!
