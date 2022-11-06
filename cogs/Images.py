@@ -3,6 +3,7 @@ from discord.ext import commands
 import requests
 import random, string
 from urllib.parse import quote
+from qrcode import make as qrmake
 
 class Images(commands.Cog):
 	def __init__(self, bot):
@@ -16,6 +17,10 @@ class Images(commands.Cog):
 	@commands.command(aliases=['комментарий'])
 	async def comment(self, ctx, victim:discord.User, *, text):
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nhttps://some-random-api.ml/canvas/youtube-comment?username={quote(victim.name)}&avatar={victim.avatar_url_as(static_format="png")}&comment={quote(text)} **')
+	@commands.command(aliases=['changemymind', 'change-my-mind', 'change_my_mind'])
+	async def cmm(self, ctx, *, text):
+		link=requests.get(f'https://nekobot.xyz/api/imagegen?type=changemymind&text={quote(text)}').json()['message']
+		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link} **')
 	@commands.command(aliases=['лиса', 'лисы'])
 	async def fox(self, ctx):
 		link=requests.get('https://some-random-api.ml/img/fox').json()['link']
@@ -47,5 +52,11 @@ class Images(commands.Cog):
 					id+=random.choice(string.ascii_lowercase+string.digits)
 				text+=f'https://prnt.sc/{id}\n'
 			await ctx.send(content=text)
+	@commands.command(aliases=['qr'])
+	async def qrcode(self, ctx, *, content):
+		await ctx.message.delete()
+		qrcode=qrmake(content)
+		qrcode.save(f'qrcode_{ctx.message.id}.png')
+		await ctx.send('**__Selfbot by LALOL__\n\n:cd: QRcode был успешно создан!**', file=discord.File(f'qrcode_{ctx.message.id}.png'))
 def setup(bot):
 	bot.add_cog(Images(bot))
