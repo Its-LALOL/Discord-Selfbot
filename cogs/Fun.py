@@ -47,10 +47,11 @@ def to_color(text: str) -> str: # кто спиздит того мать еба
         colors = [Fore.WHITE]
     else:
         return f'> {text}\n\n**__Selfbot by LALOL__\n\n:warning: Указан неправильный цвет!**'
+    colors_add = []
     for element in colors:
-        colors.append(element.replace('\x1b', '').replace('[', ''))
+        colors_add.append(element.replace('\x1b', '').replace('[', ''))
     # updated iteration
-    for color, index in zip(itertools.cycle(colors), range(len(text))):
+    for color, index in zip(itertools.cycle(colors_add), range(len(text))):
         # проводит итерацию среди всех элементов, благодаря cycle, при достижении конца будет возвращатся в начало
         # текста. используется zip (built-in type), благодаря нему, идет объединение двух элементов в один,
         # в данном случае, к каждому элементу добавляется его "своеобразный индекс"
