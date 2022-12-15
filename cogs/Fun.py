@@ -119,7 +119,7 @@ class Fun(commands.Cog):
             if text_mode == 'crippytext':
                 await message.edit(content=crip(message.content))
             elif text_mode != '':
-                await message.edit(content=to_color_new(message.content))
+                await message.edit(content=to_color(message.content))
         try:
             if troll['mode'] in [2, 3]:
                 if message.author.id == troll['user_id']:
