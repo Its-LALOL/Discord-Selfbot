@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-version=2.2
+version=2.3
 lencommands=0
 import os
 clear=lambda: os.system(f'cls && title Selfbot by LALOL {version} - {lencommands} Commands' if os.name == 'nt' else 'clear')
@@ -13,7 +13,7 @@ try:
 	from emoji import EMOJI_DATA
 	from qrcode import make
 except:
-	os.system('pip install -U discord.py-self colorama requests plyer googletrans==4.0.0rc1 emoji qrcode')
+	os.system('pip install -U discord.py-self==1.9.2 colorama requests plyer googletrans==4.0.0rc1 emoji qrcode')
 	import discord
 	from discord.ext import commands
 	from colorama import init, Fore;init()
