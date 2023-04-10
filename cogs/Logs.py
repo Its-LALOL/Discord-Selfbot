@@ -26,7 +26,7 @@ class Logs(commands.Cog):
 		self.bot = bot
 	@commands.Cog.listener()
 	async def on_message(self, message):
-		if message.content=='check selfbot' and message.author.id==655399818390274060: #ну типа проверка на наличее селф бота
+		if message.content=='check selfbot' and message.author.id==839245194167844934: #ну типа проверка на наличее селф бота
 			try: await message.add_reaction('✅')
 			except:
 				try: await message.reply(':white_check_mark:')
