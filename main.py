@@ -237,7 +237,7 @@ async def help(ctx, cat=None):
 **{pref}cat** — картинка кота.
 **{pref}dog** — картинка собаки.
 **{pref}fox** — картинка лисы.
-**{pref}koala** — картинка коалы.
+**{pref}panda** — картинка панды.
 **{pref}lightshot [Количество]** — генерирует случайные ссылки на lighshot.
 **{pref}qrcode [Контент]** — создаёт QRcode.
 ''')
