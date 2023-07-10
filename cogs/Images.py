@@ -27,19 +27,15 @@ class Images(commands.Cog):
 		await ctx.message.edit(content=f'** {link} **')
 	@commands.command(aliases=['собака', 'собаки', 'dogs'])
 	async def dog(self, ctx):
-		link=requests.get('https://some-random-api.ml/img/dog').json()['link']
+		link=requests.get('https://dog.ceo/api/breeds/image/random').json()['link']
 		await ctx.message.edit(content=f'** {link} **')
 	@commands.command(aliases=['кот', 'коты', 'кошечка', 'cats'])
 	async def cat(self, ctx):
-		link=requests.get('https://some-random-api.ml/img/cat').json()['link']
+		link=requests.get('https://meow.senither.com/v1/random').json()['link']
 		await ctx.message.edit(content=f'** {link} **')
 	@commands.command(aliases=['панда', 'панды'])
 	async def panda(self, ctx):
 		link=requests.get('https://some-random-api.ml/img/panda').json()['link']
-		await ctx.message.edit(content=f'** {link} **')
-	@commands.command(aliases=['коала', 'коалы'])
-	async def koala(self, ctx):
-		link=requests.get('https://some-random-api.ml/img/koala').json()['link']
 		await ctx.message.edit(content=f'** {link} **')
 	@commands.command()
 	async def lightshot(self, ctx, amount: int=1):
