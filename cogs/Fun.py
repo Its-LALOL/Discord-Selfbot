@@ -256,32 +256,5 @@ class Fun(commands.Cog):
 			text_mode=color
 			return
 		await ctx.message.edit(content=to_color(text))
-	@commands.command()
-	async def popit(self, ctx):
-        await ctx.send('''||🟨|||| 🟩 ||||🟦|||| 🟥 ||||🟨|||| 🟩 ||||🟦|||| 🟥 ||
-||🟨|||| 🟩 ||||🟦|||| 🟥 ||||🟨|||| 🟩 ||||🟦|||| 🟥 ||
-||🟨|||| 🟩 ||||🟦|||| 🟥 ||||🟨|||| 🟩 ||||🟦|||| 🟥 ||
-||🟨|||| 🟩 ||||🟦|||| 🟥 ||||🟨|||| 🟩 ||||🟦|||| 🟥 ||
-||🟨|||| 🟩 ||||🟦|||| 🟥 ||||🟨|||| 🟩 ||||🟦|||| 🟥 ||
-||🟨|||| 🟩 ||||🟦|||| 🟥 ||||🟨|||| 🟩 ||||🟦|||| 🟥 ||
-||🟨|||| 🟩 ||||🟦|||| 🟥 ||||🟨|||| 🟩 ||||🟦|||| 🟥 ||
-||🟨|||| 🟩 ||||🟦|||| 🟥 ||||🟨|||| 🟩 ||||🟦|||| 🟥 ||
-||🟨|||| 🟩 ||||🟦|||| 🟥 ||||🟨|||| 🟩 ||||🟦|||| 🟥 ||
-||🟨|||| 🟩 ||||🟦|||| 🟥 ||||🟨|||| 🟩 ||||🟦|||| 🟥 ||''')
-	@commands.command()
-	async def ball(self, ctx, *, arg=None):
-		if arg == None:
-			message = await ctx.send('**Где вопрос?**')
-			await message.add_reaction('❌')
-		else:
-			env = ["можешь быть уверен в этом", "мне кажется нет",]
-			rch = random.choice(env)
-			await ctx.send(f'**{arg}** - {rch}')
-       @commands.command()
-       async def boom(self, ctx):
-           for i in range(6):
-               await ctx.message.edit(content=f'**{i}**')
-               await asyncio.sleep(1)
-           await ctx.message.add_reaction('🌋')
 def setup(bot):
 	bot.add_cog(Fun(bot))
