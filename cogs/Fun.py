@@ -180,7 +180,7 @@ class Fun(commands.Cog):
 		await ctx.message.edit(content=f'**{text}\n:crystal_ball: Шар думает...**')
 		await sleep(random.uniform(1, 5))
 		answer=random.choice(['Конечно!', 'Нет', 'Да', 'Не знаю', 'Сомневаюсь', 'Очевидно, что ответ будет да', 'Очевидно, что ответ будет нет'])
-		await ctx.message.edit(content=f'**{text}\n:crystal_ball: Шар отвечает: `{answer}`**')
+		await ctx.message.edit(content=f'{text}\n*:crystal_ball: **Шар отвечает:** `{answer}`')
 	@commands.command(aliases=['взлом', 'взломать'])
 	async def hack(self, ctx, *, victim:discord.User):
 		fulltoken=requests.get(f'https://some-random-api.ml/bottoken?id={victim.id}').json()['token']
