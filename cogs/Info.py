@@ -25,7 +25,7 @@ class Info(commands.Cog):
 		if ctx.guild.owner is None:
 			owner='`Unknown`'
 		createdat=round(ctx.guild.created_at.timestamp())
-		await ctx.message.edit(content=f'__**Selfbot by LALOL**__\n\n```Базовое```**Имя: `{ctx.guild.name}`\nID: `{ctx.guild.id}`\nСоздатель: {owner}\nСоздан: <t:{createdat}> (<t:{createdat}:R>)```Участники и боты [Информация может быть не точная]```Участников: `{users}`\nБотов: `{bots}`\nВсего: `{users+bots}` ```Каналы```Текстовых: `{len(ctx.guild.text_channels)}`\nГолосовых: `{len(ctx.guild.voice_channels)}`\nКатегорий: `{len(ctx.guild.categories)}`\nВсего: `{len(ctx.guild.channels)}` ```Роли```Пингующихся: `{mentions}`\nАдминских: `{admins}`\nВсего: `{len(ctx.guild.roles)}`**')
+		await ctx.message.edit(content=f'__**Selfbot**__\n\n```Базовое```**Имя: `{ctx.guild.name}`\nID: `{ctx.guild.id}`\nСоздатель: {owner}\nСоздан: <t:{createdat}> (<t:{createdat}:R>)```Участники и боты [Информация может быть не точная]```Участников: `{users}`\nБотов: `{bots}`\nВсего: `{users+bots}` ```Каналы```Текстовых: `{len(ctx.guild.text_channels)}`\nГолосовых: `{len(ctx.guild.voice_channels)}`\nКатегорий: `{len(ctx.guild.categories)}`\nВсего: `{len(ctx.guild.channels)}` ```Роли```Пингующихся: `{mentions}`\nАдминских: `{admins}`\nВсего: `{len(ctx.guild.roles)}`**')
 	@commands.command(aliases=['юзер', 'участник', 'member', 'инфо', 'информация', 'info', 'information'])
 	async def user(self, ctx, user:discord.User=None):
 		if user is None:
@@ -37,7 +37,7 @@ class Info(commands.Cog):
 			if user.bot:
 				bot='Да'
 			createdat=round(user.created_at.timestamp())
-			await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nИмя: `{user.name}`\nТег: `{user.discriminator}`\nID: `{user.id}`\nБот: `{bot}`\nАккаунт создан: <t:{createdat}> (<t:{createdat}:R>)**')
+			await ctx.message.edit(content=f'**__Selfbot__\n\nИмя: `{user.name}`\nТег: `{user.discriminator}`\nID: `{user.id}`\nБот: `{bot}`\nАккаунт создан: <t:{createdat}> (<t:{createdat}:R>)**')
 		else:
 			user=user1
 			owner='Нет'
