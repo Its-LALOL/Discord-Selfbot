@@ -74,7 +74,7 @@ update=''
 
 async def check(ctx):
 	if not config['OTHER']['nuke_commands']:
-		await ctx.message.edit(content='**__Selfbot__\n\n:warning: Краш команды отключены! Для того чтобы включить краш команды измените файл config.json**')
+		await ctx.message.edit(content='**:warning: Краш команды отключены! Для того чтобы включить краш команды измените файл config.json**')
 		return False
 	return True
 def disco_status():
@@ -154,22 +154,107 @@ async def on_message_edit(before, after):
 @bot.command(aliases=['хелп', 'помощь'])
 async def help(ctx, cat=None):
 	if cat==None:
-		await ctx.message.edit(content=f'**__Selfbot__\n{update}\n:screwdriver:`{pref}help Tools` - Полезные команды\n:question:`{pref}help Info` - Команды для получения информации\n:joy:`{pref}help Fun` - Развлекательные команды\n:shield:`{pref}help Moderation` - Команды модерации\n:frame_photo:`{pref}help Images` - Команды связанные с изображениями\n:boom:`{pref}help Nuke` - Команды краша\n\n:octagonal_sign:`{pref}stopall` - Перезагружает селфбота\n:robot:`{pref}bot` - Получение ссылки на установку селфбота**')
+		await ctx.message.edit(content=f'''
+⟃⟞⟞⟞⟞⟞⟞⟞✫**⟮Разделы⟯**✫⟝⟝⟝⟝⟝⟝⟝⟝⟄
+**{pref}help tools** — полезные команды.
+**{pref}help info** — команды для получения информации.
+**{pref}help fun** — развлекательные команды.
+**{pref}help moderation** — команды модерации.
+**{pref}help images** — команды связанные с изображениями.
+**{pref}help nuke** — команды краша.
+
+⟃⟞⟞⟞⟞⟞⟞⟞✫**⟮Debug⟯**✫⟝⟝⟝⟝⟝⟝⟝⟄
+**{pref}reload**  — перезагрузить бота.
+**{pref}bot**  — ссылка на GitHub.
+''')
 		return
 	cat=cat.lower()
 	if cat=='tools':
-		await ctx.message.edit(content=f'**__Selfbot__\n{update}\n:comet:`{pref}status [Тип статуса] [Текст]` - Меняет статус\n:broom:`{pref}purge [Количество]` - Удаляет ваши сообщения\n:pushpin:`{pref}masspin [Количество]` - Закрепляет сообщения\n:speaking_head:`{pref}spam [Количество] [Текст]` - Спам с обходом анти-спама\n:anger_right:`{pref}spamall [Количество] [Текст]` - Спам во все каналы\n:eye:`{pref}pingall [Количество]` - Пингует всех участников на сервере\n:envelope:`{pref}messages [Количество]` - Сохраняет сообщения в файл\n:busts_in_silhouette:`{pref}groupsleave` - Выходит из всех групп\n:thread:`{pref}spamthreads [Количество] [Имя ветки]` - Спамит ветками\n:white_flower:`{pref}spamthreadsall [Количество] [Имя ветки]` - Спамит ветками во все каналы\n:anger:`{pref}blocksend [Пинг/ID] [Текст]` - Отправляет сообщение в лс даже если вы добавили пользователя в чс\n:bubbles:`{pref}spamgroups [Количество] [Жертвы от 2 до 9]` - Спамит группами\n:jigsaw:`{pref}copystatus [Пинг/ID]` - Копирует RPC статус\n:flag_gb:`{pref}translate [На какой язык] [Текст]` - Переводчик\n:crown:`{pref}nitro [Количество] [classic/full]` - Генерирует нитро (без чекера)\n:smiley:`{pref}copyemojis [ID Сервера на который нужно скопировать]` - Копирует эмодзи\n:garlic:`{pref}hackpurge` - "Удаляет" все сообщения без прав\n:hamsa:`{pref}deletedms [Имя]` - Удаляет лс от ботов с таким же именем (поможет если вам заспамили лс)**')
+		await ctx.message.edit(content=f'''
+⟃⟞⟞⟞⟞⟞⟞⟞✫**⟮Tools⟯**✫⟝⟝⟝⟝⟝⟝⟝⟝⟄
+**{pref}status [Тип статуса] [Текст]** — меняет статус.
+**{pref}purge [Количество]** — удаляет ваши сообщения.
+**{pref}masspin [Количество]** — закрепляет сообщения.
+**{pref}spam [Количество] [Текст]** — спам с обходом анти-спама.
+**{pref}spamall [Количество] [Текст]** — спам во все каналы.
+**{pref}pingall [Количество]** — пингует всех участников на сервере.
+**{pref}messages [Количество]** — сохраняет сообщения в файл.
+**{pref}groupsleave** — выходит из всех групп.
+**{pref}spamthreads [Количество] [Имя ветки]** — спамит ветками.
+**{pref}spamthreadsall [Количество] [Имя ветки]** — спамит во всех каналах ветками.
+**{pref}blocksend [Пинг/ID] [Текст]** — отправляет сообщение в ЛС, даже если вы добавили пользователя в ЧС.
+**{pref}spamgroups [Количество] [Жертвы от 2 до 9]** — спамит группами.
+**{pref}copystatus [Пинг/ID]** — копирует RPC статус.
+**{pref}translate [На какой язык] [Текст]** — переводчик.
+**{pref}nitro [Количество] [classic/full]** — генерирует нитро (без проверок).
+**{pref}copyemojis [ID Сервера на который нужно скопировать]** — копирует эмодзи.
+**{pref}hackpurge** — удаляет сообщения без прав.
+**{pref}deletedms [Имя]** — удаляет ЛС от ботов с указанным именем.
+''')
 	elif cat=='info':
-		await ctx.message.edit(content=f'**__Selfbot__\n{update}\n:pen_fountain:`{pref}server` - Информация о сервере\n:pen_ballpoint:`{pref}user [Пинг/ID]` - Информация об аккаунте\n:key:`{pref}token [Токен]` - Получает информацию аккаунта по токену**')
+		await ctx.message.edit(content=f'''
+⟃⟞⟞⟞⟞⟞⟞⟞✫**⟮Info⟯**✫⟝⟝⟝⟝⟝⟝⟝⟝⟄
+**{pref}server** — показывает информацию о сервере.
+**{pref}user [Пинг/ID]** — показывает информацию о пользователе.
+**{pref}token [Токен]** — показывает информацию о токене.
+''')
 	elif cat=='fun':
-		await ctx.message.edit(content=f'**__Selfbot__\n{update}\n:face_with_symbols_over_mouth:`{pref}trolldelete [Пинг/ID]` - Удаление всех сообщений пользователя\n:imp:`{pref}trollreaction [Пинг/ID] [Эмодзи]` - Ставит реакции на все сообщения пользователя\n:ghost:`{pref}trollrepeat [Пинг/ID]` - Повторение всех сообщений пользователя\n:nauseated_face:`{pref}trollmove [Количество] [Пинг/ID]` - Перемещает пользователя по голосовым каналам\n:slight_smile:`{pref}untroll` - Выключение команды troll\n:stuck_out_tongue_winking_eye:`{pref}reactions [Количество] [Эмодзи] [ID Канала]` - Спамит реакциями\n:brain:`{pref}lags [Тип лагов] [Количество]` - Делает очень сильные лаги в канале\n:crystal_ball:`{pref}ball [Вопрос]` - Ответит на любые (почти) вопросы\n:rat:`{pref}hack [Пинг/ID]` - Фейковый взлом аккаунта\n:thought_balloon:`{pref}faketyping [Длительность в секундах] [ID Канала]` - Печатает сообщение\n:ringed_planet:`{pref}reactionbot [Эмодзи] [ID Сервера]` - Ставит реакции на все сообщения\n:speech_balloon:`{pref}say [Пинг/ID] [Текст]` - Пишет сообщение от имени другого пользователя\n:spider_web:`{pref}criptext` - Делает ваши сообщения очинь страшними!\n:rainbow:`{pref}color [rainbow/water/white]` - Делает ваши сообщения красочными!**')
+		await ctx.message.edit(content=f'''
+⟃⟞⟞⟞⟞⟞⟞⟞✫**⟮Fun⟯**✫⟝⟝⟝⟝⟝⟝⟝⟝⟄
+**{pref}trolldelete [Пинг/ID]** — удаление всех сообщений от пользователя.
+**{pref}trollreaction [Пинг/ID] [Эмодзи]** — ставит эмодзи на все сообщения пользователя.
+**{pref}trollrepeat [Пинг/ID]** — повторение всех сообщений пользователя.
+**{pref}trollmove [Количество] [Пинг/ID]** — перемещает пользователя по голосовым каналам.
+**{pref}untroll** — выключение команды troll.
+**{pref}reactions [Количество] [Эмодзи] [ID Канала]** — спамит реакциями.
+**{pref}lags [Тип лагов] [Количество]** — делает сильные лаги в канале.
+**{pref}ball [Вопрос]** — ответит на любые вопросы.
+**{pref}hack [Пинг/ID]** — взлом аккаунта.
+**{pref}faketyping [Длительность в секундах] [ID Канала]** — печатает сообщение...
+**{pref}reactionbot [Эмодзи] [ID Сервера]** — ставит реакции на все сообщения.
+**{pref}say [Пинг/ID] [Текст]** — пишет сообщение от имени другого пользователя.
+**{pref}criptext** — делает ваши сообщения очень страшними!!!
+**{pref}color [rainbow/water/white]** — делает ваши сообщения красочными.
+''')
 	elif cat=='moderation':
-		await ctx.message.edit(content=f'**__Selfbot__\n{update}\n:dagger:`{pref}ban [Пинг/ID] [Причина]` - Банит пользователя\n:ok_hand:`{pref}unban - [Пинг/ID]` - Разбанивает пользователя\n:door:`{pref}kick [Пинг/ID] [Причина]` - Кикает участника\n:mute:`{pref}mute [Пинг/ID] [Длительность] [Причина]` - Мутит участника\n:sound:`{pref}unmute [Пинг/ID] [Причина]` - Размучивает участника\n:timer:`{pref}slowmode [Длительность]` - Ставит слоумод на канал (Пример длительности: 3ч - 3 часа)\n:cloud_tornado:`{pref}nukechannel` - Удаляет все сообщения в канале +меняет айди канала**')
+		await ctx.message.edit(content=f'''
+⟃⟞⟞⟞⟞⟞⟞⟞✫**⟮Moderation⟯**✫⟝⟝⟝⟝⟝⟝⟝⟝⟄
+**{pref}ban [Пинг/ID] [Причина]** — банит пользователя.
+**{pref}unban - [Пинг/ID]** — разбанивает пользователя.
+**{pref}kick [Пинг/ID] [Причина]** — кикает пользователя.
+**{pref}mute [Пинг/ID] [Длительность] [Причина]** — мутит пользователя.
+**{pref}unmute [Пинг/ID] [Причина]** — размучивает пользователя.
+**{pref}slowmode [Длительность]** — ставит слоумод на канал (Пример длительности: 3ч - 3 часа).
+**{pref}nukechannel** — удаляет все сообщения в канале, и меняет айди канала.
+''')
 	elif cat=='images':
-		await ctx.message.edit(content=f'**__Selfbot__\n{update}\n:rainbow_flag:`{pref}lgbt [Пинг/ID]` - Делает аватарку пользователя "разноцветной"\n:speech_balloon:`{pref}comment [Пинг/ID] [Текст]` - Делает комментарий на ютубе\n:oncoming_police_car:`{pref}jail [Пинг/ID]` - "Садит" участника в тюрьму\n:low_brightness:`{pref}cmm [Текст]` - Change my mind\n:cat:`{pref}cat` - Картинка кота\n:dog:`{pref}dog` - Картинка собаки\n:fox:`{pref}fox` - Картинка лисы\n:koala:`{pref}koala` - Картинка коалы\n:feather:`{pref}lightshot [Количество]` - Генерирует случайные ссылки на lightshot\n:cd:`{pref}qrcode [Контент]` - Создаёт QRCode**')
+		await ctx.message.edit(content=f'''
+⟃⟞⟞⟞⟞⟞⟞⟞✫**⟮Images⟯**✫⟝⟝⟝⟝⟝⟝⟝⟝⟄
+**{pref}lgbt [Пинг/ID]** — делает аватарку пользователя разноцветной.
+**{pref}comment [Пинг/ID] [Текст]** — делает комментарий на ютубе.
+**{pref}jail [Пинг/ID]** — садит пользователя в тюрьму.
+**{pref}cmm [Текст]** — change my mind.
+**{pref}cat** — картинка кота.
+**{pref}dog** — картинка собаки.
+**{pref}fox** — картинка лисы.
+**{pref}koala** — картинка коалы.
+**{pref}lightshot [Количество]** — генерирует случайные ссылки на lighshot.
+**{pref}qrcode [Контент]** — создаёт QRcode.
+''')
 	elif cat=='nuke':
 		if await check(ctx):
-			await ctx.message.edit(content=f'**__Selfbot__\n{update}\n:skull:`{pref}nuke` - Уничтожение сервера\n:shushing_face:`{pref}silentnuke [ID Сервера] [Сообщение]` - Уничтожение сервера с обходом ВСЕХ анти-краш ботов +нельзя определить кто уничтожил сервер\n:smiling_imp:`{pref}spamchannels [Имя]` - Спам каналами\n:jack_o_lantern:`{pref}spamroles [Имя]` - Спам ролями\n:cold_face:`{pref}spamwebhooks [Сообщение]` - Спам вебхуками\n:clown:`{pref}deleteall` - Удаление всего\n\n:boom:`{pref}deletechannels` - Удаляет каналы\n:boom:`{pref}deleteroles` - Удаляет роли\n:boom:`{pref}deleteemojis` - Удаляет эмодзи**')
+			await ctx.message.edit(content=f'''
+⟃⟞⟞⟞⟞⟞⟞⟞✫**⟮Nuke⟯**✫⟝⟝⟝⟝⟝⟝⟝⟝⟄
+**{pref}nuke** — уничтожение сервера.
+**{pref}silentnuke [ID Сервера] [Сообщение]** — уничтожение сервера с обходом ВСЕХ анти-краш ботов, и нельзя определить, кто уничтожил сервер.
+**{pref}spamchannels [Имя]** — спам каналами.
+**{pref}spamroles [Имя]** — спам ролями.
+**{pref}spamwebhooks [Сообщение]** — спам вебхуками.
+**{pref}deleteall** — удаление всего.
+**{pref}deletechannels** — удаляет только каналы.
+**{pref}deleteroles** — удаляет только роли.
+**{pref}deleteemojis** — удаляет только эмодзи.
+''')
 	else:
 		await ctx.message.edit(content=f'**__Selfbot__\n\n:x: Напишите `{pref}help` для просмотра всех категорий команд**')
 @bot.command(name='bot', aliases=['selfbot', 'бот', 'селфбот'])
@@ -177,10 +262,16 @@ async def __bot(ctx):
 	await ctx.message.edit(content='**__Selfbot__\n\nСсылка: https://github.com/PuroSlavKing/Discord-Selfbot **')
 @bot.command(aliases=['перезагрузка', 'стоп', 'перезагрузить', 'stop_all', 'остановить', 'reload', 'stop', 'reset'])
 async def stopall(ctx):
-	await ctx.message.edit(content=f'**__Selfbot__\n\nПерезагружаю селфбота...**')
+	await ctx.message.edit(content=f'''
+Перезагрузка бота...
+█▒▒▒▒▒▒▒▒▒
+''')
 	clear()
 	Popen('python main.py')
-	await ctx.message.edit(content=f'**__Selfbot__\n\n:octagonal_sign: Селфбот был успешно перезагружен!**')
+	await ctx.message.edit(content=f'''
+Перезагрузка завершена!
+██████████
+''')
 	await bot.logout()
 for filename in os.listdir("./cogs"):
 	if filename.endswith(".py"):
