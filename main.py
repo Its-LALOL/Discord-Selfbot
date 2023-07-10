@@ -132,16 +132,16 @@ if on_command_error:
 	@bot.event
 	async def on_command_error(ctx, error):
 		if isinstance(error, commands.MissingRequiredArgument):
-			error='Недостаточно аргументов!'
+			error=':warning: Недостаточно аргументов!'
 		elif isinstance(error, commands.CommandNotFound):
 			return
 		elif isinstance(error, commands.BadArgument):
-			error='Указан не правильный аргумент!'
+			error=':warning: Указан не правильный аргумент!'
 		elif isinstance(error, discord.errors.Forbidden):
-			error='Не достаточно прав для выполнения данной команды!'
+			error=':warning: Не достаточно прав для выполнения данной команды!'
 		error=str(error).replace('Command raised an exception: ', '')
 		print(f"{Fore.RED}[ERROR] {error}")
-		try: await ctx.send(f'**__Selfbot__\n\nПроизошла ошибка :x:\n```{error}```**')
+		try: await ctx.send(f'**:warning: Произошла ошибка :x:\n```{error}```**')
 		except: pass
 @bot.event
 async def on_command(ctx):
