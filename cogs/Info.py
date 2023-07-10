@@ -37,7 +37,20 @@ class Info(commands.Cog):
 			if user.bot:
 				bot='Да'
 			createdat=round(user.created_at.timestamp())
-			await ctx.message.edit(content=f'**Имя: `{user.name}`\nТег: `{user.discriminator}`\nID: `{user.id}`\nБот: `{bot}`\nАккаунт создан: <t:{createdat}> (<t:{createdat}:R>)**')
+			await ctx.message.edit(content=f"""
+ 📑 〢**Информация о пользователе:**
+ ├ 👥・**Ник юзера:** `{user.name}`
+ ├ 🆔・**ID юзера:** `{user.id}`
+ ├ 📸️・**Аватар юзера:** {user.avatar_url}
+ ├ 🤖・**Бот:** `{bot}`
+ ├ ⚒・**Создатель:** `{owner}`
+ ├ 🔨・**Админ:** `{admin}`
+ ├ 📈・**Самая высокая роль:** `@{user.top_role.name}`
+ ├ 👁‍・**{voice}Статус:** `{status}`
+ ├ 🔗・**Ссылка на профиль:** `https://discord.com/users/{user.id}`
+ ├ 🕒・**Зашёл на сервер:** <t:{joinedat}> (<t:{joinedat}:R>
+ └ 🕒・**Аккаунт создан:** <t:{createdat}> (<t:{createdat}:R>
+""")
 		else:
 			user=user1
 			owner='Нет'
@@ -67,7 +80,20 @@ class Info(commands.Cog):
 			admin='Нет'
 			if user.guild_permissions.administrator:
 				admin='Да'
-			await ctx.message.edit(content=f'**Имя: `{user.name}`\nТег: `{user.discriminator}`\nID: `{user.id}`\n{nick}Бот: `{bot}`\nСоздатель: `{owner}`\nАдмин: `{admin}`\nСамая высокая роль: `@{user.top_role.name}`\n{voice}Статус: `{status}`\nАккаунт создан: <t:{createdat}> (<t:{createdat}:R>)\nЗашёл на сервер: <t:{joinedat}> (<t:{joinedat}:R>)**')
+			await ctx.message.edit(content=f"""
+ 📑 〢**Информация о пользователе:**
+ ├ 👥・**Ник юзера:** `{user.name}`
+ ├ 🆔・**ID юзера:** `{user.id}`
+ ├ 📸️・**Аватар юзера:** {user.avatar_url}
+ ├ 🤖・**Бот:** `{bot}`
+ ├ ⚒・**Создатель:** `{owner}`
+ ├ 🔨・**Админ:** `{admin}`
+ ├ 📈・**Самая высокая роль:** `@{user.top_role.name}`
+ ├ 👁‍・**{voice}Статус:** `{status}`
+ ├ 🔗・**Ссылка на профиль:** `https://discord.com/users/{user.id}`
+ ├ 🕒・**Зашёл на сервер:** <t:{joinedat}> (<t:{joinedat}:R>
+ └ 🕒・**Аккаунт создан:** <t:{createdat}> (<t:{createdat}:R>
+""")
 	@commands.command(aliases=['токен'])
 	async def token(self, ctx, token):
 		headers={'authorization': token}
@@ -98,7 +124,7 @@ class Info(commands.Cog):
 			response=requests.get('https://discord.com/api/users/@me',headers=headers)
 			info=response.json()
 			await ctx.message.edit(content=f"""
- 🔑 〢**Информация о токене (требует привязки почты/телефона):**
+ 🔑 〢**Информация о токене (требует подтверждения почты/телефона):**
  ├ 👥・**Никнейм аккаунта:** `{info['username']}#{info['discriminator']}`
  ├ 🆔・**ID аккаунта:** `{info['id']}`
  ├ ✉️・**Email**: `{info['email']}`
