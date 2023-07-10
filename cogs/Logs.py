@@ -20,7 +20,7 @@ async def send_webhook(webhook, json):
 		else:
 			return
 def notification(message, title):
-	if config['OTHER']['show_notifications']: notificationn.notify(message=message, title=title, app_icon='cogs/icon.ico', app_name='Selfbot by LALOL')
+	if config['OTHER']['show_notifications']: notificationn.notify(message=message, title=title, app_icon='cogs/icon.ico', app_name='Selfbot')
 class Logs(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
