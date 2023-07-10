@@ -10,37 +10,37 @@ class Images(commands.Cog):
 		self.bot = bot
 	@commands.command(aliases=['лгбт'])
 	async def lgbt(self, ctx, victim:discord.User):
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nhttps://some-random-api.ml/canvas/gay?avatar={victim.avatar_url_as(static_format="png")} **')
+		await ctx.message.edit(content=f'**__Selfbot__\n\nhttps://some-random-api.ml/canvas/gay?avatar={victim.avatar_url_as(static_format="png")} **')
 	@commands.command(aliases=['тюрьма'])
 	async def jail(self, ctx, victim:discord.User):
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nhttps://some-random-api.ml/canvas/jail?avatar={victim.avatar_url_as(static_format="png")} **')
+		await ctx.message.edit(content=f'**__Selfbot__\n\nhttps://some-random-api.ml/canvas/jail?avatar={victim.avatar_url_as(static_format="png")} **')
 	@commands.command(aliases=['комментарий'])
 	async def comment(self, ctx, victim:discord.User, *, text):
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nhttps://some-random-api.ml/canvas/youtube-comment?username={quote(victim.name)}&avatar={victim.avatar_url_as(static_format="png")}&comment={quote(text)} **')
+		await ctx.message.edit(content=f'**__Selfbot__\n\nhttps://some-random-api.ml/canvas/youtube-comment?username={quote(victim.name)}&avatar={victim.avatar_url_as(static_format="png")}&comment={quote(text)} **')
 	@commands.command(aliases=['changemymind', 'change-my-mind', 'change_my_mind'])
 	async def cmm(self, ctx, *, text):
 		link=requests.get(f'https://nekobot.xyz/api/imagegen?type=changemymind&text={quote(text)}').json()['message']
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link} **')
+		await ctx.message.edit(content=f'**__Selfbot__\n\n{link} **')
 	@commands.command(aliases=['лиса', 'лисы'])
 	async def fox(self, ctx):
 		link=requests.get('https://some-random-api.ml/img/fox').json()['link']
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link}**')
+		await ctx.message.edit(content=f'**__Selfbot__\n\n{link}**')
 	@commands.command(aliases=['собака', 'собаки', 'dogs'])
 	async def dog(self, ctx):
 		link=requests.get('https://some-random-api.ml/img/dog').json()['link']
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link} **')
+		await ctx.message.edit(content=f'**__Selfbot__\n\n{link} **')
 	@commands.command(aliases=['кот', 'коты', 'кошечка', 'cats'])
 	async def cat(self, ctx):
 		link=requests.get('https://some-random-api.ml/img/cat').json()['link']
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link} **')
+		await ctx.message.edit(content=f'**__Selfbot__\n\n{link} **')
 	@commands.command(aliases=['панда', 'панды'])
 	async def panda(self, ctx):
 		link=requests.get('https://some-random-api.ml/img/panda').json()['link']
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link} **')
+		await ctx.message.edit(content=f'**__Selfbot__\n\n{link} **')
 	@commands.command(aliases=['коала', 'коалы'])
 	async def koala(self, ctx):
 		link=requests.get('https://some-random-api.ml/img/koala').json()['link']
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n{link} **')
+		await ctx.message.edit(content=f'**__Selfbot__\n\n{link} **')
 	@commands.command()
 	async def lightshot(self, ctx, amount: int=1):
 		await ctx.message.delete()
