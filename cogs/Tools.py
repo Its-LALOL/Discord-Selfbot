@@ -43,9 +43,9 @@ class Tools(commands.Cog):
 		elif cat in discordd:
 			await self.bot.change_presence(status=sstatus, activity=discord.Activity(type=discord.ActivityType.playing, application_id=1029430390357774388, name='Discord', assets={'large_image': '1029438970666426408', 'large_text': 'github.com/PuroSlavKing/Discord-Selfbot'}))
 		elif cat in selfbot:
-			await self.bot.change_presence(status=sstatus, activity=discord.Activity(type=discord.ActivityType.playing, application_id=1032671485120229397, name='Selfbot', details='bit.ly/3CXNRpC', assets={'large_image': '1032672678106116216', 'large_text': 'github.com/PuroSlavKing/Discord-Selfbot'}))
+			await self.bot.change_presence(status=sstatus, activity=discord.Activity(type=discord.ActivityType.playing, application_id=1032671485120229397, name='Selfbot', details='github.com/PuroSlavKing/Discord-Selfbot', assets={'large_image': '1032672678106116216', 'large_text': 'github.com/PuroSlavKing/Discord-Selfbot'}))
 		else:
-			await ctx.message.edit(content="**__Selfbot__\n\nДоступные варианты: ```Обычные````Watching`, `Listening`, `Playing`, `Streaming` и `Reset`\n\n```Эксклюзивные````Discord`, `Selfbot`**")
+			await ctx.message.edit(content="**Доступные варианты: ```Обычные````Watching`, `Listening`, `Playing`, `Streaming` и `Reset`\n\n```Эксклюзивные````Discord`, `Selfbot`**")
 			return
 		await ctx.message.edit(content='**:comet: Ваш статус был успешно изменён!**')
 	@commands.command(alises=['clean', 'clear', 'очистка', 'очистить'])
@@ -73,7 +73,7 @@ class Tools(commands.Cog):
 		await ctx.message.delete()
 		for i in range(amount):
 			await ctx.send(f'{text} ||{"".join(random.choices(string.ascii_uppercase+string.digits+string.ascii_lowercase, k=8))}||')
-		await ctx.send(f"**__Selfbot__\n\n:speaking_head: Успешно отправил {amount} сообщений!**")
+		await ctx.send(f"**:speaking_head: Успешно отправил {amount} сообщений!**")
 	@commands.command(aliases=['пингалл'])
 	async def pingall(self, ctx, amount: int=1):
 		await ctx.message.delete()
@@ -147,20 +147,20 @@ class Tools(commands.Cog):
 				response=requests.post('https://discord.com/api/v9/users/@me/channels', headers={'authorization': self.bot.http.token}, json={'recipients': victims_ids})
 				if response.status_code==200 or response.status_code==201:
 					id=response.json()['id']
-					requests.post(f"https://discord.com/api/v9/channels/{id}/messages", headers={'authorization': self.bot.http.token}, json={"content": "||@everyone|| **__Selfbot by LALOL\nhttps://github.com/Its-LALOL/Discord-Selfbot __**"})
+					requests.post(f"https://discord.com/api/v9/channels/{id}/messages", headers={'authorization': self.bot.http.token}, json={"content": "||@everyone|| **https://github.com/PuroSlavKing/Discord-Selfbot**"})
 					break
 				elif response.status_code==429:
 					seconds=response.json()['retry_after']
 					if 100>seconds:
 						await sleep(seconds)
 				else:
-					await ctx.send(content=f"**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
+					await ctx.send(content=f"**Произошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
 					return
 		await ctx.send(content=f"**:bubbles: Успешно создал {amount} групп!**")
 	@commands.command(aliases=['copy_status', 'copyactivity', 'copy_activity', 'statuscopy', 'status_copy', 'activitycopy', 'activity_copy'])
 	async def copystatus(self, ctx, user:discord.Member):
 		await self.bot.change_presence(activity=user.activity)
-		await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\n:jigsaw: Успешно скопировал статус у `{user}`!**")
+		await ctx.message.edit(content=f"**:jigsaw: Успешно скопировал статус у `{user}`!**")
 	@commands.command(aliases=['spamthreadall', 'threadspamall', 'threadsspamall'])
 	async def spamthreadsall(self, ctx, amount: int, *, name):
 		await ctx.message.delete()
@@ -174,14 +174,14 @@ class Tools(commands.Cog):
 						if 100>seconds:
 							await sleep(seconds)
 					else:
-						await ctx.send(f"**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
+						await ctx.send(f"**Произошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
 						return
 		await ctx.send(f"**:white_flower: Успешно создал по {amount} веток в каждый канал!**")
 	@commands.command(aliases=['translation', 'переводчик', 'перевести', 'trans'])
 	async def translate(self, ctx, to='ru', *, text=None):
 		if text is None:
 			if not ctx.message.reference:
-				await ctx.reply(f"**__Selfbot by LALOL__\n\n:warning: Для того чтобы перевести ответьте на сообщение или напишите текст!**")
+				await ctx.reply(f"**:warning: Для того чтобы перевести ответьте на сообщение или напишите текст!**")
 				return
 			message=await ctx.channel.fetch_message(ctx.message.reference.message_id)
 			text=message.content
@@ -191,10 +191,10 @@ class Tools(commands.Cog):
 		if src=='en': src='gb'
 		dest=translation.dest
 		if dest=='en': dest='gb'
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:flag_{src}:: `{text}`\n:flag_{dest}:: `{translation.text}`**')
+		await ctx.message.edit(content=f'**:flag_{src}:: `{text}`\n:flag_{dest}:: `{translation.text}`**')
 	@commands.command()
 	async def nitro(self, ctx, amount: int=100_000, nitrotype='classic'):
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nГенерирую {amount} нитро кодов...**')
+		await ctx.message.edit(content=f'**Генерирую {amount} нитро кодов...**')
 		with open(f'{amount}_nitro_codes.txt', 'w', encoding='utf-8') as f:
 			f.write('\n--------------------------------------------\n')
 			count=24
