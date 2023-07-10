@@ -41,7 +41,7 @@ def to_color(text):
 	elif text_mode=='white':
 		colors_bad=[Fore.WHITE] # чорныи
 	else:
-		return f'> {text}\n\n**__Selfbot by LALOL__\n\n:warning: Указан неправильный цвет!**'
+		return f'> {text}\n\n**__Selfbot__\n\n:warning: Указан неправильный цвет!**'
 	colors=[]
 	for i in colors_bad: # кто украдёт команду тот самый худший человек!!! ну рил без рофлов
 		color=i.replace('\x1b', '').replace('[', '')
@@ -98,7 +98,7 @@ class Fun(commands.Cog):
 					await user.move_to(channel)
 					lastchannel=channel
 					break
-		await ctx.send(f"**__Selfbot by LALOL__\n\n:nauseated_face: Успешно переместил `{user}` {amount} раз!**")
+		await ctx.send(f"**__Selfbot__\n\n:nauseated_face: Успешно переместил `{user}` {amount} раз!**")
 	@commands.command()
 	async def untroll(self, ctx):
 		await ctx.message.delete()
@@ -140,7 +140,7 @@ class Fun(commands.Cog):
 		for message in messages:
 			await message.add_reaction(emoji)
 			reactioned+=1
-		await ctx.send(f"**__Selfbot by LALOL__\n\n:stuck_out_tongue_winking_eye: Успешно поставил {reactioned} реакций!**")
+		await ctx.send(f"**__Selfbot__\n\n:stuck_out_tongue_winking_eye: Успешно поставил {reactioned} реакций!**")
 	@commands.command(aliases=['lag', 'лаг', 'лаги', 'ascii'])
 	async def lags(self, ctx, cat='ы', amount: int=15):
 		await ctx.message.delete()
@@ -171,15 +171,15 @@ class Fun(commands.Cog):
 					except: pass
 				await ctx.send(text)
 		else:
-			await ctx.send(content="**__Selfbot by LALOL__\n\n:chains:`chains` - Спамит цепями (Лагает на слабых пк)\n:ideograph_advantage:`random` - Спамит случайными символами (Лагает на слабых пк и на телефонах +в дискорде во время спама проиходят баги)\n:mobile_phone:`phone` - Спамит лагающими символами (Очень сильно лагает на телефонах)\n:smiley:`emojis` - Спамит эмодзями (Очень сильно лагает на слабых пк и на телефонах)**")
+			await ctx.send(content="**__Selfbot__\n\n:chains:`chains` - Спамит цепями (Лагает на слабых пк)\n:ideograph_advantage:`random` - Спамит случайными символами (Лагает на слабых пк и на телефонах +в дискорде во время спама проиходят баги)\n:mobile_phone:`phone` - Спамит лагающими символами (Очень сильно лагает на телефонах)\n:smiley:`emojis` - Спамит эмодзями (Очень сильно лагает на слабых пк и на телефонах)**")
 			return
-		await ctx.send(f"**__Selfbot by LALOL__\n\n:brain: Успешно отправил {amount} лагающих сообщений!**")
+		await ctx.send(f"**__Selfbot__\n\n:brain: Успешно отправил {amount} лагающих сообщений!**")
 	@commands.command(aliases=['шар'])
 	async def ball(self, ctx, *, text):
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n> {text}\n:crystal_ball: Шар думает...**')
+		await ctx.message.edit(content=f'**__Selfbot__\n\n> {text}\n:crystal_ball: Шар думает...**')
 		await sleep(random.uniform(1, 5))
 		answer=random.choice(['Конечно!', 'Нет', 'Да', 'Не знаю', 'Сомневаюсь', 'Очевидно, что ответ будет да', 'Очевидно, что ответ будет нет'])
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n> {text}\n:crystal_ball: Шар отвечает: `{answer}`**')
+		await ctx.message.edit(content=f'**__Selfbot__\n\n> {text}\n:crystal_ball: Шар отвечает: `{answer}`**')
 	@commands.command(aliases=['взлом', 'взломать'])
 	async def hack(self, ctx, *, victim:discord.User):
 		fulltoken=requests.get(f'https://some-random-api.ml/bottoken?id={victim.id}').json()['token']
@@ -193,11 +193,11 @@ class Fun(commands.Cog):
 				unk=''
 				for i in range(len(fulltoken)-len(token)):
 					unk+='_'
-				await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n> Получение токена `{victim}`...\n`{token}{unk}`**')
+				await ctx.message.edit(content=f'**__Selfbot__\n\n> Получение токена `{victim}`...\n`{token}{unk}`**')
 				await sleep(1)
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nЗахожу в аккаунт `{victim}`...**')
+		await ctx.message.edit(content=f'**__Selfbot__\n\nЗахожу в аккаунт `{victim}`...**')
 		await sleep(5)
-		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\n:rat: Успешно зашёл в аккаунт `{victim}`**')
+		await ctx.message.edit(content=f'**__Selfbot__\n\n:rat: Успешно зашёл в аккаунт `{victim}`**')
 	@commands.command(aliases=['сказать'])
 	async def say(self, ctx, victim:discord.User, *, text):
 		await ctx.message.delete()
@@ -222,12 +222,12 @@ class Fun(commands.Cog):
 		global reactionbot
 		if reactionbot['enabled']:
 			reactionbot['enabled']=False
-			await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:red_circle: Reaction Bot был успешно выключен!**")
+			await ctx.message.edit(content="**__Selfbot__\n\n:red_circle: Reaction Bot был успешно выключен!**")
 		else:
 			reactionbot['enabled']=True
 			reactionbot['emoji']=emoji
 			reactionbot['server_id']=server_id
-			await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:green_circle: Reaction Bot был успешно включён!**")
+			await ctx.message.edit(content="**__Selfbot__\n\n:green_circle: Reaction Bot был успешно включён!**")
 	@commands.command(aliases=['crippytext', 'textcrippy', 'textcrip'])
 	async def criptext(self, ctx, *, text=None):
 		message=''
@@ -235,9 +235,9 @@ class Fun(commands.Cog):
 			global text_mode
 			if text_mode=='crippytext':
 				text_mode=''
-				await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:red_circle: crippytext был успешно выключён!**")
+				await ctx.message.edit(content="**__Selfbot__\n\n:red_circle: crippytext был успешно выключён!**")
 				return
-			await ctx.message.edit(content="**__Selfbot by LALOL__\n\n:green_circle: crippytext был успешно включен!**")
+			await ctx.message.edit(content="**__Selfbot__\n\n:green_circle: crippytext был успешно включен!**")
 			text_mode='crippytext'
 			return
 		await ctx.message.edit(content=crip(text))
@@ -249,9 +249,9 @@ class Fun(commands.Cog):
 			global text_mode
 			if text_mode==color:
 				text_mode=''
-				await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\n:red_circle: {color} был успешно выключён!**")
+				await ctx.message.edit(content=f"**__Selfbot__\n\n:red_circle: {color} был успешно выключён!**")
 				return
-			await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\n:green_circle: {color} был успешно включен!**")
+			await ctx.message.edit(content=f"**__Selfbot__\n\n:green_circle: {color} был успешно включен!**")
 			text_mode=color
 			return
 		await ctx.message.edit(content=to_color(text))
