@@ -12,7 +12,7 @@ async def remove(object):
 	except: pass
 async def check(ctx):
 	if not config['OTHER']['nuke_commands']:
-		await ctx.message.edit(content='**__Selfbot__\n\n:warning: Краш команды отключены! Для того чтобы включить краш команды измените файл config.json**')
+		await ctx.message.edit(content='**:warning: Краш команды отключены! Для того чтобы включить краш команды измените файл config.json**')
 		return False
 	try: await ctx.message.delete()
 	except:	pass
