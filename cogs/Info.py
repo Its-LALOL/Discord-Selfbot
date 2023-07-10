@@ -81,12 +81,32 @@ class Info(commands.Cog):
 			friends=len(r2.json())
 			dms=len(r1.json())
 			guilds=len(r3.json())
-			await ctx.message.edit(content=f"**Токен рабочий :white_check_mark:\nАккаунт: `{info['username']}#{info['discriminator']}`**\n**ID: `{info['id']}`**\n**Почта: `{info['email']}`**\n**Телефон: `{info['phone']}`**\n**Страна: :flag_{info['locale']}:**\n**Открытых лс: `{dms}`**\n**Друзей: `{friends}`**\n**Серверов: `{guilds}`**")
+			await ctx.message.edit(content=f"""
+ 🔑 〢**Информация о токене:**
+ ├ 👥・**Никнейм аккаунта:** `{info['username']}#{info['discriminator']}`
+ ├ 🆔・**ID аккаунта:** `{info['id']}`
+ ├ ✉️・**Email**: `{info['email']}`
+ ├ 📱・**Номер телефона:** `{info['phone']}`
+ ├ 🌎・**Страна:** `{info['locale']}`
+ ├ 💬・**Открытых ЛС:** `{dms}`
+ ├ 👥・**Друзей:** `{friends}`
+ └ 🌎・**Серверов:** `{guilds}`
+""")
 		elif token_check.status_code == 401:
 			await ctx.message.edit(content=f"**Токен** `{token}`**\nНе рабочий! :x:**")
 		elif token_check.status_code == 403:
 			response=requests.get('https://discord.com/api/users/@me',headers=headers)
 			info=response.json()
-			await ctx.message.edit(content=f"**Токен рабочий, но требует привязку почты/телефона :warning:\nАккаунт: `{info['username']}#{info['discriminator']}`**\n**ID: `{info['id']}`**\n**Почта: `{info['email']}`**\n**Телефон: `{info['phone']}`**\n**Страна: `{info['locale']}`**")
+			await ctx.message.edit(content=f"""
+ 🔑 〢**Информация о токене (требует подтверждения почты/телефона):**
+ ├ 👥・**Никнейм аккаунта:** `{info['username']}#{info['discriminator']}`
+ ├ 🆔・**ID аккаунта:** `{info['id']}`
+ ├ ✉️・**Email**: `{info['email']}`
+ ├ 📱・**Номер телефона:** `{info['phone']}`
+ ├ 🌎・**Страна:** `{info['locale']}`
+ ├ 💬・**Открытых ЛС:** `{dms}`
+ ├ 👥・**Друзей:** `{friends}`
+ └ 🌎・**Серверов:** `{guilds}`
+""")
 def setup(bot):
 	bot.add_cog(Info(bot))
