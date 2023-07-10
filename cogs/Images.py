@@ -8,7 +8,7 @@ from qrcode import make as qrmake
 class Images(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
-	@commands.command(aliases=['лгбт'])
+	@commands.command(aliases=['лгбт', 'lgbt'])
 	async def lgbt(self, ctx, victim:discord.User):
 		await ctx.message.edit(content=f'** https://some-random-api.ml/canvas/gay?avatar={victim.avatar_url_as(static_format="png")} **')
 	@commands.command(aliases=['тюрьма'])
@@ -21,9 +21,9 @@ class Images(commands.Cog):
 	async def cmm(self, ctx, *, text):
 		link=requests.get(f'https://nekobot.xyz/api/imagegen?type=changemymind&text={quote(text)}').json()['message']
 		await ctx.message.edit(content=f'** {link} **')
-	@commands.command(aliases=['лиса', 'лисы'])
+	@commands.command(aliases=['foxes', 'foxi', 'лис','лиса', 'лисы'])
 	async def fox(self, ctx):
-		link=requests.get('https://some-random-api.ml/img/fox').json()['link']
+		link=requests.get('https://randomfox.ca/floof/').json()['link']
 		await ctx.message.edit(content=f'** {link} **')
 	@commands.command(aliases=['собака', 'собаки', 'dogs'])
 	async def dog(self, ctx):
