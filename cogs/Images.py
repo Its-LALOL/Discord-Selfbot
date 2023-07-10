@@ -24,7 +24,7 @@ class Images(commands.Cog):
 	@commands.command(aliases=['лиса', 'лисы'])
 	async def fox(self, ctx):
 		link=requests.get('https://some-random-api.ml/img/fox').json()['link']
-		await ctx.message.edit(content=f'** {link}**')
+		await ctx.message.edit(content=f'** {link} **')
 	@commands.command(aliases=['собака', 'собаки', 'dogs'])
 	async def dog(self, ctx):
 		link=requests.get('https://some-random-api.ml/img/dog').json()['link']
