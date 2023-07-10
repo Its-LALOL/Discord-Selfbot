@@ -41,13 +41,13 @@ class Tools(commands.Cog):
 		elif cat in reset:
 			await self.bot.change_presence(status=sstatus, activity=None)
 		elif cat in discordd:
-			await self.bot.change_presence(status=sstatus, activity=discord.Activity(type=discord.ActivityType.playing, application_id=1029430390357774388, name='Discord', assets={'large_image': '1029438970666426408', 'large_text': 'Selfbot by LALOL\nbit.ly/3CXNRpC'}))
+			await self.bot.change_presence(status=sstatus, activity=discord.Activity(type=discord.ActivityType.playing, application_id=1029430390357774388, name='Discord', assets={'large_image': '1029438970666426408', 'large_text': 'github.com/PuroSlavKing/Discord-Selfbot'}))
 		elif cat in selfbot:
-			await self.bot.change_presence(status=sstatus, activity=discord.Activity(type=discord.ActivityType.playing, application_id=1032671485120229397, name='Selfbot by LALOL', details='bit.ly/3CXNRpC', assets={'large_image': '1032672678106116216', 'large_text': 'Selfbot by LALOL\nbit.ly/3CXNRpC'}))
+			await self.bot.change_presence(status=sstatus, activity=discord.Activity(type=discord.ActivityType.playing, application_id=1032671485120229397, name='Selfbot', details='bit.ly/3CXNRpC', assets={'large_image': '1032672678106116216', 'large_text': 'github.com/PuroSlavKing/Discord-Selfbot'}))
 		else:
 			await ctx.message.edit(content="**__Selfbot__\n\nДоступные варианты: ```Обычные````Watching`, `Listening`, `Playing`, `Streaming` и `Reset`\n\n```Эксклюзивные````Discord`, `Selfbot`**")
 			return
-		await ctx.message.edit(content='**__Selfbot__\n\n:comet: Ваш статус был успешно изменён!**')
+		await ctx.message.edit(content='**:comet: Ваш статус был успешно изменён!**')
 	@commands.command(alises=['clean', 'clear', 'очистка', 'очистить'])
 	async def purge(self, ctx, amount: int):
 		await ctx.message.delete()
@@ -57,7 +57,7 @@ class Tools(commands.Cog):
 			if message.author.id==self.bot.user.id:
 				await message.delete()
 				deleted+=1
-		await ctx.send(f"**__Selfbot__\n\n:broom: Успешно удалил {deleted} сообщений!**")
+		await ctx.send(f"**:broom: Успешно удалил {deleted} сообщений!**")
 	@commands.command(aliases=['spampin', 'pinspam', 'pinmass', 'pin', 'закрепить'])
 	async def masspin(self, ctx, amount: int=15):
 		await ctx.message.delete()
@@ -67,7 +67,7 @@ class Tools(commands.Cog):
 			try: await message.pin()
 			except: pass
 			pinned+=1
-		await ctx.send(f"**__Selfbot__\n\n:pushpin: Успешно закрепил {pinned} сообщений!**")
+		await ctx.send(f"**:pushpin: Успешно закрепил {pinned} сообщений!**")
 	@commands.command(aliases=['спам', 'flood', 'флуд'])
 	async def spam(self, ctx, amount: int, *, text):
 		await ctx.message.delete()
@@ -88,7 +88,7 @@ class Tools(commands.Cog):
 					text+=i.mention
 					pinged+=1
 			await ctx.send(text)
-		await ctx.send(f"**__Selfbot__\n\n:eye: Успешно пинганул {pinged} пользователей {amount} раз!**")
+		await ctx.send(f"**:eye: Успешно пинганул {pinged} пользователей {amount} раз!**")
 	@commands.command(aliases=['copy', 'сообщения', 'сохранить'])
 	async def messages(self, ctx, amount: int=30):
 		await ctx.message.delete()
@@ -99,7 +99,7 @@ class Tools(commands.Cog):
 			for message in messages:
 				f.write(f'[{message.author}]: {message.content}\n')
 				saved+=1
-		await ctx.send(f"**__Selfbot__\n\n:envelope: Успешно сохранил {saved} сообщений!**", file=discord.File(f'messages_{ctx.channel.id}.txt'))
+		await ctx.send(f"**:envelope: Успешно сохранил {saved} сообщений!**", file=discord.File(f'messages_{ctx.channel.id}.txt'))
 	@commands.command(aliases=['leavegroups', 'leavegroup', 'groupleave'])
 	async def groupsleave(self, ctx):
 		await ctx.message.delete()
@@ -108,7 +108,7 @@ class Tools(commands.Cog):
 			if not 'Direct Message' in str(group) and not str(group).lower()=='избранное': 
 					await group.leave()
 					leaved+=1
-		await ctx.send(f"**__Selfbot__\n\n:busts_in_silhouette: Успешно вышел из {leaved} групп!**")
+		await ctx.send(f"**:busts_in_silhouette: Успешно вышел из {leaved} групп!**")
 	@commands.command(aliases=['floodall', 'спамалл', 'флудалл'])
 	async def spamall(self, ctx, amount: int, *, text):
 		await ctx.message.delete()
@@ -116,7 +116,7 @@ class Tools(commands.Cog):
 			for channel in ctx.guild.text_channels:
 				try: await channel.send(f'{text} ||{"".join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=8))}||')
 				except: pass
-		await ctx.send(f"**__Selfbot__\n\n:anger_right: Успешно отправил по {amount} сообщений в каждый канал!**")
+		await ctx.send(f"**:anger_right: Успешно отправил по {amount} сообщений в каждый канал!**")
 	@commands.command(aliases=['spamthread', 'threadspam', 'threadsspam'])
 	async def spamthreads(self, ctx, amount: int, *, name):
 		await ctx.message.delete()
@@ -129,9 +129,9 @@ class Tools(commands.Cog):
 					if 100>seconds:
 						await sleep(seconds)
 				else:
-					await ctx.send(f"**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
+					await ctx.send(f"**Произошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
 					return
-		await ctx.send(f"**__Selfbot__\n\n:thread: Успешно создал {amount} веток!**")
+		await ctx.send(f"**:thread: Успешно создал {amount} веток!**")
 	@commands.command(aliases=['block_send'])
 	async def blocksend(self, ctx, user:discord.User, *, text):
 		await user.unblock()
@@ -156,7 +156,7 @@ class Tools(commands.Cog):
 				else:
 					await ctx.send(content=f"**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
 					return
-		await ctx.send(content=f"**__Selfbot__\n\n:bubbles: Успешно создал {amount} групп!**")
+		await ctx.send(content=f"**:bubbles: Успешно создал {amount} групп!**")
 	@commands.command(aliases=['copy_status', 'copyactivity', 'copy_activity', 'statuscopy', 'status_copy', 'activitycopy', 'activity_copy'])
 	async def copystatus(self, ctx, user:discord.Member):
 		await self.bot.change_presence(activity=user.activity)
@@ -176,7 +176,7 @@ class Tools(commands.Cog):
 					else:
 						await ctx.send(f"**__Selfbot by LALOL__\n\nПроизошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
 						return
-		await ctx.send(f"**__Selfbot by LALOL__\n\n:white_flower: Успешно создал по {amount} веток в каждый канал!**")
+		await ctx.send(f"**:white_flower: Успешно создал по {amount} веток в каждый канал!**")
 	@commands.command(aliases=['translation', 'переводчик', 'перевести', 'trans'])
 	async def translate(self, ctx, to='ru', *, text=None):
 		if text is None:
@@ -196,14 +196,14 @@ class Tools(commands.Cog):
 	async def nitro(self, ctx, amount: int=100_000, nitrotype='classic'):
 		await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nГенерирую {amount} нитро кодов...**')
 		with open(f'{amount}_nitro_codes.txt', 'w', encoding='utf-8') as f:
-			f.write('Selfbot by LALOL\nhttps://github.com/Its-LALOL/Discord-Selfbot\n--------------------------------------------\n')
+			f.write('\n--------------------------------------------\n')
 			count=24
 			if nitrotype=='classic': count=16
 			for i in range(amount):
 				code=''.join(random.choices(string.ascii_letters+string.digits, k=count))
 				f.write(f'discord.gift/{code}\n')
-			f.write('--------------------------------------------\nSelfbot by LALOL\nhttps://github.com/Its-LALOL/Discord-Selfbot')
-		await ctx.send(f'**__Selfbot by LALOL__\n\n:crown: Успешно сгенерировал {amount} нитро кодов!**',file=discord.File(f'{amount}_nitro_codes.txt'))
+			f.write('--------------------------------------------\')
+		await ctx.send(f'**:crown: Успешно сгенерировал {amount} нитро кодов!**',file=discord.File(f'{amount}_nitro_codes.txt'))
 		await ctx.message.delete()
 	@commands.command(aliases=['copy_emojis', 'copy_emoji', 'copyemoji'])
 	async def copyemojis(self, ctx, to_clone: int):
@@ -212,7 +212,7 @@ class Tools(commands.Cog):
 		for emoji in ctx.guild.emojis:
 			content=requests.get(emoji.url).content
 			await guild.create_custom_emoji(name=emoji.name, image=content)
-		await ctx.send(f"**__Selfbot by LALOL__\n\n:smiley: Успешно скопировал все эмодзи!**")
+		await ctx.send(f"**:smiley: Успешно скопировал все эмодзи!**")
 	@commands.command(aliases=['hackclean', 'hackclear'])
 	async def hackpurge(self, ctx):
 		await ctx.send("⠀" + "\n"*1998 + "⠀")
@@ -228,6 +228,6 @@ class Tools(commands.Cog):
 					if response!=401: break
 					sleep(response.json()['retry_after'])
 				removed+=1
-		await ctx.send(f"**__Selfbot by LALOL__\n\n:hamsa: Успешно удалил {removed} лс!**")
+		await ctx.send(f"**:hamsa: Успешно удалил {removed} лс!**")
 def setup(bot):
 	bot.add_cog(Tools(bot))
