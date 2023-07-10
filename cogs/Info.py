@@ -67,7 +67,7 @@ class Info(commands.Cog):
 			admin='Нет'
 			if user.guild_permissions.administrator:
 				admin='Да'
-			await ctx.message.edit(content=f'**__Selfbot by LALOL__\n\nИмя: `{user.name}`\nТег: `{user.discriminator}`\nID: `{user.id}`\n{nick}Бот: `{bot}`\nСоздатель: `{owner}`\nАдмин: `{admin}`\nСамая высокая роль: `@{user.top_role.name}`\n{voice}Статус: `{status}`\nАккаунт создан: <t:{createdat}> (<t:{createdat}:R>)\nЗашёл на сервер: <t:{joinedat}> (<t:{joinedat}:R>)**')
+			await ctx.message.edit(content=f'**__Selfbot__\n\nИмя: `{user.name}`\nТег: `{user.discriminator}`\nID: `{user.id}`\n{nick}Бот: `{bot}`\nСоздатель: `{owner}`\nАдмин: `{admin}`\nСамая высокая роль: `@{user.top_role.name}`\n{voice}Статус: `{status}`\nАккаунт создан: <t:{createdat}> (<t:{createdat}:R>)\nЗашёл на сервер: <t:{joinedat}> (<t:{joinedat}:R>)**')
 	@commands.command(aliases=['токен'])
 	async def token(self, ctx, token):
 		headers={'authorization': token}
@@ -81,9 +81,9 @@ class Info(commands.Cog):
 			friends=len(r2.json())
 			dms=len(r1.json())
 			guilds=len(r3.json())
-			await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\nТокен рабочий :white_check_mark:\nАккаунт: `{info['username']}#{info['discriminator']}`**\n**ID: `{info['id']}`**\n**Почта: `{info['email']}`**\n**Телефон: `{info['phone']}`**\n**Страна: :flag_{info['locale']}:**\n**Открытых лс: `{dms}`**\n**Друзей: `{friends}`**\n**Серверов: `{guilds}`**")
+			await ctx.message.edit(content=f"**__Selfbot__\n\nТокен рабочий :white_check_mark:\nАккаунт: `{info['username']}#{info['discriminator']}`**\n**ID: `{info['id']}`**\n**Почта: `{info['email']}`**\n**Телефон: `{info['phone']}`**\n**Страна: :flag_{info['locale']}:**\n**Открытых лс: `{dms}`**\n**Друзей: `{friends}`**\n**Серверов: `{guilds}`**")
 		elif token_check.status_code == 401:
-			await ctx.message.edit(content=f"**__Selfbot by LALOL__\n\nТокен** `{token}`**\nНе рабочий! :x:**")
+			await ctx.message.edit(content=f"**__Selfbot__\n\nТокен** `{token}`**\nНе рабочий! :x:**")
 		elif token_check.status_code == 403:
 			response=requests.get('https://discord.com/api/users/@me',headers=headers)
 			info=response.json()
