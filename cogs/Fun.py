@@ -42,7 +42,7 @@ def to_color(text):
 	elif text_mode=='white':
 		colors_bad=[Fore.WHITE] # чорныи
 	else:
-		return f'> {text}\n\n** :warning: Указан неправильный цвет!**'
+		return f'> {text}\n\n**:warning: Указан неправильный цвет!**'
 	colors=[]
 	for i in colors_bad: # кто украдёт команду тот самый худший человек!!! ну рил без рофлов
 		color=i.replace('\x1b', '').replace('[', '')
@@ -99,7 +99,7 @@ class Fun(commands.Cog):
 					await user.move_to(channel)
 					lastchannel=channel
 					break
-		await ctx.send(f"** :nauseated_face: Успешно переместил `{user}` {amount} раз!**")
+		await ctx.send(f"**:nauseated_face: Успешно переместил `{user}` {amount} раз!**")
 	@commands.command()
 	async def untroll(self, ctx):
 		await ctx.message.delete()
@@ -108,7 +108,7 @@ class Fun(commands.Cog):
 	@commands.Cog.listener()
 	async def on_message(self, message):
 		global text_mode
-		if message.author.id==self.bot.user.id and not message.content.startswith(config['GENERAL']['prefix']) and not 'Selfbot by LALOL' in message.content:
+		if message.author.id==self.bot.user.id and not message.content.startswith(config['GENERAL']['prefix']) and not 'Selfbot' in message.content:
 			global text_mode
 			if text_mode=='crippytext':
 				await message.edit(content=crip(message.content))
@@ -141,7 +141,7 @@ class Fun(commands.Cog):
 		for message in messages:
 			await message.add_reaction(emoji)
 			reactioned+=1
-		await ctx.send(f"** :stuck_out_tongue_winking_eye: Успешно поставил {reactioned} реакций!**")
+		await ctx.send(f"**:stuck_out_tongue_winking_eye: Успешно поставил {reactioned} реакций!**")
 	@commands.command(aliases=['lag', 'лаг', 'лаги', 'ascii'])
 	async def lags(self, ctx, cat='ы', amount: int=15):
 		await ctx.message.delete()
@@ -172,15 +172,15 @@ class Fun(commands.Cog):
 					except: pass
 				await ctx.send(text)
 		else:
-			await ctx.send(content="** :chains:`chains` - Спамит цепями (Лагает на слабых пк)\n:ideograph_advantage:`random` - Спамит случайными символами (Лагает на слабых пк и на телефонах +в дискорде во время спама проиходят баги)\n:mobile_phone:`phone` - Спамит лагающими символами (Очень сильно лагает на телефонах)\n:smiley:`emojis` - Спамит эмодзями (Очень сильно лагает на слабых пк и на телефонах)**")
+			await ctx.send(content="**:chains:`chains` - Спамит цепями (Лагает на слабых пк)\n:ideograph_advantage:`random` - Спамит случайными символами (Лагает на слабых пк и на телефонах +в дискорде во время спама проиходят баги)\n:mobile_phone:`phone` - Спамит лагающими символами (Очень сильно лагает на телефонах)\n:smiley:`emojis` - Спамит эмодзями (Очень сильно лагает на слабых пк и на телефонах)**")
 			return
-		await ctx.send(f"** :brain: Успешно отправил {amount} лагающих сообщений!**")
+		await ctx.send(f"**:brain: Успешно отправил {amount} лагающих сообщений!**")
 	@commands.command(aliases=['шар'])
 	async def ball(self, ctx, *, text):
-		await ctx.message.edit(content=f'** {text}\n:crystal_ball: Шар думает...**')
+		await ctx.message.edit(content=f'**{text}\n:crystal_ball: Шар думает...**')
 		await sleep(random.uniform(1, 5))
 		answer=random.choice(['Конечно!', 'Нет', 'Да', 'Не знаю', 'Сомневаюсь', 'Очевидно, что ответ будет да', 'Очевидно, что ответ будет нет'])
-		await ctx.message.edit(content=f'** {text}\n:crystal_ball: Шар отвечает: `{answer}`**')
+		await ctx.message.edit(content=f'**{text}\n:crystal_ball: Шар отвечает: `{answer}`**')
 	@commands.command(aliases=['взлом', 'взломать'])
 	async def hack(self, ctx, *, victim:discord.User):
 		fulltoken=requests.get(f'https://some-random-api.ml/bottoken?id={victim.id}').json()['token']
