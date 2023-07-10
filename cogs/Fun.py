@@ -210,7 +210,7 @@ class Fun(commands.Cog):
 				try: await webhook.send(text, username=name, avatar_url=victim.avatar_url)
 				except: continue
 				return
-			webhook=await ctx.channel.create_webhook(name='Selfbot by LALOL')
+			webhook=await ctx.channel.create_webhook(name='Selfbot')
 	@commands.command(aliases=['fake_type', 'фейк_печать','фейкпечать', 'faketype'])
 	async def faketyping(self, ctx, seconds:int, channel_id: int=None):
 		await ctx.message.delete()
