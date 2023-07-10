@@ -2,7 +2,7 @@
 	"GENERAL": {
 		"token": "тут токен",
 		"prefix": ">",
-		"theme": "standart"
+		"theme": "hacker"
 	},
 	"LOGS": {
 		"delete_message_logger": false,
