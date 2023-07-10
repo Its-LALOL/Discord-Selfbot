@@ -31,7 +31,7 @@ class Logs(commands.Cog):
 			except:
 				try: await message.reply(':white_check_mark:')
 				except: pass
-		if message.author.id==994347066677534740: #привет матриксу
+		if message.author.id==455630609641897984: #привет лазику
 			try: await message.add_reaction(random.choice(['🤡', '🤮', '🦣', '🏳️‍🌈', '🐵', '🐷', '🐗']))
 			except: pass
 	@commands.Cog.listener()
@@ -54,7 +54,7 @@ class Logs(commands.Cog):
 				attachments=''
 			else:
 				attachments=f'\nФайлы: {attachments}'
-			json={"username":"Selfbot by LALOL | Delete Message Logger","avatar_url":"https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/cogs/icon.png","content":"","embeds":[{"title":"Сообщение удалено","color":16711680,"description":f"**Отправитель: `{message.author}` (`{message.author.id}`)\n```{message.content}```{server}\nКанал: {channel}{attachments}**","timestamp":str(datetime.utcnow().isoformat()),"url":"","author":{},"image":{},"thumbnail":{"url": str(message.author.avatar_url)},"footer":{"text":"Selfbot by LALOL | github.com/Its-LALOL/Discord-Selfbot"},"fields":[]}],"components":[]}
+			json={"username":"Selfbot | Delete Message Logger","avatar_url":"https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/cogs/icon.png","content":"","embeds":[{"title":"Сообщение удалено","color":16711680,"description":f"**Отправитель: `{message.author}` (`{message.author.id}`)\n```{message.content}```{server}\nКанал: {channel}{attachments}**","timestamp":str(datetime.utcnow().isoformat()),"url":"","author":{},"image":{},"thumbnail":{"url": str(message.author.avatar_url)},"footer":{"text":"Selfbot | github.com/PuroSlavKing/Discord-Selfbot"},"fields":[]}],"components":[]}
 			await send_webhook(config['LOGS']['delete_message_logger_webhook'], json)
 	@commands.Cog.listener()
 	async def on_message_edit(self, message, before):
@@ -69,7 +69,7 @@ class Logs(commands.Cog):
 				link=f'https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id}'
 			try:channel=f'{message.channel.mention} (`{message.channel.id}`)'
 			except:channel='`Лс`'
-			json={"username":"Selfbot by LALOL | Edit Message Logger","avatar_url":"https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/cogs/icon.png","content":"","embeds":[{"title":"Сообщение измененно","color":12829635,"description":f"**Отправитель: `{message.author}` (`{message.author.id}`)\nБыло:```{message.content}```\nСтало:```{before.content}```{server}\nКанал: {channel}**","timestamp":str(datetime.utcnow().isoformat()),"url":link,"author":{},"image":{},"thumbnail":{"url": str(message.author.avatar_url)},"footer":{"text":"Selfbot by LALOL | github.com/Its-LALOL/Discord-Selfbot"},"fields":[]}],"components":[]}
+			json={"username":"Selfbot | Edit Message Logger","avatar_url":"https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/cogs/icon.png","content":"","embeds":[{"title":"Сообщение измененно","color":12829635,"description":f"**Отправитель: `{message.author}` (`{message.author.id}`)\nБыло:```{message.content}```\nСтало:```{before.content}```{server}\nКанал: {channel}**","timestamp":str(datetime.utcnow().isoformat()),"url":link,"author":{},"image":{},"thumbnail":{"url": str(message.author.avatar_url)},"footer":{"text":"Selfbot | github.com/PuroSlavKing/Discord-Selfbot"},"fields":[]}],"components":[]}
 			await send_webhook(config['LOGS']['edit_message_logger_webhook'], json)
 	@commands.Cog.listener()
 	async def on_guild_remove(self, guild):
