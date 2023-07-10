@@ -15,7 +15,7 @@
 		"nuke_commands": true,
 		"disco_status": false,
 		"show_notifications": true,
-		"auto_send_text": ["я гей", "я чмо"],
+		"auto_send_text": ["null", "snulls"],
 		"auto_send_channel": 0
 	}
 }
