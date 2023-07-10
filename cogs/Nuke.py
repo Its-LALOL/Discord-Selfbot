@@ -12,21 +12,21 @@ async def remove(object):
 	except: pass
 async def check(ctx):
 	if not config['OTHER']['nuke_commands']:
-		await ctx.message.edit(content='**__Selfbot by LALOL__\n\n:warning: Краш команды отключены! Для того чтобы включить краш команды измените файл config.json**')
+		await ctx.message.edit(content='**__Selfbot__\n\n:warning: Краш команды отключены! Для того чтобы включить краш команды измените файл config.json**')
 		return False
 	try: await ctx.message.delete()
 	except:	pass
 	return True
 async def create_channel(guild, name):
-	try:await guild.create_text_channel(name=name, topic='**__Selfbot by LALOL https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot https://github.com/Its-LALOL/Discord-Selfbot__**')
+	try:await guild.create_text_channel(name=name, topic='**https://github.com/PuroSlavKing/Discord-Selfbot**')
 	except:pass
 async def create_webhook(channel, message):
-	try:webhook=await channel.create_webhook(name='Selfbot by LALOL')
+	try:webhook=await channel.create_webhook(name='Selfbot')
 	except:pass
 	create_task(spam(webhook, message))
 async def spam(webhook, message):
 	for i in range(200):
-		try:await webhook.send(message, tts=True, username='Selfbot by LALOL', avatar_url='https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/cogs/icon.png')
+		try:await webhook.send(message, tts=True, username='Selfbot', avatar_url='https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/cogs/icon.png')
 		except:pass
 async def edit_channel(channel):
 	try: await channel.edit(category=None)
@@ -56,12 +56,12 @@ class Nuke(commands.Cog):
 			create_task(Nuke.deleteemojis(self, ctx))
 			create_task(Nuke.deletechannels(self, ctx))
 	@commands.command()
-	async def spamchannels(self, ctx, *, name='Selfbot by LALOL'):
+	async def spamchannels(self, ctx, *, name='Selfbot'):
 		if await check(ctx):
 			for i in range(50):
 				create_task(create_channel(ctx.guild, name))
 	@commands.command()
-	async def spamwebhooks(self, ctx, *, message='||@everyone|| **__Selfbot by LALOL__ https://github.com/Its-LALOL/Discord-Selfbot**'):
+	async def spamwebhooks(self, ctx, *, message='||@everyone|| **__Selfbot__ https://github.com/PuroSlavKing/Discord-Selfbot**'):
 		if await check(ctx):
 			for channel in ctx.guild.text_channels:
 				for webhook in await channel.webhooks():
@@ -69,7 +69,7 @@ class Nuke(commands.Cog):
 			for channel in ctx.guild.text_channels:
 				create_task(create_webhook(channel, message))
 	@commands.command()
-	async def spamroles(self, ctx, *, name='Selfbot by LALOL'):
+	async def spamroles(self, ctx, *, name='Selfbot'):
 		if await check(ctx):
 			for i in range(50):
 				num1=random.randint(0, 225)
@@ -86,7 +86,7 @@ class Nuke(commands.Cog):
 			await sleep(20)
 			create_task(Nuke.spamwebhooks(self, ctx))
 	@commands.command()
-	async def silentnuke(self, ctx, server_id: int=None, *, message='||@everyone|| **__Selfbot by LALOL__ https://github.com/Its-LALOL/Discord-Selfbot**'):
+	async def silentnuke(self, ctx, server_id: int=None, *, message='||@everyone|| **__Selfbot__ https://github.com/PuroSlavKing/Discord-Selfbot**'):
 		if await check(ctx):
 			if server_id is None: server_id=ctx.guild.id
 			guild=''
