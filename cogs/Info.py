@@ -25,7 +25,27 @@ class Info(commands.Cog):
 		if ctx.guild.owner is None:
 			owner='`Unknown`'
 		createdat=round(ctx.guild.created_at.timestamp())
-		await ctx.message.edit(content=f'```Базовое```**Имя: `{ctx.guild.name}`\nID: `{ctx.guild.id}`\nСоздатель: {owner}\nСоздан: <t:{createdat}> (<t:{createdat}:R>)```Участники и боты [Информация может быть не точная]```Участников: `{users}`\nБотов: `{bots}`\nВсего: `{users+bots}` ```Каналы```Текстовых: `{len(ctx.guild.text_channels)}`\nГолосовых: `{len(ctx.guild.voice_channels)}`\nКатегорий: `{len(ctx.guild.categories)}`\nВсего: `{len(ctx.guild.channels)}` ```Роли```Пингующихся: `{mentions}`\nАдминских: `{admins}`\nВсего: `{len(ctx.guild.roles)}`**')
+		await ctx.message.edit(content=f"""
+ 📑 〢**Информация о сервере:**
+ ├ 🆔・**Название сервера:** `{ctx.guild.name}`
+ ├ 🆔・**ID Сервера:** `{ctx.guild.id}`
+ └ 🕒・**Дата и время создания сервера:** <t:{createdat}> (<t:{createdat}:R>)
+ #️⃣ 〢**Каналы:**
+ ├ 📚・**Всего:** `{len(ctx.guild.channels)}`
+ ├ 💬・**Текстовых:** `{len(ctx.guild.text_channels)}`
+ ├ 🔊・**Голосовых:** `{len(ctx.guild.voice_channels)}`
+ └ 📂・**Категорий:** `{len(ctx.guild.categories)}`
+ 🏴 〢**Роли:**
+ ├ 📚・**Всего:** `{len(ctx.guild.roles)}`
+ ├ 📚・**Пингующихся:** `{mentions}`
+ └ 🔨・**С правами администратора:** `{admins}`
+ 👥 〢**Участники:**
+ ├ 👥・**Всего:** `{users+bots}`
+ ├ 👥・**Людей:** `{users}`
+ └ 🤖・**Ботов:** `{bots}`
+ 🏆 〢**Инфо о владельце:**
+ └ 👑・**Владелец сервера:** {owner}
+""")
 	@commands.command(aliases=['юзер', 'участник', 'member', 'инфо', 'информация', 'info', 'information'])
 	async def user(self, ctx, user:discord.User=None):
 		if user is None:
@@ -48,8 +68,8 @@ class Info(commands.Cog):
  ├ 📈・**Самая высокая роль:** `@{user.top_role.name}`
  ├ 👁‍・**{voice}Статус:** `{status}`
  ├ 🔗・**Ссылка на профиль:** `https://discord.com/users/{user.id}`
- ├ 🕒・**Зашёл на сервер:** <t:{joinedat}> (<t:{joinedat}:R>
- └ 🕒・**Аккаунт создан:** <t:{createdat}> (<t:{createdat}:R>
+ ├ 🕒・**Зашёл на сервер:** <t:{joinedat}> (<t:{joinedat}:R>)
+ └ 🕒・**Аккаунт создан:** <t:{createdat}> (<t:{createdat}:R>)
 """)
 		else:
 			user=user1
@@ -91,8 +111,8 @@ class Info(commands.Cog):
  ├ 📈・**Самая высокая роль:** `@{user.top_role.name}`
  ├ 👁‍・**{voice}Статус:** `{status}`
  ├ 🔗・**Ссылка на профиль:** `https://discord.com/users/{user.id}`
- ├ 🕒・**Зашёл на сервер:** <t:{joinedat}> (<t:{joinedat}:R>
- └ 🕒・**Аккаунт создан:** <t:{createdat}> (<t:{createdat}:R>
+ ├ 🕒・**Зашёл на сервер:** <t:{joinedat}> (<t:{joinedat}:R>)
+ └ 🕒・**Аккаунт создан:** <t:{createdat}> (<t:{createdat}:R>)
 """)
 	@commands.command(aliases=['токен'])
 	async def token(self, ctx, token):
