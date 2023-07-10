@@ -8,7 +8,7 @@ from qrcode import make as qrmake
 class Images(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
-	@commands.command(aliases=['лгбт', 'lgbt'])
+	@commands.command(aliases=['лгбт'])
 	async def lgbt(self, ctx, victim:discord.User):
 		await ctx.message.edit(content=f'** https://some-random-api.ml/canvas/gay?avatar={victim.avatar_url_as(static_format="png")} **')
 	@commands.command(aliases=['тюрьма'])
