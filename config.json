@@ -1,7 +1,7 @@
 {
 	"GENERAL": {
 		"token": "тут токен",
-		"prefix": ".",
+		"prefix": ">",
 		"theme": "standart"
 	},
 	"LOGS": {
@@ -12,10 +12,10 @@
 		"blacklist_message_logger_servers": []
 	},
 	"OTHER": {
-		"nuke_commands": false,
+		"nuke_commands": true,
 		"disco_status": false,
 		"show_notifications": true,
-		"auto_send_text": ["текст1", "текст2"],
+		"auto_send_text": ["я гей", "я чмо"],
 		"auto_send_channel": 0
 	}
 }
