@@ -234,10 +234,7 @@ async def help(ctx, cat=None):
 **{pref}comment [Пинг/ID] [Текст]** — делает комментарий на ютубе.
 **{pref}jail [Пинг/ID]** — садит пользователя в тюрьму.
 **{pref}cmm [Текст]** — change my mind.
-**{pref}cat** — картинка кота.
-**{pref}dog** — картинка собаки.
 **{pref}fox** — картинка лисы.
-**{pref}panda** — картинка панды.
 **{pref}lightshot [Количество]** — генерирует случайные ссылки на lighshot.
 **{pref}qrcode [Контент]** — создаёт QRcode.
 ''')
