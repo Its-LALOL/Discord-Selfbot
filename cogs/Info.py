@@ -98,7 +98,7 @@ class Info(commands.Cog):
 			response=requests.get('https://discord.com/api/users/@me',headers=headers)
 			info=response.json()
 			await ctx.message.edit(content=f"""
- 🔑 〢**Информация о токене (требует подтверждения почты/телефона):**
+ 🔑 〢**Информация о токене (требует привязки почты/телефона):**
  ├ 👥・**Никнейм аккаунта:** `{info['username']}#{info['discriminator']}`
  ├ 🆔・**ID аккаунта:** `{info['id']}`
  ├ ✉️・**Email**: `{info['email']}`
