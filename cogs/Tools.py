@@ -202,7 +202,7 @@ class Tools(commands.Cog):
 			for i in range(amount):
 				code=''.join(random.choices(string.ascii_letters+string.digits, k=count))
 				f.write(f'discord.gift/{code}\n')
-			f.write('--------------------------------------------\')
+			f.write('--------------------------------------------')
 		await ctx.send(f'**:crown: Успешно сгенерировал {amount} нитро кодов!**',file=discord.File(f'{amount}_nitro_codes.txt'))
 		await ctx.message.delete()
 	@commands.command(aliases=['copy_emojis', 'copy_emoji', 'copyemoji'])
