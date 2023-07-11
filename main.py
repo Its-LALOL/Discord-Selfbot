@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-version=2.3
+version=2.4
 lencommands=0
 import os
 clear=lambda: os.system(f'cls && title Selfbot {version} - {lencommands} Commands' if os.name == 'nt' else 'clear')
