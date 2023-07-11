@@ -32,7 +32,7 @@ class Logs(commands.Cog):
 				try: await message.reply(':white_check_mark:')
 				except: pass
 		if message.author.id==455630609641897984: #привет лазику
-			try: await message.add_reaction(random.choice(['🤡', '🤮', '🦣', '🏳️‍🌈', '🐵', '🐷', '💩', '🤢', '🤓', '🐽', '🌈', '💦' '🐗']))
+			try: await message.add_reaction(random.choice(['🤡', '🤮', '🦣', '🏳️‍🌈', '🐵', '🐷', '💩', '🤢', '🤓', '🐽', '🌈', '💦', '🐗']))
 			except: pass
 		if message.author.id==632164509842145280: #привет леночка
 			try: await message.add_reaction(random.choice(['❤️', '❣️', '💖', '💕', '💗', '💓', '💘', '💝', '💋', '🌹', '💞']))
