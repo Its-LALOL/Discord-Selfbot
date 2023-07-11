@@ -12,7 +12,7 @@
 		"blacklist_message_logger_servers": []
 	},
 	"OTHER": {
-		"nuke_commands": true,
+		"nuke_commands": false,
 		"disco_status": false,
 		"show_notifications": true,
 		"auto_send_text": ["null", "snulls"],
