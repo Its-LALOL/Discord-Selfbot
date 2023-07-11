@@ -122,7 +122,7 @@ async def on_connect():
 	clear()
 	print(Intro)
 	print(f"{color['Info_name']}Аккаунт: {color['Info_value']}{bot.user}{color['Info_name']}\nID: {color['Info_value']}{bot.user.id}{color['Info_name']}\nPrefix: {color['Info_value']}{pref}")
-	if float(requests.get('https://raw.githubusercontent.com/Its-LALOL/Discord-Selfbot/main/cogs/version').text)>version:
+	if float(requests.get('https://raw.githubusercontent.com/PuroSlavKing/Discord-Selfbot/main/cogs/version').text)>version:
 		global update
 		update=f':warning: Пожалуйста, обновите селфбота используя команду {pref}bot**\n**'
 		print(f'{Fore.CYAN}Пожалуйста, обновите селфбота используя команду {Fore.LIGHTCYAN_EX}{pref}bot{Fore.RESET}{Fore.RED}\n')
