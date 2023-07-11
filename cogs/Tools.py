@@ -68,27 +68,6 @@ class Tools(commands.Cog):
 			except: pass
 			pinned+=1
 		await ctx.send(f"**:pushpin: Успешно закрепил {pinned} сообщений!**")
-	@commands.command(aliases=['спам', 'flood', 'флуд'])
-	async def spam(self, ctx, amount: int, *, text):
-		await ctx.message.delete()
-		for i in range(amount):
-			await ctx.send(f'{text} ||{"".join(random.choices(string.ascii_uppercase+string.digits+string.ascii_lowercase, k=8))}||')
-		await ctx.send(f"**:speaking_head: Успешно отправил {amount} сообщений!**")
-	@commands.command(aliases=['пингалл'])
-	async def pingall(self, ctx, amount: int=1):
-		await ctx.message.delete()
-		for i in range(amount):
-			text=''
-			pinged=0
-			for i in ctx.guild.members:
-				if len(text)>=1950:
-					await ctx.send(text)
-					text=''
-				if not i.bot and i.id!=self.bot.user.id:
-					text+=i.mention
-					pinged+=1
-			await ctx.send(text)
-		await ctx.send(f"**:eye: Успешно пинганул {pinged} пользователей {amount} раз!**")
 	@commands.command(aliases=['copy', 'сообщения', 'сохранить'])
 	async def messages(self, ctx, amount: int=30):
 		await ctx.message.delete()
@@ -109,74 +88,16 @@ class Tools(commands.Cog):
 					await group.leave()
 					leaved+=1
 		await ctx.send(f"**:busts_in_silhouette: Успешно вышел из {leaved} групп!**")
-	@commands.command(aliases=['floodall', 'спамалл', 'флудалл'])
-	async def spamall(self, ctx, amount: int, *, text):
-		await ctx.message.delete()
-		for i in range(amount):
-			for channel in ctx.guild.text_channels:
-				try: await channel.send(f'{text} ||{"".join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=8))}||')
-				except: pass
-		await ctx.send(f"**:anger_right: Успешно отправил по {amount} сообщений в каждый канал!**")
-	@commands.command(aliases=['spamthread', 'threadspam', 'threadsspam'])
-	async def spamthreads(self, ctx, amount: int, *, name):
-		await ctx.message.delete()
-		for i in range(amount):
-			while True:
-				response=requests.post(f'https://discord.com/api/v9/channels/{ctx.channel.id}/threads', headers={'authorization': self.bot.http.token}, json={'name': name, 'auto_archive_duration': 1440, 'type': 11})
-				if response.status_code==200 or response.status_code==201: break
-				elif response.status_code==429:
-					seconds=response.json()['retry_after']
-					if 100>seconds:
-						await sleep(seconds)
-				else:
-					await ctx.send(f"**Произошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
-					return
-		await ctx.send(f"**:thread: Успешно создал {amount} веток!**")
 	@commands.command(aliases=['block_send'])
 	async def blocksend(self, ctx, user:discord.User, *, text):
 		await user.unblock()
 		await user.send(text)
 		await user.block()
 		await ctx.message.delete()
-	@commands.command(aliases=['groupspam', 'groupsspam'])
-	async def spamgroups(self, ctx, amount: int, *, victims_list):
-		await ctx.message.delete()
-		victims_ids=victims_list.split(' ')
-		for i in range(amount):
-			while True:
-				response=requests.post('https://discord.com/api/v9/users/@me/channels', headers={'authorization': self.bot.http.token}, json={'recipients': victims_ids})
-				if response.status_code==200 or response.status_code==201:
-					id=response.json()['id']
-					requests.post(f"https://discord.com/api/v9/channels/{id}/messages", headers={'authorization': self.bot.http.token}, json={"content": "||@everyone|| **https://github.com/PuroSlavKing/Discord-Selfbot**"})
-					break
-				elif response.status_code==429:
-					seconds=response.json()['retry_after']
-					if 100>seconds:
-						await sleep(seconds)
-				else:
-					await ctx.send(content=f"**Произошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
-					return
-		await ctx.send(content=f"**:bubbles: Успешно создал {amount} групп!**")
 	@commands.command(aliases=['copy_status', 'copyactivity', 'copy_activity', 'statuscopy', 'status_copy', 'activitycopy', 'activity_copy'])
 	async def copystatus(self, ctx, user:discord.Member):
 		await self.bot.change_presence(activity=user.activity)
 		await ctx.message.edit(content=f"**:jigsaw: Успешно скопировал статус у `{user}`!**")
-	@commands.command(aliases=['spamthreadall', 'threadspamall', 'threadsspamall'])
-	async def spamthreadsall(self, ctx, amount: int, *, name):
-		await ctx.message.delete()
-		for i in range(amount):
-			for channel in ctx.guild.text_channels:
-				while True:
-					response=requests.post(f'https://discord.com/api/v9/channels/{channel.id}/threads', headers={'authorization': self.bot.http.token}, json={'name': name, 'auto_archive_duration': 1440, 'type': 11})
-					if response.status_code==200 or response.status_code==201 or response.status_code==403: break
-					elif response.status_code==429:
-						seconds=response.json()['retry_after']
-						if 100>seconds:
-							await sleep(seconds)
-					else:
-						await ctx.send(f"**Произошла ошибка :x:\n```Код ошибки: {response.status_code}\n{response.text}```**")
-						return
-		await ctx.send(f"**:white_flower: Успешно создал по {amount} веток в каждый канал!**")
 	@commands.command(aliases=['translation', 'переводчик', 'перевести', 'trans'])
 	async def translate(self, ctx, to='ru', *, text=None):
 		if text is None:
