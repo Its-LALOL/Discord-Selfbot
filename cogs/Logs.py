@@ -31,9 +31,9 @@ class Logs(commands.Cog):
 			except:
 				try: await message.reply(':white_check_mark:')
 				except: pass
-		if message.author.id==632164509842145280: #привет леночка
-			try: await message.add_reaction(random.choice(['❤️', '❣️', '💖', '💕', '💗', '💓', '💘', '💝', '💋', '🌹', '💞']))
-			except: pass
+#		if message.author.id==632164509842145280: #привет леночка
+#			try: await message.add_reaction(random.choice(['❤️', '❣️', '💖', '💕', '💗', '💓', '💘', '💝', '💋', '🌹', '💞']))
+#			except: pass
 	@commands.Cog.listener()
 	async def on_message_delete(self, message):
 		if config['LOGS']['delete_message_logger'] and message.author.id!=self.bot.user.id:
