@@ -62,7 +62,7 @@ class Tools(commands.Cog):
 			await ctx.message.edit(content="**Доступные варианты: ```Обычные````Watching`, `Listening`, `Playing`, `Streaming` и `Reset`\n\n```Эксклюзивные````Discord`, `Selfbot`**")
 			return
 		await ctx.message.edit(content='**:comet: Ваш статус был успешно изменён!**')
-	@commands.command(alises=['clean', 'clear', 'очистка', 'очистить'])
+	@commands.command(alises=['clean', 'очистка', 'очистить'])
 	async def purge(self, ctx, amount: int):
 		await ctx.message.delete()
 		messages=await ctx.channel.history(limit=amount).flatten()
