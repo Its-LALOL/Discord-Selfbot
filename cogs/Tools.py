@@ -8,6 +8,20 @@ import json
 with open("config.json", "r", encoding="utf-8-sig") as f:
 	config = json.load(f)
 
+@commands.command(pass_context=True, name="eval")
+async def _eval(self, ctx, *, body: str):
+	"""Evaluates python code"""
+	env = {
+		"client": self.client,
+		"ctx": ctx,
+		"channel": ctx.channel,
+		"author": ctx.author,
+		"guild": ctx.guild,
+		"message": ctx.message,
+		"_": self._last_result,
+		"source": inspect.getsource,
+	}
+
 class Tools(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
@@ -57,6 +71,14 @@ class Tools(commands.Cog):
 			if message.author.id==self.bot.user.id:
 				await message.delete()
 				deleted+=1
+		await ctx.send(f"**:broom: Успешно удалил {deleted} сообщений!**")
+	@commands.command()
+	async def clear(self, ctx, amount: int = 100):
+		await ctx.message.delete()
+		deleted = 0
+		async for message in ctx.channel.history(limit=amount):
+			await message.delete()
+			deleted += 1
 		await ctx.send(f"**:broom: Успешно удалил {deleted} сообщений!**")
 	@commands.command(aliases=['spampin', 'pinspam', 'pinmass', 'pin', 'закрепить'])
 	async def masspin(self, ctx, amount: int=15):
